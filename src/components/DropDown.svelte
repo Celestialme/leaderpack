@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { products_el, products_el_ready } from '@src/store';
+	import { products_el } from '@src/store';
 	import Arrrow from './icons/Arrrow.svelte';
 	import { goto } from '$app/navigation';
 
