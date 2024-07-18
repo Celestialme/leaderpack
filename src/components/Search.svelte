@@ -3,11 +3,11 @@
 </script>
 
 <div
-	class="mx-auto flex h-[50px] flex-shrink items-center gap-[20px] rounded-[8px] border-[1px] border-[#DBDBDD] p-[10px]"
+	class="mx-auto flex h-[50px] flex-shrink items-center gap-[20px] rounded-[8px] border-[1px] border-[#DBDBDD] bg-[#ffffffb0] p-[10px] {$$props.class}"
 >
 	<Search></Search>
 	<input
-		class=" w-[calc(100%-35px)] min-w-[100px] bg-[#F0F0F0] font-Poppins text-[24px] font-[400] outline-none"
+		class=" w-[calc(100%-35px)] min-w-[100px] bg-[transparent] font-Poppins text-[24px] font-[400] outline-none"
 		type="text"
 		name=""
 		id=""

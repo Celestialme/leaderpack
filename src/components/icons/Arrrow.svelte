@@ -6,7 +6,7 @@
 	let t = throttle(100);
 	onMount(() => {
 		window.onscroll = (e: Event) => {
-			t(() => (state = $products_el.getBoundingClientRect().top < 150));
+			t(() => (state = $products_el?.getBoundingClientRect().top < 150));
 		};
 	});
 </script>

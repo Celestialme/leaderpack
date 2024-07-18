@@ -1,18 +1,22 @@
 <script lang="ts">
-	import { products_el } from '@src/store';
+	import { data, products_el } from '@src/store';
 	import ProductCard from './ProductCard.svelte';
+	import { goto } from '$app/navigation';
 </script>
 
 <p
 	bind:this={$products_el}
-	class="my-[20px] text-center font-Poppins text-[20px] font-[700] text-[#014B82]"
+	class="my-[20px] scroll-mt-[150px] text-center font-Poppins text-[20px] font-[700] text-[#014B82]"
 >
 	Wrap with pride! Superior packaging solutions
 </p>
 
 <div class="wrapper">
-	{#each Array(9) as _}
-		<ProductCard />
+	{#each $data as category}
+		<ProductCard
+			title={category.title}
+			on:click={() => goto(`/products/${category.title.intoSlug()}`)}
+		/>
 	{/each}
 </div>
 
