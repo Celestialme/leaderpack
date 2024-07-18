@@ -12,7 +12,7 @@
 </script>
 
 <div
-	class="sticky top-0 flex items-center gap-[35px] bg-[#F0F0F0] px-[10px] max-md:justify-between"
+	class="sticky top-0 z-10 flex items-center gap-[35px] bg-[#F0F0F0] px-[10px] max-md:justify-between"
 >
 	<Logo></Logo>
 	<DropDown></DropDown>
