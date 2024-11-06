@@ -1,0 +1,200 @@
+[
+	{
+		"title": "category 1",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 2",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 3",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 4",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 5",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 6",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 7",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 8",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	},
+	{
+		"title": "category 9",
+		"thumbnail": "/cardbear.png",
+		"items": [
+			{
+				"title": "Product 1",
+				"description": "Product 1 description"
+			},
+			{
+				"title": "Product 2",
+				"description": "Product 2 description"
+			},
+			{
+				"title": "Product 3",
+				"description": "Product 3 description"
+			},
+			{
+				"title": "Product 4",
+				"description": "Product 4 description"
+			}
+		]
+	}
+]
