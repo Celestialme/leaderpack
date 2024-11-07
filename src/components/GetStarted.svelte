@@ -1,5 +1,5 @@
 <script lang="ts">
-	import locales from '@src/locales';
+	import locales from '@src/locales.svelte';
 	import { products_el } from '@src/store';
 
 	async function scroll() {
@@ -12,9 +12,9 @@
 	class="banner mt-[10px] flex h-[400px] flex-wrap-reverse items-center justify-between gap-y-[50px] bg-[#B2D99A] px-[5%] py-[50px]"
 >
 	<div class="mr-auto flex flex-col justify-center gap-[20px]">
-		<p class="text-[30px]">{@html $locales.deserve()}</p>
-		<p class="text-[16px]">{$locales.perfect()}</p>
-		<button on:click={scroll}>{$locales.getStarted()}</button>
+		<p class="text-[30px]">{@html locales.deserve()}</p>
+		<p class="text-[16px]">{locales.perfect()}</p>
+		<button onclick={scroll}>{locales.getStarted()}</button>
 	</div>
 </div>
 

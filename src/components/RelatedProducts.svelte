@@ -1,13 +1,14 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { page } from '$app/stores';
 	import type { Product } from '@src/types';
 	import ProductCard from './ProductCard.svelte';
 	import { createScroll } from '@src/utils';
 	import { goto } from '$app/navigation';
 	import { language } from '@src/store';
-	let relatedProducts: (Product & { category_title_en: string; category_title_ka: string })[] = [];
-	$: relatedProducts = $page.data?.product?.relatedProducts || [];
-	console.log($page.data);
+	let relatedProducts: (Product & { category_title_en: string; category_title_ka: string })[] =
+		$derived($page.data?.product?.relatedProducts || []);
 </script>
 
 {#if relatedProducts.length > 0}

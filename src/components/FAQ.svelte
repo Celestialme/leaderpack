@@ -1,9 +1,9 @@
 <script lang="ts">
-	import locales from '@src/locales';
+	import locales from '@src/locales.svelte';
 	import Plus from './icons/Plus.svelte';
 
-	$: faqs = $locales.faqs();
-	let expanded: number | null = null;
+	let faqs = $derived(locales.faqs());
+	let expanded: number | null = $state(null);
 </script>
 
 <div
@@ -12,7 +12,7 @@
 	{#each faqs as faq, index}
 		<div class="rounded-lg border border-solid border-[#d1d1d1] px-2 py-3">
 			<div
-				on:click={() => {
+				onclick={() => {
 					expanded == index ? (expanded = null) : (expanded = index);
 				}}
 				class="flex cursor-pointer items-center font-Poppins text-[20px] font-[600]"

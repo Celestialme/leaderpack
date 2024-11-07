@@ -1,5 +1,5 @@
 <svg
-	class="max-h-[150px] min-w-[80px] w-[15vw]"
+	class="max-h-[150px] w-[15vw] min-w-[80px]"
 	width="159"
 	height="162"
 	viewBox="0 0 159 162"

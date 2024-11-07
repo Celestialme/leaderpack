@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run, self } from 'svelte/legacy';
+
 	import Input from './components/Input.svelte';
 	import DropDown from './components/DropDown.svelte';
 	import ColorSelector from './components/ColorSelector.svelte';
@@ -15,18 +17,26 @@
 	import ImageResize from './extensions/ImageResize';
 	// import FileInput from './components/FileInput.svelte';
 	import { storage_data, createRandomID, debounce } from './utils';
-	import { language, inputError } from '@src/store';
+	import { inputError } from '@src/store';
+	import { language } from '@src/store.svelte';
 	import ImageDescription from './components/ImageDescription.svelte';
 	import type { Transaction } from '@tiptap/pm/state';
-	export const getData = async () => ({ images, data: _data });
-	let element: HTMLDivElement;
-	let editor: Editor;
-	let images: { [key: string]: any } = {};
-	let active_dropDown = '';
 
-	export let value: any = { content: {}, header: {} };
-	let _data: any = value ? value : { content: {}, header: {} };
-	let imageInput: HTMLInputElement;
+	let element = $state() as HTMLDivElement;
+	let editor = $state() as Editor;
+	let images: { [key: string]: any } = $state({});
+	let active_dropDown = $state('');
+
+	let {
+		value = { content: {}, header: {} },
+		getData = $bindable()
+	}: {
+		value?: any;
+		getData?: () => Promise<{ images: { [key: string]: any }; data: any }>;
+	} = $props();
+	getData = async () => ({ images, data: _data });
+	let _data: any = $state(value ? value : { content: {}, header: {} });
+	let imageInput = $state() as HTMLInputElement;
 	let previous_language = $language;
 	language.subscribe(async (val) => {
 		await tick();
@@ -72,7 +82,9 @@
 					handleImageDeletes(transaction);
 				}
 				previous_language = $language;
-				editor = editor;
+				let _editor = editor;
+				editor = null as any;
+				editor = _editor;
 				deb(() => {
 					let content = editor.getHTML();
 					content == '<p></p>' && (content = '');
@@ -128,12 +140,7 @@
 		}
 		$inputError.clear();
 	});
-	let textTypes: ComponentProps<DropDown>['items'];
-	let fonts: ComponentProps<DropDown>['items'];
-	let alignText: ComponentProps<DropDown>['items'];
-	let inserts: ComponentProps<DropDown>['items'];
-
-	$: textTypes = [
+	let textTypes: ComponentProps<typeof DropDown>['items'] = $derived([
 		{
 			name: 'paragraph',
 			icon: 'icomoon-free:section',
@@ -152,9 +159,8 @@
 			active: () => editor.isActive('heading', { level: 2 }),
 			onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run()
 		}
-	];
-
-	$: fonts = [
+	]);
+	let fonts: ComponentProps<typeof DropDown>['items'] = $derived([
 		{
 			name: 'Arial',
 			active: () => editor.isActive('textStyle', { fontFamily: 'Arial' }),
@@ -186,8 +192,8 @@
 			active: () => editor.isActive('textStyle', { fontFamily: 'Garamond' }),
 			onClick: () => editor.chain().focus().setFontFamily('Garamond').run()
 		}
-	];
-	$: alignText = [
+	]);
+	let alignText: ComponentProps<typeof DropDown>['items'] = $derived([
 		{
 			name: 'left',
 			icon: 'fa6-solid:align-left',
@@ -212,8 +218,8 @@
 			active: () => editor.isActive({ textAlign: 'justify' }),
 			onClick: () => editor.chain().focus().setTextAlign('justify').run()
 		}
-	];
-	$: inserts = [
+	]);
+	let inserts: ComponentProps<typeof DropDown>['items'] = $derived([
 		{
 			name: 'image',
 			icon: 'fa6-solid:image',
@@ -222,8 +228,9 @@
 			},
 			active: () => editor.isActive('image')
 		}
-	];
-	$: floats = [
+	]);
+
+	let floats = $derived([
 		{
 			name: 'wrap left',
 			icon: 'teenyicons:align-left-solid',
@@ -242,48 +249,54 @@
 			onClick: () => editor.chain().focus().setImageFloat('unset').run(),
 			active: () => false
 		}
-	];
-	let fontSize = 16;
-	$: editor &&
-		(fontSize =
-			editor.getAttributes('textStyle').fontSize ||
-			window
-				.getComputedStyle(
-					window.getSelection()?.focusNode?.parentElement || (element as HTMLElement)
-				)
-				.fontSize.replace('px', ''));
-	let show = (
-		button:
-			| 'textType'
-			| 'font'
-			| 'align'
-			| 'insert'
-			| 'float'
-			| 'color'
-			| 'bold'
-			| 'italic'
-			| 'strike'
-			| 'link'
-			| 'fontSize'
-			| 'description'
-	) => {
-		if (editor?.isActive('image')) {
-			return ['float', 'align', 'description'].includes(button);
+	]);
+	let fontSize = $state(16);
+	run(() => {
+		editor &&
+			(fontSize =
+				editor.getAttributes('textStyle').fontSize ||
+				window
+					.getComputedStyle(
+						window.getSelection()?.focusNode?.parentElement || (element as HTMLElement)
+					)
+					.fontSize.replace('px', ''));
+	});
+	let show = $state(
+		(
+			button:
+				| 'textType'
+				| 'font'
+				| 'align'
+				| 'insert'
+				| 'float'
+				| 'color'
+				| 'bold'
+				| 'italic'
+				| 'strike'
+				| 'link'
+				| 'fontSize'
+				| 'description'
+		) => {
+			if (editor?.isActive('image')) {
+				return ['float', 'align', 'description'].includes(button);
+			}
+			if (['description', 'float'].includes(button)) {
+				return false;
+			}
+			return true;
 		}
-		if (['description', 'float'].includes(button)) {
-			return false;
-		}
-		return true;
-	};
-	$: {
+	);
+	run(() => {
 		show = show;
 		editor;
-	}
-	$: if (_data?.header?.[$language]?.includes('_')) {
-		$inputError.set({ message: '_ is not allowed in title', type: 'error' });
-	} else {
-		$inputError.clear();
-	}
+	});
+	run(() => {
+		if (_data?.header?.[$language]?.includes('_')) {
+			$inputError.set({ message: '_ is not allowed in title', type: 'error' });
+		} else {
+			$inputError.clear();
+		}
+	});
 </script>
 
 <Input
@@ -316,55 +329,55 @@
 					bind:active={active_dropDown}
 					show={show('color')}
 					color={editor.getAttributes('textStyle').color || '#000000'}
-					on:change={(e) => editor.chain().focus().setColor(e.detail).run()}
+					onchange={(color) => editor.chain().focus().setColor(color).run()}
 				/>
 
 				<div class="flex items-center" class:hidden={!show('fontSize')}>
 					<button
-						on:click={() => {
+						onclick={() => {
 							fontSize--;
 							editor.chain().focus().setFontSize(fontSize).run();
 						}}
 					>
-						<iconify-icon icon="ic:twotone-minus" width="20" />
+						<iconify-icon icon="ic:twotone-minus" width="20"></iconify-icon>
 					</button>
 					<input type="text" class="w-[30px] text-center outline-none" bind:value={fontSize} />
 					<button
-						on:click={() => {
+						onclick={() => {
 							fontSize++;
 							editor.chain().focus().setFontSize(fontSize).run();
 						}}
 					>
-						<iconify-icon icon="ph:plus-bold" width="20" />
+						<iconify-icon icon="ph:plus-bold" width="20"></iconify-icon>
 					</button>
 				</div>
 				<button
 					class:hidden={!show('bold')}
-					on:click={() => editor.chain().focus().toggleBold().run()}
+					onclick={() => editor.chain().focus().toggleBold().run()}
 					class:active={editor.isActive('bold')}
 				>
-					<iconify-icon icon="bi:type-bold" width="20" />
+					<iconify-icon icon="bi:type-bold" width="20"></iconify-icon>
 				</button>
 				<button
 					class:hidden={!show('italic')}
-					on:click={() => editor.chain().focus().toggleItalic().run()}
+					onclick={() => editor.chain().focus().toggleItalic().run()}
 					class:active={editor.isActive('italic')}
 				>
-					<iconify-icon icon="lucide:italic" width="20" />
+					<iconify-icon icon="lucide:italic" width="20"></iconify-icon>
 				</button>
 				<button
 					class:hidden={!show('strike')}
-					on:click={() => editor.chain().focus().toggleStrike().run()}
+					onclick={() => editor.chain().focus().toggleStrike().run()}
 					class:active={editor.isActive('strike')}
 				>
-					<iconify-icon icon="majesticons:strike-through-line" width="20" />
+					<iconify-icon icon="majesticons:strike-through-line" width="20"></iconify-icon>
 				</button>
 				<button
 					class:hidden={!show('link')}
-					on:click={() => editor.chain().focus().toggleLink({ href: 'https://google.com' }).run()}
+					onclick={() => editor.chain().focus().toggleLink({ href: 'https://google.com' }).run()}
 					class:active={editor.isActive('link')}
 				>
-					<iconify-icon icon="pajamas:link" width="20" />
+					<iconify-icon icon="pajamas:link" width="20"></iconify-icon>
 				</button>
 				<DropDown
 					key="align"
@@ -394,12 +407,12 @@
 					key="description"
 					show={show('description')}
 					value={editor.getAttributes('image').description}
-					on:submit={(e) => {
-						editor.chain().focus().setImageDescription(e.detail).run();
+					onsubmit={(description) => {
+						editor.chain().focus().setImageDescription(description).run();
 					}}
 				/>
 				<input
-					on:change={() => {
+					onchange={() => {
 						let data = imageInput?.files?.[0];
 						if (data instanceof File) {
 							let url = URL.createObjectURL(data);
@@ -418,10 +431,10 @@
 		</div>
 	{/if}
 	<div
-		on:pointerdown|self={() => editor.commands.focus('end')}
+		onpointerdown={self(() => editor.commands.focus('end'))}
 		class="text_Area RichText"
 		bind:this={element}
-	/>
+	></div>
 </div>
 
 <style>

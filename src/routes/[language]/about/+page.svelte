@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Header from '@src/components/Header.svelte';
-	import locales from '@src/locales';
+	import locales from '@src/locales.svelte';
 </script>
 
 <div class="flex h-screen w-full flex-col">
@@ -10,7 +10,7 @@
 	>
 		<h1 class="mb-[100px] font-Poppins text-[22px] font-[700]">Leader Pack</h1>
 		<p class="text-justify font-Poppins text-[20px] font-[400]">
-			{$locales.about_content()}
+			{locales.about_content()}
 		</p>
 	</div>
 </div>

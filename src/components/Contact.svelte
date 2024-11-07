@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { contact_el } from '@src/store';
 	import Media from './icons/Media.svelte';
-	import locales from '@src/locales';
+	import locales from '@src/locales.svelte';
 	export let altStyle = false;
-	$: title = altStyle ? $locales.contactToOrder() : $locales.contact();
+	$: title = altStyle ? locales.contactToOrder() : locales.contact();
 </script>
 
 <div

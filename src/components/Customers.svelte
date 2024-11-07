@@ -1,9 +1,9 @@
 <script lang="ts">
-	import locales from '@src/locales';
+	import locales from '@src/locales.svelte';
 </script>
 
 <p class="my-[20px] text-center font-Poppins text-[26px] font-[700] text-[#014B82]">
-	{$locales.OurCustomers()}
+	{locales.OurCustomers()}
 </p>
 <div class="flex flex-wrap items-center justify-evenly">
 	{#each Array(5) as _, index}

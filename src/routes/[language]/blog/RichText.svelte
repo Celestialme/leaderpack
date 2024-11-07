@@ -1,8 +1,8 @@
 <script>
-	export let content = '';
+	let { content = $bindable(''), ...props } = $props();
 </script>
 
-<div class={$$props.class}>
+<div {...props}>
 	{@html content}
 </div>
 

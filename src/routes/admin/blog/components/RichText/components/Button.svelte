@@ -1,17 +1,27 @@
-<script>
-	export let textColor = 'white';
-	export let bgColor = 'gray';
-	export let border = 'none;';
-	export let hoverColor = '#4fdc4f';
-	export let style = '';
+<script lang="ts">
+	let {
+		textColor = 'white',
+		bgColor = 'gray',
+		border = 'none;',
+		hoverColor = '#4fdc4f',
+		style = '',
+		children,
+		...props
+	}: {
+		textColor?: string;
+		bgColor?: string;
+		border?: string;
+		hoverColor?: string;
+		style?: string;
+		children?: import('svelte').Snippet;
+	} = $props();
 </script>
 
 <button
-	on:click
-	class={$$props.class}
+	{...props}
 	style={`color: ${textColor}; background-color: ${bgColor}; border: ${border}; --hover-color: ${hoverColor}; ${style};`}
 >
-	<slot />
+	{@render children?.()}
 </button>
 
 <style>

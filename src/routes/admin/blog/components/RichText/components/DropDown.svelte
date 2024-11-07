@@ -1,19 +1,35 @@
 <script lang="ts">
-	export let icon = '';
-	export let label = '';
-	export let show = false;
-	export let active = '';
-	export let key: string;
-	export let items: {
-		name: string;
+	import { untrack } from 'svelte';
+	import { run, stopPropagation } from 'svelte/legacy';
+
+	interface Props {
 		icon?: string;
-		onClick: () => void;
-		active: () => boolean;
-	}[] = [];
-	$: key != active && (expanded = false);
-	$: selected = items.filter((item) => item.active())[0];
-	let expanded = false;
-	let header: HTMLDivElement;
+		label?: string;
+		show?: boolean;
+		active?: string;
+		key: string;
+		items?: {
+			name: string;
+			icon?: string;
+			onClick: () => void;
+			active: () => boolean;
+		}[];
+	}
+
+	let {
+		icon = '',
+		label = '',
+		show = false,
+		active = $bindable(''),
+		key,
+		items = []
+	}: Props = $props();
+	$effect(() => {
+		key != active && untrack(() => (expanded = false));
+	});
+	let selected = $derived(items.filter((item) => item.active())[0]);
+	let expanded = $state(false);
+	let header = $state() as HTMLDivElement;
 	function setPosition(node: HTMLDivElement) {
 		let parent = header.parentElement as HTMLElement;
 		node.style.minWidth = header.offsetWidth + 'px';
@@ -30,7 +46,7 @@
 	class="wrapper"
 	bind:this={header}
 	class:hidden={!show}
-	on:click={() => {
+	onclick={() => {
 		expanded = !expanded;
 		active = key;
 	}}
@@ -38,17 +54,17 @@
 	<div class="selected arrow" class:arrow_up={expanded}>
 		<iconify-icon icon={icon || selected?.icon} width="20"></iconify-icon>
 
-		<p class="whitespace-nowrap max-w-[80px] overflow-hidden">{selected ? selected.name : label}</p>
+		<p class="max-w-[80px] overflow-hidden whitespace-nowrap">{selected ? selected.name : label}</p>
 	</div>
 	{#if expanded}
 		<div class="items" use:setPosition>
 			{#each items as item}
 				<button
 					class="flex items-center gap-[5px]"
-					on:click|stopPropagation={() => {
+					onclick={stopPropagation(() => {
 						item.onClick();
 						expanded = false;
-					}}
+					})}
 					class:active={item.active}
 				>
 					<iconify-icon icon={item.icon} width="20"></iconify-icon>

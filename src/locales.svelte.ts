@@ -1,13 +1,11 @@
-import { get, writable } from 'svelte/store';
-import { language } from './store';
+import { language } from './store.svelte';
 
-let locales = writable({
-	$language: get(language),
+let locales = $derived({
 	about() {
 		return {
 			en: 'About us',
 			ka: 'ჩვენს შესახებ'
-		}[this.$language];
+		}[language.value];
 	},
 	about_content() {
 		return {
@@ -27,82 +25,82 @@ let locales = writable({
 			შესაბამისად, გთავაზობთ ეკოლოგიურად სუფთა შესაფუთ მასალებს, რომლებიც თქვენს საჭიროებებზე არის
 			მორგებული. იქნება ეს შეფუთვის გამძლეობა თუ ვიზუალური მხარე, ჩვენი პროდუქცია შექმნილია
 			იმისთვის, რომ თქვენს ბრენდს დაეხმაროს ზრდაში.`
-		}[this.$language];
+		}[language.value];
 	},
 	contact() {
-		return { en: 'Contact Us', ka: 'კონტაქტი' }[this.$language];
+		return { en: 'Contact Us', ka: 'კონტაქტი' }[language.value];
 	},
 	contactToOrder() {
-		return { en: 'Contact us to order', ka: 'შეკვეთისთვის დაგვიკავშირდით' }[this.$language];
+		return { en: 'Contact us to order', ka: 'შეკვეთისთვის დაგვიკავშირდით' }[language.value];
 	},
 	blog() {
-		return { en: 'Blog', ka: 'ბლოგი' }[this.$language];
+		return { en: 'Blog', ka: 'ბლოგი' }[language.value];
 	},
 	products() {
-		return { en: 'Products', ka: 'პროდუქტები' }[this.$language];
+		return { en: 'Products', ka: 'პროდუქტები' }[language.value];
 	},
 	OurCustomers() {
-		return { en: 'Our Customers', ka: 'ჩვენი მომხმარებლები' }[this.$language];
+		return { en: 'Our Customers', ka: 'ჩვენი მომხმარებლები' }[language.value];
 	},
 	search() {
-		return { en: 'Search', ka: 'ძებნა' }[this.$language];
+		return { en: 'Search', ka: 'ძებნა' }[language.value];
 	},
 	why() {
-		return { en: 'Why Leader Pack?', ka: 'რატომ Leader Pack?' }[this.$language];
+		return { en: 'Why Leader Pack?', ka: 'რატომ Leader Pack?' }[language.value];
 	},
 	reason() {
 		return {
 			en: 'With a commitment to superior packaging solutions that blend customization with uncompromising quality,<br />we ensure your products stand out with both style and security',
 			ka: 'ჩვენ გთავაზობთ უმაღლესი ხარისხის შეფუთვის საშუალებებს, რომლებიც აერთიანებს ინდივიდუალურობას და უმაღლეს სტანდარტებს,<br /> რათა თქვენი პროდუქცია გამოირჩეოდეს როგორც სტილით, ასევე დაცულობით'
-		}[this.$language];
+		}[language.value];
 	},
 	pride() {
 		return {
 			en: 'Wrap with pride! Superior packaging solutions',
 			ka: 'შეფუთეთ სიამაყით! უმაღლესი ხარისხის შეფუთვის საშუალებები'
-		}[this.$language];
+		}[language.value];
 	},
 	highquality() {
 		return {
 			en: 'High Quality',
 			ka: 'მაღალი ხარისხი'
-		}[this.$language];
+		}[language.value];
 	},
 	fastDistribution() {
 		return {
 			en: 'Fast Distribution',
 			ka: 'სწრაფი მიწოდება'
-		}[this.$language];
+		}[language.value];
 	},
 	customization() {
 		return {
 			en: 'Customization',
 			ka: 'კუსტომიზაცია'
-		}[this.$language];
+		}[language.value];
 	},
 	rights() {
 		return {
 			en: '© 2024 Leader Pack. All Rights Reserved',
 			ka: '© 2024 Leader Pack. ყველა უფლება დაცულია'
-		}[this.$language];
+		}[language.value];
 	},
 	deserve() {
 		return {
 			en: 'Your Product Deserves <br> Leader Pack',
 			ka: 'თქვენი პროდუქცია იმსახურებს<br>ლიდერ პაკს'
-		}[this.$language];
+		}[language.value];
 	},
 	perfect() {
 		return {
 			en: 'Your Product - Perfectly Packaged',
 			ka: 'თქვენი პროდუქტი - იდეალურად შეფუთული'
-		}[this.$language];
+		}[language.value];
 	},
 	getStarted() {
 		return {
 			en: 'Get Started',
 			ka: 'დაწყება'
-		}[this.$language];
+		}[language.value];
 	},
 	faqs() {
 		return {
@@ -150,15 +148,8 @@ let locales = writable({
 						' შეკვეთის გასაფორმებლად და ნებისმიერი შეკითხვის დასაზუსტებლად შეგიძლიათ დაგვიკავშირდეთ ელექტრონული ფოსტით ან ტელეფონით:<br> Email: contact@leaderpack.ge  <br> Phone: +995510002228'
 				}
 			]
-		}[this.$language];
+		}[language.value];
 	}
 });
-language.subscribe((language) => {
-	locales.update((d) => {
-		return {
-			...d,
-			$language: language
-		};
-	});
-});
+
 export default locales;

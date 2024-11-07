@@ -2,7 +2,12 @@
 	import { products_el } from '@src/store';
 	import { throttle } from '@src/utils';
 	import { onMount } from 'svelte';
-	let state = false;
+	interface Props {
+		[key: string]: any;
+	}
+
+	let { ...props }: Props = $props();
+	let state = $state(false);
 	let t = throttle(100);
 	onMount(() => {
 		window.onscroll = (e: Event) => {
@@ -13,7 +18,7 @@
 
 <svg
 	class:up={state}
-	class={$$props.class}
+	class={props.class}
 	width="36"
 	height="36"
 	viewBox="0 0 36 36"

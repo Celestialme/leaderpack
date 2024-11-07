@@ -1,11 +1,18 @@
 <script lang="ts">
 	import Search from './icons/Search.svelte';
-	import locales from '@src/locales';
-	export let value = '';
+	import locales from '@src/locales.svelte';
+
+	let {
+		class: classes,
+		value = $bindable('')
+	}: {
+		class?: string;
+		value?: string;
+	} = $props();
 </script>
 
 <div
-	class="mx-auto flex h-[50px] flex-shrink items-center gap-[20px] rounded-[8px] border-[1px] border-[#DBDBDD] bg-[#ffffffb0] p-[10px] {$$props.class}"
+	class="mx-auto flex h-[50px] flex-shrink items-center gap-[20px] rounded-[8px] border-[1px] border-[#DBDBDD] bg-[#ffffffb0] p-[10px] {classes}"
 >
 	<Search></Search>
 	<input
@@ -14,6 +21,6 @@
 		type="text"
 		name=""
 		id=""
-		placeholder={$locales.search()}
+		placeholder={locales.search()}
 	/>
 </div>

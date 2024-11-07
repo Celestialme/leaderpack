@@ -5,8 +5,8 @@
 	import RichText from './RichText.svelte';
 	import { goto } from '$app/navigation';
 	import { language } from '@src/store';
-	$: blogs = $page.data.blogs;
-	$: blog = $page.url.searchParams.get('blog');
+	let blogs = $derived($page.data.blogs);
+	let blog = $derived($page.url.searchParams.get('blog'));
 </script>
 
 <div class="flex h-screen flex-col">
