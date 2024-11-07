@@ -23,6 +23,5 @@ export let handle: Handle = async function ({ event, resolve }) {
 		}
 	}
 	const response = await resolve(event);
-	console.log(response);
 	return response;
 };
