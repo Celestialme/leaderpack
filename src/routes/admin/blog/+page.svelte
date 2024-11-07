@@ -7,7 +7,7 @@
 	import EditBlog from './components/EditBlog.svelte';
 	import Delete from '@src/components/icons/Delete.svelte';
 	import BlogCard from '@src/components/BlogCard.svelte';
-	import { untrack } from 'svelte';
+	import { track } from '@src/store.svelte';
 
 	let blogs: any[] = $state([]);
 	async function refresh() {
@@ -16,10 +16,7 @@
 
 	let showEditor = $state(false);
 	let editData: any = $state(undefined);
-	$effect(() => {
-		untrack(() => refresh());
-		showEditor;
-	});
+	track(refresh, () => showEditor);
 </script>
 
 {#if showEditor}
@@ -27,7 +24,7 @@
 {:else}
 	<div class="flex h-screen cursor-pointer flex-col items-center">
 		<AddButton
-			on:click={() => {
+			onclick={() => {
 				editData = undefined;
 				showEditor = true;
 			}}
@@ -47,7 +44,7 @@
 					}}
 				>
 					<Delete
-						on:click={(e) => {
+						onclick={(e) => {
 							e.stopPropagation();
 							axios.delete(`/api/blogs?id=${blog.id}`).then(() => refresh());
 						}}

@@ -1,51 +1,68 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import FloatingInput from '@src/components/FloatingInput.svelte';
 	import Language from '@src/components/Language.svelte';
 	import type { CategoryData, Mode } from '@src/types';
 	import { obj2formData } from '@src/utils';
 	import axios from 'axios';
-	import { createEventDispatcher, onDestroy } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import FilePicker from './FilePicker.svelte';
 	import { inputError } from '@src/store';
-	export let show = false;
-	export let mode: Mode = 'create';
-	const dispatch = createEventDispatcher();
+	import { track } from '@src/store.svelte';
 	async function save() {
 		if ($inputError.message) return;
 		if (mode === 'create') await axios.put('/api/categories', obj2formData(data));
 		else if (mode === 'edit') await axios.patch('/api/categories', obj2formData(data));
 		show = false;
-		dispatch('refresh');
+		onrefresh?.();
 	}
 
-	export let data: CategoryData = {
-		image: null,
-		en: {
-			title: ''
-		},
-		ka: {
-			title: ''
-		}
-	};
-	let language: 'en' | 'ka' = 'en';
-	function onFileChange({ detail: file }: CustomEvent) {
+	interface Props {
+		show?: boolean;
+		mode?: Mode;
+		data?: CategoryData;
+		onrefresh?: () => void;
+	}
+
+	let {
+		onrefresh,
+		show = $bindable(false),
+		mode = 'create',
+		data = $bindable({
+			image: null,
+			en: {
+				title: ''
+			},
+			ka: {
+				title: ''
+			}
+		})
+	}: Props = $props();
+	let language: 'en' | 'ka' = $state('en');
+	function onFileChange(file: File) {
 		data.image = file;
 	}
-	$: if (data[language].title.includes('_')) {
-		$inputError.set({
-			message: '_ is not allowed in category name',
-			type: 'error'
-		});
-	} else {
-		$inputError.clear();
-	}
+	track(
+		() => {
+			if (data[language].title.includes('_')) {
+				$inputError.set({
+					message: '_ is not allowed in category name',
+					type: 'error'
+				});
+			} else {
+				$inputError.clear();
+			}
+		},
+		() => data[language].title
+	);
 	onDestroy(() => {
 		$inputError.clear();
 	});
 </script>
 
 <div
-	on:click={() => (show = false)}
+	onclick={() => (show = false)}
 	class="fixed left-0 top-0 z-10 flex h-screen w-screen items-center justify-center bg-black opacity-50"
 ></div>
 
@@ -55,8 +72,8 @@
 	<Language class="absolute right-4 top-2" bind:language />
 	<FloatingInput label="Category Name" name="title" type="text" bind:value={data[language].title}
 	></FloatingInput>
-	<FilePicker on:change={onFileChange} />
-	<button on:click={save}>Save</button>
+	<FilePicker onchange={onFileChange} />
+	<button onclick={save}>Save</button>
 </div>
 
 <style>

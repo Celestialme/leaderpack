@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, untrack } from 'svelte';
+	import { track } from '@src/store.svelte';
 
 	interface Props {
 		show?: boolean;
@@ -14,15 +14,17 @@
 	$effect(() => {
 		_value = value;
 	});
-	$effect(() => {
-		key != active && untrack(() => (show_input = false));
-	});
+
+	track(
+		() => key != active && (show_input = false),
+		() => active
+	);
 	let show_input = $state(false);
-	$effect(() => {
-		show_input = false;
-		show;
-	});
-	let ev = createEventDispatcher();
+
+	track(
+		() => (show_input = false),
+		() => show
+	);
 </script>
 
 <div class:hidden={!show}>

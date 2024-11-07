@@ -24,7 +24,7 @@
 						src={JSON.parse(product.images)[0]?.url}
 						material={product.material_en}
 						sizes={product.sizes_en}
-						on:click={async () => {
+						onclick={async () => {
 							goto(
 								`/${$page.params.language}/products/${product[`category_title_${$language}`]}/${product[`title_${$language}`].intoSlug()}`
 							);

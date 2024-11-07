@@ -1,6 +1,15 @@
+<script lang="ts">
+	interface Props {
+		class?: string;
+		onclick?: () => void;
+	}
+
+	let { class: _class, ...props }: Props = $props();
+</script>
+
 <svg
-	on:click
-	class={$$props.class}
+	{...props}
+	class={_class}
 	xmlns="http://www.w3.org/2000/svg"
 	width="20"
 	height="20"

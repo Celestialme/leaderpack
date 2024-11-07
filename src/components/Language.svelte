@@ -17,7 +17,7 @@
 <div class=" flex items-center {$$props.class}">
 	<button
 		class:text-gray-400={language != 'en'}
-		on:click={() => {
+		onclick={() => {
 			language = 'en';
 			updateURL();
 		}}
@@ -27,7 +27,7 @@
 	<p class="px-2">|</p>
 	<button
 		class:text-gray-400={language != 'ka'}
-		on:click={() => {
+		onclick={() => {
 			language = 'ka';
 			updateURL();
 		}}

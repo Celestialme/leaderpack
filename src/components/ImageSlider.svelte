@@ -30,14 +30,14 @@
 
 {#key index}
 	<div class="relative h-full w-full overflow-hidden">
-		<div class:opacity-0={is_running} class="arrow left" on:click={() => change(-1)} />
-		<div class:opacity-0={is_running} class="arrow right" on:click={() => change(1)} />
+		<div class:opacity-0={is_running} class="arrow left" onclick={() => change(-1)}></div>
+		<div class:opacity-0={is_running} class="arrow right" onclick={() => change(1)}></div>
 		<img src={side1} alt="" class:animate={index !== 0 || !first} />
 		<img src={side2} alt="" class:animate2={index !== 0 || !first} />
 		<div class="absolute bottom-2 z-10 flex w-full items-center justify-center gap-2">
 			{#each images as _, i}
 				<div
-					on:click={() => {
+					onclick={() => {
 						first = false;
 						side1 = images[index];
 						index = i;

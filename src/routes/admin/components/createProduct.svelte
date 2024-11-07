@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import FloatingInput from '@src/components/FloatingInput.svelte';
 	import Language from '@src/components/Language.svelte';
 	import Switch from '@src/components/Switch.svelte';
@@ -9,11 +11,9 @@
 	import RelatedProducts from './RelatedProducts.svelte';
 	import Images from './Images.svelte';
 	import { inputError } from '@src/store';
-	export let show = false;
-	export let category_id: string;
-	export let mode: Mode = 'create';
-	let showRelatedProducts = false;
-	let showImages = false;
+	import { track } from '@src/store.svelte';
+	let showRelatedProducts = $state(false);
+	let showImages = $state(false);
 	const dispatch = createEventDispatcher();
 	async function save() {
 		if ($inputError.message) return;
@@ -44,43 +44,61 @@
 		dispatch('refresh');
 	}
 
-	export let data: ProductData = {
-		images: { array: [], string: '' },
-		branding: 0,
-		relatedProducts: { array: [], string: '' },
-		en: {
-			title: '',
-			description: '',
-			sizes: '',
-			material: '',
-			colors: '',
-			details: '',
-			options: ''
-		},
-		ka: {
-			title: '',
-			description: '',
-			sizes: '',
-			material: '',
-			colors: '',
-			details: '',
-			options: ''
-		}
-	};
-
-	let language: 'en' | 'ka' = 'en';
-	$: if (data[language].title.includes('_')) {
-		$inputError.set({ message: '_ is not allowed in category name', type: 'error' });
-	} else {
-		$inputError.clear();
+	interface Props {
+		show?: boolean;
+		category_id: string;
+		mode?: Mode;
+		data?: ProductData;
 	}
+
+	let {
+		show = $bindable(false),
+		category_id,
+		mode = 'create',
+		data = $bindable({
+			images: { array: [], string: '' },
+			branding: 0,
+			relatedProducts: { array: [], string: '' },
+			en: {
+				title: '',
+				description: '',
+				sizes: '',
+				material: '',
+				colors: '',
+				details: '',
+				options: ''
+			},
+			ka: {
+				title: '',
+				description: '',
+				sizes: '',
+				material: '',
+				colors: '',
+				details: '',
+				options: ''
+			}
+		})
+	}: Props = $props();
+
+	let language: 'en' | 'ka' = $state('en');
+
+	track(
+		() => {
+			if (data[language].title.includes('_')) {
+				$inputError.set({ message: '_ is not allowed in category name', type: 'error' });
+			} else {
+				$inputError.clear();
+			}
+		},
+		() => data[language].title
+	);
 	onDestroy(() => {
 		$inputError.clear();
 	});
 </script>
 
 <div
-	on:click={() => (show = false)}
+	onclick={() => (show = false)}
 	class="fixed left-0 top-0 z-10 flex h-screen w-screen items-center justify-center bg-black opacity-50"
 ></div>
 
@@ -113,11 +131,11 @@
 	<div class="flex w-full items-center justify-between font-Poppins">
 		Branding <Switch bind:checked={data.branding} />
 	</div>
-	<button on:click={() => (showImages = !showImages)} class="w-full">IMAGES</button>
-	<button on:click={() => (showRelatedProducts = !showRelatedProducts)} class="w-full"
+	<button onclick={() => (showImages = !showImages)} class="w-full">IMAGES</button>
+	<button onclick={() => (showRelatedProducts = !showRelatedProducts)} class="w-full"
 		>RELATED PRODUCTS</button
 	>
-	<button on:click={save}>Save</button>
+	<button onclick={save}>Save</button>
 </div>
 {#if showRelatedProducts}
 	<RelatedProducts

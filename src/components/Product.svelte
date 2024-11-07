@@ -40,8 +40,8 @@
 				</div>
 				{#if item.branding}
 					<div class="branding mt-2 flex gap-2">
-						<button on:click={() => (branded = true)} class:active={branded}>Branded</button>
-						<button on:click={() => (branded = false)} class:active={!branded}>Unbranded</button>
+						<button onclick={() => (branded = true)} class:active={branded}>Branded</button>
+						<button onclick={() => (branded = false)} class:active={!branded}>Unbranded</button>
 					</div>
 				{/if}
 			</div>
@@ -64,7 +64,7 @@
 				</div>
 				<div class="mt-auto">
 					<button
-						on:click={() => (showOrderForm = true)}
+						onclick={() => (showOrderForm = true)}
 						class="mt-2 h-[40px] w-full rounded-md bg-[#609966] px-[10px] font-Poppins text-[20px] font-[700] text-white"
 						>Place Order</button
 					>
@@ -74,7 +74,7 @@
 	{/if}
 </div>
 {#if showOrderForm}
-	<PlaceOrder bind:show={showOrderForm} on:close={() => (showOrderForm = false)} />
+	<PlaceOrder bind:show={showOrderForm} />
 {/if}
 
 <style>

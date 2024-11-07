@@ -52,7 +52,7 @@
 
 <div class="flex flex-col">
 	<button
-		on:click={() => {
+		onclick={() => {
 			data = undefined;
 			mode = 'create';
 			showDialog = !showDialog;
@@ -63,9 +63,9 @@
 		{#each products as product}
 			<div class="relative w-full">
 				<div class=" mb-2 flex items-center justify-center">
-					<button on:click={() => editProduct(product)}><Edit /></button>
+					<button onclick={() => editProduct(product)}><Edit /></button>
 					<button
-						on:click={() =>
+						onclick={() =>
 							axios
 								.delete(`/api/products?product_id=${product.id}&category_id=${category_id}`)
 								.then(() => refresh())}><Delete /></button

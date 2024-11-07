@@ -40,10 +40,10 @@
 		<Logout />
 		<button
 			class="mx-auto rounded-md bg-green-600 px-4 py-2 font-Poppins text-white active:scale-90"
-			on:click={() => goto('/admin/blog')}>Blog</button
+			onclick={() => goto('/admin/blog')}>Blog</button
 		>
 		<button
-			on:click={() => {
+			onclick={() => {
 				data = undefined;
 				mode = 'create';
 				showDialog = !showDialog;
@@ -55,21 +55,21 @@
 		{#each categories as category}
 			<div class="relative">
 				<div class=" mb-2 flex items-center justify-center">
-					<button on:click={() => editCategory(category)}><Edit /></button>
+					<button onclick={() => editCategory(category)}><Edit /></button>
 					<button
-						on:click={() => axios.delete(`/api/categories?id=${category.id}`).then(() => refresh())}
+						onclick={() => axios.delete(`/api/categories?id=${category.id}`).then(() => refresh())}
 						><Delete /></button
 					>
 				</div>
 				<CategoryCard
 					src={category.imageURL}
 					title={category.title_en}
-					on:click={() => goto(`/admin/products?category_id=${category.id}`)}
+					onclick={() => goto(`/admin/products?category_id=${category.id}`)}
 				></CategoryCard>
 			</div>
 		{/each}
 	</div>
 </div>
 {#if showDialog}
-	<CreateCategory bind:show={showDialog} {data} {mode} on:refresh={refresh} />
+	<CreateCategory bind:show={showDialog} {data} {mode} onrefresh={refresh} />
 {/if}

@@ -30,7 +30,7 @@
 			{#if blogs.length}
 				{#each blogs as blog}
 					<BlogCard
-						on:click={() => goto(`blog?blog=${blog[`title_${$language}`].intoSlug()}`)}
+						onclick={() => goto(`blog?blog=${blog[`title_${$language}`].intoSlug()}`)}
 						{blog}
 						class="cursor-pointer"
 					/>

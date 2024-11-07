@@ -27,3 +27,10 @@ export function store<T>(v: T) {
 		}
 	};
 }
+
+export function track(f: () => unknown, deps: () => any) {
+	$effect(() => {
+		untrack(f);
+		deps();
+	});
+}

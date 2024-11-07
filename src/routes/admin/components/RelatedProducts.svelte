@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import CloseIcon from '@src/components/icons/CloseIcon.svelte';
 	import Delete from '@src/components/icons/Delete.svelte';
 	import ProductCard from '@src/components/ProductCard.svelte';
@@ -7,12 +9,20 @@
 	import { obj2formData } from '@src/utils';
 	import axios from 'axios';
 	import { onMount } from 'svelte';
-	export let show = false;
-	export let relatedProducts: { array: Product[]; string: string } = { array: [], string: '' };
-	export let self: ProductData;
-	let search = '';
-	let products: Product[] = [];
-	let filteredProducts: Product[] = [];
+	interface Props {
+		show?: boolean;
+		relatedProducts?: { array: Product[]; string: string };
+		self: ProductData;
+	}
+
+	let {
+		show = $bindable(false),
+		relatedProducts = $bindable({ array: [], string: '' }),
+		self
+	}: Props = $props();
+	let search = $state('');
+	let products: Product[] = $state([]);
+	let filteredProducts: Product[] = $state([]);
 
 	if (relatedProducts.string) {
 		axios
@@ -27,14 +37,16 @@
 			products = res.data;
 		});
 	});
-	$: filteredProducts =
-		search === ''
-			? []
-			: products.filter(
-					(product) =>
-						product.id != self.id &&
-						(product.title_en.includes(search) || product.title_ka.includes(search))
-				);
+	$effect(() => {
+		filteredProducts =
+			search === ''
+				? []
+				: products.filter(
+						(product) =>
+							product.id != self.id &&
+							(product.title_en.includes(search) || product.title_ka.includes(search))
+					);
+	});
 </script>
 
 <div
@@ -42,7 +54,7 @@
 >
 	<div class="mb-4 flex items-center justify-between">
 		<p class="mx-auto font-Poppins text-[20px] font-[700]">RELATED PRODUCTS</p>
-		<CloseIcon class="" on:click={() => (show = false)} />
+		<CloseIcon class="" onclick={() => (show = false)} />
 	</div>
 	<Search bind:value={search} class="mb-2 w-full"></Search>
 	<div class="overflow-auto">
@@ -54,7 +66,7 @@
 				src={JSON.parse(product.images)[0]?.url}
 				material={product.material_en}
 				sizes={product.sizes_en}
-				on:click={() => {
+				onclick={() => {
 					relatedProducts.array.push(product);
 					relatedProducts = relatedProducts;
 					search = '';
@@ -70,7 +82,7 @@
 		{#each relatedProducts.array as product}
 			<div class="relative">
 				<Delete
-					on:click={() => {
+					onclick={() => {
 						relatedProducts.array = relatedProducts.array.filter((p) => p !== product);
 						relatedProducts = relatedProducts;
 					}}

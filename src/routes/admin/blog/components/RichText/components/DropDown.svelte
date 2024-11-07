@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
-	import { run, stopPropagation } from 'svelte/legacy';
+	import { track } from '@src/store.svelte';
 
 	interface Props {
 		icon?: string;
@@ -24,9 +23,11 @@
 		key,
 		items = []
 	}: Props = $props();
-	$effect(() => {
-		key != active && untrack(() => (expanded = false));
-	});
+
+	track(
+		() => key != active && (expanded = false),
+		() => active
+	);
 	let selected = $derived(items.filter((item) => item.active())[0]);
 	let expanded = $state(false);
 	let header = $state() as HTMLDivElement;
@@ -61,10 +62,11 @@
 			{#each items as item}
 				<button
 					class="flex items-center gap-[5px]"
-					onclick={stopPropagation(() => {
+					onclick={(e) => {
+						e.stopPropagation();
 						item.onClick();
 						expanded = false;
-					})}
+					}}
 					class:active={item.active}
 				>
 					<iconify-icon icon={item.icon} width="20"></iconify-icon>

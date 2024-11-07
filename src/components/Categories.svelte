@@ -13,8 +13,8 @@
 		<CategoryCard
 			src={category.imageURL}
 			title={category[`title_${language.value}`]}
-			on:click={() =>
-				goto(`/${language.value}/products/${category[`title_${$language}`].intoSlug()}`)}
+			onclick={() =>
+				goto(`/${language.value}/products/${category[`title_${language.value}`].intoSlug()}`)}
 		/>
 	{/each}
 </div>

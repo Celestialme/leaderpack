@@ -1,20 +1,18 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	let input: HTMLInputElement;
-	let dispatch = createEventDispatcher();
-	let file: File;
-	function onchange() {
+	let input = $state() as HTMLInputElement;
+	let file = $state() as File;
+	let { onchange }: { onchange: (file: File) => void } = $props();
+	function _onchange() {
 		if (!input.files) return;
 		file = input.files[0];
-		dispatch('change', file);
+		onchange(file);
 	}
 </script>
 
-<input type="file" hidden on:change={onchange} bind:this={input} />
+<input type="file" hidden onchange={_onchange} bind:this={input} />
 
 <div class="flex w-full items-center justify-between gap-2">
-	<button on:click={() => input.click()}>SELECT IMAGE</button>
+	<button onclick={() => input.click()}>SELECT IMAGE</button>
 	<p class="max-w-[500px] overflow-hidden text-ellipsis text-right font-Poppins">
 		{file?.name || 'No file selected'}
 	</p>

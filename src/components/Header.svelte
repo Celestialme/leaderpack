@@ -34,14 +34,14 @@
 	<ProductsButton></ProductsButton>
 	<Search class="w-[25vw] max-md:hidden"></Search>
 	<button
-		on:click={() => goto(`/${$page.params.language}/about`)}
+		onclick={() => goto(`/${$page.params.language}/about`)}
 		class="min-w-[100px] max-md:hidden">{locales.about()}</button
 	>
-	<button on:click={() => goto(`/${$page.params.language}/blog`)} class="max-md:hidden"
+	<button onclick={() => goto(`/${$page.params.language}/blog`)} class="max-md:hidden"
 		>{locales.blog()}</button
 	>
-	<button on:click={scroll} class="min-w-[100px] max-md:hidden">{locales.contact()}</button>
-	<Hamburger class="cursor-pointer md:hidden" on:click={() => (showMenu = !showMenu)} />
+	<button onclick={scroll} class="min-w-[100px] max-md:hidden">{locales.contact()}</button>
+	<Hamburger class="cursor-pointer md:hidden" onclick={() => (showMenu = !showMenu)} />
 </div>
 <Menu bind:show={showMenu}></Menu>
 

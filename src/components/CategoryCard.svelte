@@ -1,10 +1,15 @@
-<script>
-	export let title;
-	export let src = '/cardbear.png';
+<script lang="ts">
+	interface Props {
+		title: any;
+		src?: string;
+		onclick?: () => void;
+	}
+
+	let { title, src = '/cardbear.png', ...props }: Props = $props();
 </script>
 
 <div
-	on:click
+	{...props}
 	class="w-[280px] cursor-pointer overflow-hidden rounded-[20px] border-[1px] border-solid border-[#005500]"
 >
 	<div class="min-h-[200px] border-b-2 border-solid border-[#005500] bg-[#E6F5D0]">

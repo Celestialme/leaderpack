@@ -1,10 +1,16 @@
 <script lang="ts">
-	export let name: string;
-	export let label: string;
-	export let type: 'password' | 'text' | 'email' = 'text';
-	export let value = '';
+	interface Props {
+		name: string;
+		label: string;
+		type?: 'password' | 'text' | 'email';
+		value?: string;
+		onkeydown?: (event: KeyboardEvent) => void;
+		oninput?: (event: Event) => void;
+	}
 
-	let inputElement: HTMLInputElement;
+	let { name, label, type = 'text', value = $bindable(''), ...props }: Props = $props();
+
+	let inputElement = $state() as HTMLInputElement;
 
 	function initInput(node: HTMLInputElement) {
 		node.type = type;
@@ -21,8 +27,7 @@
 		{name}
 		id="input"
 		bind:value
-		on:input
-		on:keydown
+		{...props}
 	/>
 	<label for="input">{label} </label>
 </div>
@@ -67,7 +72,7 @@
 		font-size: 15px;
 	}
 
-	input:not(:placeholder-shown) + label {
+	input:not(:global(:placeholder-shown)) + label {
 		top: unset;
 		top: 0;
 		margin-top: -10px;

@@ -18,7 +18,7 @@
 		{#each items as item}
 			<ProductCard
 				src={getProductThumbnail(item)}
-				on:click={() =>
+				onclick={() =>
 					goto(`/${$language}/products/${category.intoSlug()}/${item.title_en.intoSlug()}`)}
 				title={item[`title_${$language}`]}
 				description={item[`description_${$language}`]}

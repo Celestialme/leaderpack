@@ -19,7 +19,7 @@
 <!-- backdrop -->
 <div
 	class:hidden={!show}
-	on:click={() => (show = false)}
+	onclick={() => (show = false)}
 	class="fixed left-0 top-0 z-[200] h-screen w-screen bg-black opacity-30 md:hidden"
 ></div>
 <div class="menu_wrapper md:hidden" class:FadeIn={show}>
@@ -29,7 +29,7 @@
 		{#each Object.keys(items) as item}
 			<div class="select-none rounded-md bg-[#0000002e] p-[10px]">
 				<p
-					on:click={() => {
+					onclick={() => {
 						items[item]();
 						show = false;
 					}}

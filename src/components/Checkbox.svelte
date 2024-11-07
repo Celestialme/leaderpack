@@ -37,7 +37,7 @@
 	<p class="font-Poppins text-[16px] font-[500]">{label}</p>
 
 	<div
-		on:click={() => update(selected ? true : !checked)}
+		onclick={() => update(selected ? true : !checked)}
 		class="h-[30px] w-[30px] rounded-md border-2 border-solid border-black bg-white p-[4px]"
 	>
 		{#if checked}

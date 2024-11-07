@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { track } from '@src/store.svelte';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	interface Props {
 		color?: string;
@@ -17,15 +17,16 @@
 		active = $bindable('')
 	}: Props = $props();
 	let expanded = $state(false);
-	$effect(() => {
-		key != active && untrack(() => (expanded = false));
-	});
-	$effect(() => {
-		untrack(() => {
-			onchange?.(color);
-		});
-		color;
-	});
+
+	track(
+		() => key != active && (expanded = false),
+		() => active
+	);
+	track(
+		() => onchange?.(color),
+		() => color
+	);
+	color;
 	let header = $state() as HTMLDivElement;
 	function setPosition(node: HTMLDivElement) {
 		let parent = header.parentElement as HTMLElement;

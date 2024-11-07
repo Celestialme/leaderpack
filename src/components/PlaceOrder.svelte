@@ -1,14 +1,18 @@
 <script lang="ts">
 	import FloatingInput from './FloatingInput.svelte';
 
-	export let show = false;
+	interface Props {
+		show?: boolean;
+	}
+
+	let { show = $bindable(false) }: Props = $props();
 	function send() {
 		show = false;
 	}
 </script>
 
 <div
-	on:click={() => (show = false)}
+	onclick={() => (show = false)}
 	class="fixed left-0 top-0 z-40 flex h-screen w-screen items-center justify-center bg-black opacity-50"
 ></div>
 
@@ -32,7 +36,7 @@
 		</p>
 	</div>
 	<button
-		on:click={send}
+		onclick={send}
 		class="mt-auto w-full rounded-md bg-[#609966] px-[10px] py-1 font-Poppins text-[20px] font-[700] text-white active:scale-90"
 		>Send</button
 	>
