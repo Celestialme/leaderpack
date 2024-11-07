@@ -5,7 +5,6 @@ export async function GET({ url }) {
 	let blog = url.searchParams.get('blog') as string;
 	if (blog) {
 		let data = (await getBlog({ blog })) || null;
-		console.log(blog, data);
 		return new Response(JSON.stringify(data));
 	} else {
 		let data = await getBlogs();

@@ -19,7 +19,6 @@ export let handle: Handle = async function ({ event, resolve }) {
 				throw redirect(302, '/admin/login');
 			}
 		} else if (event.url.pathname.startsWith('/admin/login')) {
-			console.log(session);
 			throw redirect(302, '/admin');
 		}
 	}
