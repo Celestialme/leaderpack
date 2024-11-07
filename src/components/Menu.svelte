@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { contact_el } from '@src/store';
+	import { contact_el } from '@src/store.svelte';
 	import Search from './Search.svelte';
 	import { browser } from '$app/environment';
 
@@ -8,7 +8,7 @@
 		'ჩვენს შესახებ': () => {},
 		ბლოგი: () => {},
 		კონტაქტი: () => {
-			$contact_el.scrollIntoView({ behavior: 'smooth' });
+			contact_el.value.scrollIntoView({ behavior: 'smooth' });
 		}
 	};
 	$: {

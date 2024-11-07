@@ -10,13 +10,12 @@
 	import { createEventDispatcher, onDestroy } from 'svelte';
 	import RelatedProducts from './RelatedProducts.svelte';
 	import Images from './Images.svelte';
-	import { inputError } from '@src/store';
-	import { track } from '@src/store.svelte';
+	import { track, inputError } from '@src/store.svelte';
 	let showRelatedProducts = $state(false);
 	let showImages = $state(false);
 	const dispatch = createEventDispatcher();
 	async function save() {
-		if ($inputError.message) return;
+		if (inputError.value.message) return;
 		if (mode === 'create') {
 			await axios.put(
 				'/api/products',
@@ -85,15 +84,15 @@
 	track(
 		() => {
 			if (data[language].title.includes('_')) {
-				$inputError.set({ message: '_ is not allowed in category name', type: 'error' });
+				inputError.value.set({ message: '_ is not allowed in product name', type: 'error' });
 			} else {
-				$inputError.clear();
+				inputError.value.clear();
 			}
 		},
 		() => data[language].title
 	);
 	onDestroy(() => {
-		$inputError.clear();
+		inputError.value.clear();
 	});
 </script>
 

@@ -1,9 +1,9 @@
 <script>
-	import { inputError } from '@src/store';
+	import { inputError } from '@src/store.svelte';
 	import { fly } from 'svelte/transition';
 </script>
 
-<div transition:fly={{ y: -200, opacity: 0 }}>{$inputError.message}</div>
+<div transition:fly={{ y: -200, opacity: 0 }}>{inputError.value.message}</div>
 
 <style>
 	div {

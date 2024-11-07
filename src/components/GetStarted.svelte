@@ -1,9 +1,9 @@
 <script lang="ts">
 	import locales from '@src/locales.svelte';
-	import { products_el } from '@src/store';
+	import { products_el } from '@src/store.svelte';
 
 	async function scroll() {
-		let top = $products_el.getBoundingClientRect().top;
+		let top = products_el.value.getBoundingClientRect().top;
 		window.scrollTo({ top: top - 200, behavior: 'smooth' });
 	}
 </script>

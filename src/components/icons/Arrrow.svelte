@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { products_el } from '@src/store';
+	import { products_el } from '@src/store.svelte';
 	import { throttle } from '@src/utils';
 	import { onMount } from 'svelte';
 	interface Props {
@@ -11,7 +11,7 @@
 	let t = throttle(100);
 	onMount(() => {
 		window.onscroll = (e: Event) => {
-			t(() => (state = $products_el?.getBoundingClientRect().top < 200));
+			t(() => (state = products_el.value?.getBoundingClientRect().top < 200));
 		};
 	});
 </script>

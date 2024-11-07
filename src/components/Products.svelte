@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { language } from '@src/store';
+	import { language } from '@src/store.svelte';
 	import BreadCrumb from './BreadCrumb.svelte';
 	import ProductCard from './ProductCard.svelte';
 	import { page } from '$app/stores';
@@ -19,11 +19,11 @@
 			<ProductCard
 				src={getProductThumbnail(item)}
 				onclick={() =>
-					goto(`/${$language}/products/${category.intoSlug()}/${item.title_en.intoSlug()}`)}
-				title={item[`title_${$language}`]}
-				description={item[`description_${$language}`]}
-				material={item[`material_${$language}`]}
-				sizes={item[`sizes_${$language}`]}
+					goto(`/${language.value}/products/${category.intoSlug()}/${item.title_en.intoSlug()}`)}
+				title={item[`title_${language.value}`]}
+				description={item[`description_${language.value}`]}
+				material={item[`material_${language.value}`]}
+				sizes={item[`sizes_${language.value}`]}
 			></ProductCard>
 		{/each}
 	</div>

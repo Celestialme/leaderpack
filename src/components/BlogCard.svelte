@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { createBubbler } from 'svelte/legacy';
-
-	import { language } from '@src/store';
+	import { language } from '@src/store.svelte';
 
 	let {
 		blog,
@@ -27,9 +25,9 @@
 	class="relative my-2 flex w-[700px] max-w-[90vw] flex-col items-center rounded-md border-2 border-solid border-gray-200 p-4 font-Poppins shadow-lg {_class}"
 >
 	<p class="font-Poppins text-2xl text-[#005500]">
-		{blog[`title_${$language}`]}
+		{blog[`title_${language.value}`]}
 	</p>
 	<div>
-		{parseHTML(blog[`content_${$language}`]).slice(0, 200)}...
+		{parseHTML(blog[`content_${language.value}`]).slice(0, 200)}...
 	</div>
 </div>

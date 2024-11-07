@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { contact_el } from '@src/store';
+	import { contact_el } from '@src/store.svelte';
 	import { language } from '@src/store.svelte';
 
 	import { page } from '$app/stores';
@@ -13,7 +13,7 @@
 	import { goto } from '$app/navigation';
 
 	async function scroll() {
-		if (!$contact_el) {
+		if (!contact_el.value) {
 			await goto(`/${$page.params.language}`, { noScroll: true });
 		}
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { products_el } from '@src/store';
+	import { products_el } from '@src/store.svelte';
 
 	import CategoryCard from './CategoryCard.svelte';
 	import { goto } from '$app/navigation';
@@ -8,7 +8,7 @@
 	let categories = $page.data.categories;
 </script>
 
-<div class="wrapper" bind:this={$products_el}>
+<div class="wrapper" bind:this={products_el.value}>
 	{#each categories as category}
 		<CategoryCard
 			src={category.imageURL}

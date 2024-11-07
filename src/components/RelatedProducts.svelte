@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { page } from '$app/stores';
 	import type { Product } from '@src/types';
 	import ProductCard from './ProductCard.svelte';
 	import { createScroll } from '@src/utils';
 	import { goto } from '$app/navigation';
-	import { language } from '@src/store';
+	import { language } from '@src/store.svelte';
 	let relatedProducts: (Product & { category_title_en: string; category_title_ka: string })[] =
 		$derived($page.data?.product?.relatedProducts || []);
 </script>
@@ -26,7 +24,7 @@
 						sizes={product.sizes_en}
 						onclick={async () => {
 							goto(
-								`/${$page.params.language}/products/${product[`category_title_${$language}`]}/${product[`title_${$language}`].intoSlug()}`
+								`/${$page.params.language}/products/${product[`category_title_${language.value}`]}/${product[`title_${language.value}`].intoSlug()}`
 							);
 						}}
 					/>

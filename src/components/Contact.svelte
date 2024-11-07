@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { contact_el } from '@src/store';
+	import { contact_el } from '@src/store.svelte';
 	import Media from './icons/Media.svelte';
 	import locales from '@src/locales.svelte';
 	export let altStyle = false;
@@ -7,7 +7,7 @@
 </script>
 
 <div
-	bind:this={$contact_el}
+	bind:this={contact_el.value}
 	class:altStyle
 	class="mx-auto mt-[50px] w-[80%] max-w-[700px] scroll-mt-[150px] rounded-md bg-[#B2D99AA8] p-[20px]"
 >

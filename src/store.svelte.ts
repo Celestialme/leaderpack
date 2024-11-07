@@ -1,9 +1,38 @@
 import { untrack } from 'svelte';
-
 export let language = store<'en' | 'ka'>('en');
+export let contact_el = store<HTMLDivElement>();
+export let products_el = store<HTMLDivElement>();
 
-export function store<T>(v: T) {
-	let value = $state(v);
+export let inputError = store({
+	message: '',
+	type: '',
+	set({
+		message,
+		type,
+		timeOut
+	}: {
+		message: string;
+		type: 'success' | 'error';
+		timeOut?: number;
+	}) {
+		if (timeOut) {
+			setTimeout(() => {
+				this.clear();
+			}, timeOut);
+		}
+		inputError.update((n) => {
+			return { ...n, message, type };
+		});
+	},
+	clear() {
+		inputError.update((n) => {
+			return { ...n, message: '', type: '' };
+		});
+	}
+});
+
+export function store<T>(v?: T) {
+	let value = $state(v) as T;
 	return {
 		get value() {
 			return value;
@@ -14,7 +43,7 @@ export function store<T>(v: T) {
 		set(v: T) {
 			value = v;
 		},
-		update(f: Function) {
+		update(f: (value: T) => T) {
 			value = f(value);
 		},
 		subscribe(f: (value: T) => void) {

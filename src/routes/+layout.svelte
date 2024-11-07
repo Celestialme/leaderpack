@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Notification from '@src/components/Notification.svelte';
-	import { inputError } from '@src/store';
-	import { language } from '@src/store.svelte';
+	import { language, inputError } from '@src/store.svelte';
 
 	import '../app.css';
 	import 'iconify-icon';
@@ -20,7 +19,7 @@
 	language.set($page.params.language as any);
 </script>
 
-{#if $inputError.message}
+{#if inputError.value.message}
 	<Notification />
 {/if}
 {@render children?.()}

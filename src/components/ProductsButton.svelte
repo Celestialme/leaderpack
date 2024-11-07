@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { language, products_el } from '@src/store';
+	import { products_el } from '@src/store.svelte';
+	import { language } from '@src/store.svelte';
 	import Arrrow from './icons/Arrrow.svelte';
 	import { goto } from '$app/navigation';
 	import locales from '@src/locales.svelte';
 
 	async function scroll() {
-		if (!$products_el) {
-			await goto(`/${$language}`);
+		if (!products_el.value) {
+			await goto(`/${language.value}`);
 		}
 
 		products_el.subscribe((d) => {
