@@ -3,7 +3,6 @@ import type { Category } from './types';
 
 export let products_el: Writable<HTMLDivElement> = writable();
 
-export let language: Writable<'en' | 'ka'> = writable('en');
 export let contact_el: Writable<HTMLDivElement> = writable();
 export let header: Writable<HTMLDivElement> = writable();
 export let categories: Writable<Category[]> = writable([]);

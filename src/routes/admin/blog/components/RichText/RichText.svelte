@@ -15,8 +15,9 @@
 	import ImageResize from './extensions/ImageResize';
 	// import FileInput from './components/FileInput.svelte';
 	import { storage_data, createRandomID, debounce } from './utils';
-	import { language, inputError } from '@src/store';
+	import { inputError } from '@src/store';
 	import ImageDescription from './components/ImageDescription.svelte';
+	import { page } from '$app/stores';
 	import type { Transaction } from '@tiptap/pm/state';
 	export const getData = async () => ({ images, data: _data });
 	let element: HTMLDivElement;
@@ -27,11 +28,11 @@
 	export let value: any = { content: {}, header: {} };
 	let _data: any = value ? value : { content: {}, header: {} };
 	let imageInput: HTMLInputElement;
-	let previous_language = $language;
-	language.subscribe(async (val) => {
-		await tick();
-		editor && editor.commands.setContent(_data.content[val] || '');
-	});
+	let previous_language = $page.params.language;
+
+	$: {
+		editor && editor.commands.setContent(_data.content[$page.params.language] || '');
+	}
 	let deb = debounce(200);
 	onMount(() => {
 		editor = new Editor({
@@ -62,21 +63,21 @@
 
 			content:
 				Object.keys(_data.content).length > 0
-					? _data.content[$language]
-					: value.content[$language] || '',
+					? _data.content[$page.params.language]
+					: value.content[$page.params.language] || '',
 
 			onTransaction: ({ transaction }) => {
 				// force re-render so `editor.isActive` works as expected
 				active_dropDown = '';
-				if (previous_language == $language) {
+				if (previous_language == $page.params.language) {
 					handleImageDeletes(transaction);
 				}
-				previous_language = $language;
+				previous_language = $page.params.language;
 				editor = editor;
 				deb(() => {
 					let content = editor.getHTML();
 					content == '<p></p>' && (content = '');
-					_data.content[$language] = content;
+					_data.content[$page.params.language] = content;
 				});
 			}
 		});
@@ -279,7 +280,7 @@
 		show = show;
 		editor;
 	}
-	$: if (_data?.header?.[$language]?.includes('_')) {
+	$: if (_data?.header?.[$page.params.language]?.includes('_')) {
 		$inputError.set({ message: '_ is not allowed in title', type: 'error' });
 	} else {
 		$inputError.clear();
@@ -288,7 +289,7 @@
 
 <Input
 	type="text"
-	bind:value={_data.header[$language]}
+	bind:value={_data.header[$page.params.language]}
 	placeholder="Title"
 	inputClass="!w-full mt-2"
 />

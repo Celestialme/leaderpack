@@ -3,7 +3,6 @@
 
 	import { page } from '$app/stores';
 	import type { Product, UploadedImage } from '@src/types';
-	import { language } from '@src/store';
 
 	import ImageSlider from './ImageSlider.svelte';
 	import { getProductThumbnail } from '@src/utils';
@@ -14,6 +13,7 @@
 	let branded = false;
 	let showOrderForm = false;
 	$: item = $page.data.product as Product;
+	$: language = $page.data.language as 'en' | 'ka';
 	$: images = (JSON.parse(item.images) as UploadedImage[])
 		.filter((i) => !!i.branded == branded)
 		.map((i) => i.url);
@@ -49,16 +49,16 @@
 				class=" flex grow flex-col rounded-md border border-solid border-[#C6C69F] bg-[#FCF4F4] p-[50px] py-[20px]"
 			>
 				<h1 class="mb-[30px] text-center font-Poppins text-[22px] font-[700]">
-					{item[`title_${$language}`]}
+					{item[`title_${language}`]}
 				</h1>
 				<div class="flex items-center justify-between">
 					<div>
-						<p>{item[`description_${$language}`]}</p>
-						<p>sizes: {item[`sizes_${$language}`]}</p>
-						<p>colors: {item[`colors_${$language}`]}</p>
-						<p>material: {item[`material_${$language}`]}</p>
-						<p>options: {item[`options_${$language}`]}</p>
-						<p>details: {item[`details_${$language}`]}</p>
+						<p>{item[`description_${language}`]}</p>
+						<p>sizes: {item[`sizes_${language}`]}</p>
+						<p>colors: {item[`colors_${language}`]}</p>
+						<p>material: {item[`material_${language}`]}</p>
+						<p>options: {item[`options_${language}`]}</p>
+						<p>details: {item[`details_${language}`]}</p>
 					</div>
 					<img src="/branding.png" alt="" class="max-h-[100px] min-w-[min(200px,15vw)]" />
 				</div>

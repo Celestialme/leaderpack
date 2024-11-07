@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { language } from '@src/store';
 	import BreadCrumb from './BreadCrumb.svelte';
 	import ProductCard from './ProductCard.svelte';
 	import { page } from '$app/stores';
@@ -7,7 +6,7 @@
 	import type { Product } from '@src/types';
 	import { getProductThumbnail } from '@src/utils';
 	let category = $page.params.category;
-
+	$: language = $page.data.language as 'en' | 'ka';
 	let items: Product[] = ($page.data.products as Product[]) || [];
 </script>
 
@@ -19,11 +18,11 @@
 			<ProductCard
 				src={getProductThumbnail(item)}
 				on:click={() =>
-					goto(`/${$language}/products/${category.intoSlug()}/${item.title_en.intoSlug()}`)}
-				title={item[`title_${$language}`]}
-				description={item[`description_${$language}`]}
-				material={item[`material_${$language}`]}
-				sizes={item[`sizes_${$language}`]}
+					goto(`/${language}/products/${category.intoSlug()}/${item.title_en.intoSlug()}`)}
+				title={item[`title_${language}`]}
+				description={item[`description_${language}`]}
+				material={item[`material_${language}`]}
+				sizes={item[`sizes_${language}`]}
 			></ProductCard>
 		{/each}
 	</div>

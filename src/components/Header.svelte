@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { contact_el, language } from '@src/store';
+	import { contact_el } from '@src/store';
 	import { page } from '$app/stores';
 	import ProductsButton from './ProductsButton.svelte';
 	import Logo from './icons/Logo.svelte';
@@ -27,7 +27,7 @@
 <div
 	class="sticky top-0 z-20 flex w-full items-center gap-[35px] bg-[#F0F0F0] px-[10px] max-md:justify-between"
 >
-	<Language class="absolute right-4 top-2" bind:language={$language}></Language>
+	<Language class="absolute right-4 top-2" bind:language={$page.params.language}></Language>
 	<Logo></Logo>
 	<ProductsButton></ProductsButton>
 	<Search class="w-[25vw] max-md:hidden"></Search>

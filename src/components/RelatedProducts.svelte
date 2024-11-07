@@ -4,9 +4,9 @@
 	import ProductCard from './ProductCard.svelte';
 	import { createScroll } from '@src/utils';
 	import { goto } from '$app/navigation';
-	import { language } from '@src/store';
 	let relatedProducts: (Product & { category_title_en: string; category_title_ka: string })[] = [];
 	$: relatedProducts = $page.data?.product?.relatedProducts || [];
+	$: language = $page.params.language as 'en' | 'ka';
 	console.log($page.data);
 </script>
 
@@ -25,7 +25,7 @@
 						sizes={product.sizes_en}
 						on:click={async () => {
 							goto(
-								`/${$page.params.language}/products/${product[`category_title_${$language}`]}/${product[`title_${$language}`].intoSlug()}`
+								`/${language}/products/${product[`category_title_${language}`]}/${product[`title_${language}`].intoSlug()}`
 							);
 						}}
 					/>

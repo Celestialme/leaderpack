@@ -4,7 +4,6 @@
 	import Header from '@src/components/Header.svelte';
 	import RichText from './RichText.svelte';
 	import { goto } from '$app/navigation';
-	import { language } from '@src/store';
 	$: blogs = $page.data.blogs;
 	$: blog = $page.url.searchParams.get('blog');
 </script>
@@ -15,9 +14,11 @@
 	{#if blog}
 		{#if blogs}
 			<div class="flex flex-col items-center p-5">
-				<h1 class="my-5 font-Poppins text-[24px] font-[400]">{blogs[`title_${$language}`]}</h1>
+				<h1 class="my-5 font-Poppins text-[24px] font-[400]">
+					{blogs[`title_${$page.params.language}`]}
+				</h1>
 				<div class="w-full">
-					<RichText content={blogs[`content_${$language}`]}></RichText>
+					<RichText content={blogs[`content_${$page.params.language}`]}></RichText>
 				</div>
 			</div>
 		{:else}
@@ -30,7 +31,7 @@
 			{#if blogs.length}
 				{#each blogs as blog}
 					<BlogCard
-						on:click={() => goto(`blog?blog=${blog[`title_${$language}`].intoSlug()}`)}
+						on:click={() => goto(`blog?blog=${blog[`title_${$page.params.language}`].intoSlug()}`)}
 						{blog}
 						class="cursor-pointer"
 					/>

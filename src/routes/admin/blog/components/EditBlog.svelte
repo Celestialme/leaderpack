@@ -23,7 +23,8 @@
 </script>
 
 <div class="relative flex h-screen flex-col items-center p-[30px] pt-[70px]">
-	<Language bind:language={$language} navigate={false} class="absolute left-2 top-2"></Language>
+	<Language bind:language={$page.params.language} navigate={false} class="absolute left-2 top-2"
+	></Language>
 
 	<CloseIcon on:click={() => (show = false)} class="absolute right-2 top-2 cursor-pointer" />
 	<RichText bind:getData {value} />
