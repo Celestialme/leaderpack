@@ -11,6 +11,7 @@
 	import RelatedProducts from './RelatedProducts.svelte';
 	import Images from './Images.svelte';
 	import { track, inputError } from '@src/store.svelte';
+	import ArrayInput from '@src/components/ArrayInput.svelte';
 	let showRelatedProducts = $state(false);
 	let showImages = $state(false);
 	const dispatch = createEventDispatcher();
@@ -119,8 +120,8 @@
 		type="text"
 		bind:value={data[language].material}
 	/>
-	<FloatingInput label="sizes" name="sizes" type="text" bind:value={data[language].sizes}
-	></FloatingInput>
+
+	<ArrayInput bind:value={data[language].sizes} label="sizes" />
 	<FloatingInput label="colors" name="colors" type="text" bind:value={data[language].colors}
 	></FloatingInput>
 	<FloatingInput label="options" name="options" type="text" bind:value={data[language].options}

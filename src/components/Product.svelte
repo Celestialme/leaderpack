@@ -26,6 +26,14 @@
 	<BreadCrumb items={['Home', category, product]}></BreadCrumb>
 
 	{#if item}
+		{@const title = item[`title_${language.value}`]}
+		{@const description = item[`description_${language.value}`]}
+		{@const sizes = item[`sizes_${language.value}`]}
+		{@const material = item[`material_${language.value}`]}
+		{@const colors = item[`colors_${language.value}`]}
+		{@const options = item[`options_${language.value}`]}
+		{@const details = item[`details_${language.value}`]}
+
 		<!-- <ItemCard title={item.title} description={item.description}></ItemCard> -->
 		<div class="flex flex-wrap items-stretch justify-center gap-[50px]">
 			<div class="flex flex-col justify-between">
@@ -48,17 +56,18 @@
 			<div
 				class=" flex grow flex-col rounded-md border border-solid border-[#C6C69F] bg-[#FCF4F4] p-[50px] py-[20px]"
 			>
-				<h1 class="mb-[30px] text-center font-Poppins text-[22px] font-[700]">
-					{item[`title_${language.value}`]}
-				</h1>
+				<h1 class="mb-[30px] text-center font-Poppins text-[22px] font-[700]">{title}</h1>
 				<div class="flex items-center justify-between">
 					<div>
-						<p>{item[`description_${language.value}`]}</p>
-						<p>sizes: {item[`sizes_${language.value}`]}</p>
-						<p>colors: {item[`colors_${language.value}`]}</p>
-						<p>material: {item[`material_${language.value}`]}</p>
-						<p>options: {item[`options_${language.value}`]}</p>
-						<p>details: {item[`details_${language.value}`]}</p>
+						<p class:hidden={!description}>{description}</p>
+						<p class:hidden={!colors}>colors: {colors}</p>
+						<p class:hidden={!material}>material: {material}</p>
+						<p class:hidden={!options}>options: {options}</p>
+						<p class:hidden={!details}>details: {details}</p>
+						<div class="flex justify-between gap-2">
+							<p class:hidden={!sizes}>sizes:</p>
+							<p class:hidden={!sizes}>{@html JSON.parse(sizes).join('<br>')}</p>
+						</div>
 					</div>
 					<img src="/branding.png" alt="" class="max-h-[100px] min-w-[min(200px,15vw)]" />
 				</div>

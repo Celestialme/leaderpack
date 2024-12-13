@@ -5,14 +5,14 @@
 	import Footer from '@src/components/Footer.svelte';
 	import GetStarted from '@src/components/GetStarted.svelte';
 	import Header from '@src/components/Header.svelte';
-	import Reasons from '@src/components/Reasons.svelte';
+	import Features from '@src/components/Features.svelte';
 	import Faq from '@src/components/FAQ.svelte';
 </script>
 
 <Header></Header>
 <GetStarted></GetStarted>
 <Categories></Categories>
-<Reasons></Reasons>
+<Features></Features>
 <Customers></Customers>
 <Faq></Faq>
 <Contact></Contact>

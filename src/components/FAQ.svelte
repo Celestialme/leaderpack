@@ -15,7 +15,7 @@
 				onclick={() => {
 					expanded == index ? (expanded = null) : (expanded = index);
 				}}
-				class="flex cursor-pointer items-center font-Poppins text-[20px] font-[600]"
+				class="ml-2 flex cursor-pointer items-center font-Poppins text-[20px] font-[600]"
 			>
 				{faq.question}
 				<div class="ml-auto transition" class:close={expanded == index}>

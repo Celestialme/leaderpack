@@ -50,14 +50,8 @@ let locales = $derived({
 	},
 	reason() {
 		return {
-			en: 'With a commitment to superior packaging solutions that blend customization with uncompromising quality,<br />we ensure your products stand out with both style and security',
-			ka: 'ჩვენ გთავაზობთ უმაღლესი ხარისხის შეფუთვის საშუალებებს, რომლებიც აერთიანებს ინდივიდუალურობას და უმაღლეს სტანდარტებს,<br /> რათა თქვენი პროდუქცია გამოირჩეოდეს როგორც სტილით, ასევე დაცულობით'
-		}[language.value];
-	},
-	pride() {
-		return {
-			en: 'Wrap with pride! Superior packaging solutions',
-			ka: 'შეფუთეთ სიამაყით! უმაღლესი ხარისხის შეფუთვის საშუალებები'
+			en: 'We deliver tailored packaging solutions that exceed expectations. With a focus on quality and visual excellence, <br> we create packaging that reflects your brand and leaves a lasting impression.',
+			ka: 'ლიდერ პაკის გუნდი ყოველთვის ცდილობს მოგაწოდოთ შესაფუთი მასალები, რომლებიც აღემატება მოლოდინებს.<br> ჩვენ დიდ ყურადღებას ვაქცევთ პროდუქციის ხარისხსა და ვიზუალს, რათა თქვენმა ბრენდმა დატოვოს დაუვიწყარი შთაბეჭდილება.'
 		}[language.value];
 	},
 	highquality() {
@@ -66,16 +60,34 @@ let locales = $derived({
 			ka: 'მაღალი ხარისხი'
 		}[language.value];
 	},
+	highqualityExtra() {
+		return {
+			en: 'We use only premium materials to ensure your packaging not only stands out but also protects and showcases your products beautifully.',
+			ka: 'ჩვენ ვიყენებთ პრემიუმ ხარისხის მასალებს, რათა თქვენი პროდუქცია იყოს უსაფრთხოდ შენახული და ვიზუალურად გამორჩეული.'
+		}[language.value];
+	},
 	fastDistribution() {
 		return {
 			en: 'Fast Distribution',
 			ka: 'სწრაფი მიწოდება'
 		}[language.value];
 	},
+	fastDistributionExtra() {
+		return {
+			en: 'We ensure fast, reliable delivery so you get your packaging supplies on time, every time. Our efficient logistics keep your business running smoothly.',
+			ka: 'ჩვენ ვუზრუნველყოფთ სწრაფ და საიმედო დისტრიბუციის სერვისს, რათა თქვენმა ბიზნესმა შეუფერხებლად იმუშაოს.'
+		}[language.value];
+	},
 	customization() {
 		return {
 			en: 'Customization',
 			ka: 'კუსტომიზაცია'
+		}[language.value];
+	},
+	customizationExtra() {
+		return {
+			en: 'We offer a wide variety of customization options to ensure your packaging matches your brand perfectly. From size and shape to color and design, Leader Pack has you covered.',
+			ka: 'ჩვენ გთავაზაობთ პროდუქციის ბრენდირების შესაძლებლობას, რათა გახადოთ თქვენი ბრენდი გამორჩეული.'
 		}[language.value];
 	},
 	rights() {

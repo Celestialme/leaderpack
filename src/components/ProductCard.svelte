@@ -29,6 +29,6 @@
 		<p>{title}</p>
 		<p>{description}</p>
 		<p>{material}</p>
-		<p>{sizes}</p>
+		<p>{JSON.parse(sizes).join('\n')}</p>
 	</div>
 </div>
