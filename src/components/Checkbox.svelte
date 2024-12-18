@@ -1,14 +1,25 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	let _group: { [key: string]: (() => void)[] } = {};
 </script>
 
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 
-	export let checked: boolean;
-	export let group: string = '';
-	export let label: string = '';
-	export let selected: boolean = false;
+	interface Props {
+		checked: boolean;
+		group?: string;
+		label?: string;
+		selected?: boolean;
+		class?: string;
+	}
+
+	let {
+		checked = $bindable(),
+		group = '',
+		label = '',
+		selected = false,
+		class: _class
+	}: Props = $props();
 	let callback = () => {
 		checked = false;
 	};
@@ -33,7 +44,7 @@
 	}
 </script>
 
-<div class="flex w-full items-center justify-between {$$props.class}">
+<div class="flex w-full items-center justify-between {_class}">
 	<p class="font-Poppins text-[16px] font-[500]">{label}</p>
 
 	<div
@@ -41,7 +52,7 @@
 		class="h-[30px] w-[30px] rounded-md border-2 border-solid border-black bg-white p-[4px]"
 	>
 		{#if checked}
-			<div class="h-full w-full rounded-sm bg-green-400" />
+			<div class="h-full w-full rounded-sm bg-green-400"></div>
 		{/if}
 	</div>
 </div>

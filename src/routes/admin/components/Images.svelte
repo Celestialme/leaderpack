@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { track } from '@src/store.svelte';
+	import { productData, track } from '@src/store.svelte';
 
 	import Checkbox from '@src/components/Checkbox.svelte';
 	import AddButton from '@src/components/icons/AddButton.svelte';
@@ -7,31 +7,31 @@
 	import Delete from '@src/components/icons/Delete.svelte';
 	import type { ImageFile, UploadedImage } from '@src/types';
 	interface Props {
-		images?: { array: ImageFile[]; string: string };
 		show?: boolean;
 	}
 
-	let { images = $bindable({ array: [], string: '' }), show = $bindable(false) }: Props = $props();
+	let { show = $bindable(false) }: Props = $props();
+
 	let uploadedImages: UploadedImage[] = $state([]);
 	let input = $state() as HTMLInputElement;
 	function onChange() {
 		for (let file of input?.files || []) {
-			let meta_data: ImageFile['meta_data'] = {
+			let meta_data: ImageFile['meta_data'] = $state({
 				thumbnail: false,
 				branded: false
-			};
+			});
 			(file as ImageFile).meta_data = meta_data;
-			images.array.push(file as ImageFile);
+			productData().images.array.push(file as ImageFile);
 		}
-		images = images;
 	}
-	if (images.string) {
-		uploadedImages = JSON.parse(images.string);
+	if (productData().images.string) {
+		uploadedImages = JSON.parse(productData().images.string);
 	}
 
 	track(
-		() => (images.string = JSON.stringify(uploadedImages)),
-		() => uploadedImages
+		() => (productData().images.string = JSON.stringify(uploadedImages)),
+
+		() => $state.snapshot(uploadedImages)
 	);
 </script>
 
@@ -43,13 +43,16 @@
 		<CloseIcon class="-ml-[30px]" onclick={() => (show = false)} />
 	</div>
 	<div class="flex flex-wrap justify-center gap-4 overflow-auto">
-		{#each images.array as image}
+		{#each productData().images.array as image}
 			<div
 				class="flex w-[300px] flex-col items-center rounded-md border-2 border-solid border-[#686a68] p-4 px-[50px]"
 			>
 				<Delete
 					class="cursor-pointer"
-					onclick={() => (images.array = images.array.filter((img) => img !== image))}
+					onclick={() =>
+						(productData().images.array = productData().images.array.filter(
+							(img) => img !== image
+						))}
 				></Delete>
 				<img
 					class="h-[200px] w-[200px] flex-grow object-contain"

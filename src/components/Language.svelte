@@ -7,7 +7,9 @@
 	export let language = 'en';
 	function updateURL() {
 		let newUrl = replaceParams(page, {
-			language
+			language,
+			product: $page.data.product?.[`title_${language}`].intoSlug() || '',
+			category: $page.data.category?.[`title_${language}`].intoSlug() || ''
 		});
 
 		navigate && goto(newUrl, { noScroll: true, replaceState: true });

@@ -8,10 +8,10 @@ import {
 import { uploadImage } from '@src/imagekit';
 import crypto from 'crypto';
 export async function GET({ url }) {
-	let id = url.searchParams.get('id') as string;
-	if (id) {
-		let category = await getCategory({ id });
-		return new Response(JSON.stringify(category));
+	let category = url.searchParams.get('category') as string;
+	if (category) {
+		let _category = await getCategory(category);
+		return new Response(JSON.stringify(_category));
 	} else {
 		let categories = await getCategories();
 		return new Response(JSON.stringify(categories));

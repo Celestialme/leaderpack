@@ -2,10 +2,16 @@
 	import { contact_el } from '@src/store.svelte';
 	import Media from './icons/Media.svelte';
 	import locales from '@src/locales.svelte';
-	export let altStyle = false;
-	$: title = altStyle ? locales.contactToOrder() : locales.contact();
+	interface Props {
+		altStyle?: boolean;
+	}
+
+	let { altStyle = false }: Props = $props();
+
+	let title = $derived(altStyle ? locales.contactToOrder() : locales.contact());
 </script>
 
+<div class="mt-auto"></div>
 <div
 	bind:this={contact_el.value}
 	class:altStyle
@@ -26,7 +32,7 @@
 
 <style>
 	.altStyle {
-		max-width: calc(100% - 20px);
+		max-width: min(calc(100% - 20px), 2000px);
 		margin-left: auto;
 		margin-right: auto;
 		width: 100%;

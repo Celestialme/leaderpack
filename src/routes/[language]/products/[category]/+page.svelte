@@ -5,7 +5,9 @@
 	import Products from '@src/components/Products.svelte';
 </script>
 
-<Header></Header>
-<Products></Products>
-<Contact></Contact>
-<Footer></Footer>
+<div class="flex h-screen flex-col">
+	<Header></Header>
+	<Products></Products>
+	<Contact></Contact>
+	<Footer></Footer>
+</div>

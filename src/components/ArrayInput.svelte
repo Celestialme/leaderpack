@@ -14,7 +14,10 @@
 		() => (value = JSON.stringify(array)),
 		() => $state.snapshot(array)
 	);
-	$inspect(value);
+	track(
+		() => (array = value ? (JSON.parse(value) as string[]) : []),
+		() => value
+	);
 </script>
 
 <div class="container relative my-1 w-full">

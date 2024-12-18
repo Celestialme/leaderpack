@@ -3,6 +3,7 @@
 declare global {
 	interface String {
 		intoSlug(): string;
+		fromSlug(): string;
 	}
 	function gtag(...args: any[]): void;
 	namespace App {

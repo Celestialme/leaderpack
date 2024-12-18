@@ -20,11 +20,12 @@ export let throttle = (delay: number) => {
 	};
 };
 
-if (!String.prototype.intoSlug) {
-	String.prototype.intoSlug = function (this: string): string {
-		return this.replace(/\s+/g, '_');
-	};
-}
+String.prototype.intoSlug = function (this: string): string {
+	return this.replace(/\s+/g, '_').replace(/\//g, '|');
+};
+String.prototype.fromSlug = function (this: string): string {
+	return this.replace(/[_-]/g, ' ').replace(/\|/g, '/');
+};
 
 export function obj2formData(obj: any) {
 	let formData = new FormData();

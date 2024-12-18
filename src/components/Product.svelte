@@ -1,6 +1,4 @@
 <script lang="ts">
-	import BreadCrumb from './BreadCrumb.svelte';
-
 	import { page } from '$app/stores';
 	import type { Product, UploadedImage } from '@src/types';
 	import { language } from '@src/store.svelte';
@@ -9,11 +7,10 @@
 	import { getProductThumbnail } from '@src/utils';
 	import PlaceOrder from './PlaceOrder.svelte';
 
-	let category = $page.params.category;
-	let product = $page.params.product;
 	let branded = false;
 	let showOrderForm = false;
 	$: item = $page.data.product as Product;
+
 	$: images = (JSON.parse(item.images) as UploadedImage[])
 		.filter((i) => !!i.branded == branded)
 		.map((i) => i.url);
@@ -22,76 +19,90 @@
 	}
 </script>
 
-<div class="p-[20px]">
-	<BreadCrumb items={['Home', category, product]}></BreadCrumb>
+{#if item}
+	{@const title = item[`title_${language.value}`]}
+	{@const description = item[`description_${language.value}`]}
+	{@const sizes = JSON.parse(item[`sizes_${language.value}`] || '[]').join('<br>')}
+	{@const material = item[`material_${language.value}`]}
+	{@const colors = item[`colors_${language.value}`]}
+	{@const options = JSON.parse(item[`options_${language.value}`] || '[]').join('<br>')}
+	{@const details = item[`details_${language.value}`]}
 
-	{#if item}
-		{@const title = item[`title_${language.value}`]}
-		{@const description = item[`description_${language.value}`]}
-		{@const sizes = item[`sizes_${language.value}`]}
-		{@const material = item[`material_${language.value}`]}
-		{@const colors = item[`colors_${language.value}`]}
-		{@const options = item[`options_${language.value}`]}
-		{@const details = item[`details_${language.value}`]}
-
-		<!-- <ItemCard title={item.title} description={item.description}></ItemCard> -->
-		<div class="flex flex-wrap items-stretch justify-center gap-[50px]">
-			<div class="flex flex-col justify-between">
-				<div class="h-[400px] w-[400px]">
-					{#if images.length > 1}
-						{#key images}
-							<ImageSlider {images}></ImageSlider>
-						{/key}
-					{:else}
-						<img class="h-full w-full grow" src={getProductThumbnail(item)} alt="Box" width="300" />
-					{/if}
-				</div>
-				{#if item.branding}
-					<div class="branding mt-2 flex gap-2">
-						<button onclick={() => (branded = true)} class:active={branded}>Branded</button>
-						<button onclick={() => (branded = false)} class:active={!branded}>Unbranded</button>
-					</div>
+	<div
+		class="mx-auto flex max-w-[2000px] flex-wrap items-stretch justify-center gap-[50px] overflow-visible px-1"
+	>
+		<div class="flex flex-col justify-between">
+			<div class="h-[400px] w-[min(400px,95vw)]">
+				{#if images.length > 1}
+					{#key images}
+						<ImageSlider {images}></ImageSlider>
+					{/key}
+				{:else}
+					<img class="h-full w-full grow" src={getProductThumbnail(item)} alt="Box" width="300" />
 				{/if}
 			</div>
-			<div
-				class=" flex grow flex-col rounded-md border border-solid border-[#C6C69F] bg-[#FCF4F4] p-[50px] py-[20px]"
-			>
-				<h1 class="mb-[30px] text-center font-Poppins text-[22px] font-[700]">{title}</h1>
-				<div class="flex items-center justify-between">
-					<div>
-						<p class:hidden={!description}>{description}</p>
-						<p class:hidden={!colors}>colors: {colors}</p>
-						<p class:hidden={!material}>material: {material}</p>
-						<p class:hidden={!options}>options: {options}</p>
-						<p class:hidden={!details}>details: {details}</p>
-						<div class="flex justify-between gap-2">
-							<p class:hidden={!sizes}>sizes:</p>
-							<p class:hidden={!sizes}>{@html JSON.parse(sizes).join('<br>')}</p>
-						</div>
-					</div>
-					<img src="/branding.png" alt="" class="max-h-[100px] min-w-[min(200px,15vw)]" />
+			{#if item.branding}
+				<div class="branding mt-2 flex gap-2">
+					<button onclick={() => (branded = true)} class:active={branded}>Branded</button>
+					<button onclick={() => (branded = false)} class:active={!branded}>Unbranded</button>
 				</div>
-				<div class="mt-auto">
-					<button
-						onclick={() => (showOrderForm = true)}
-						class="mt-2 h-[40px] w-full rounded-md bg-[#609966] px-[10px] font-Poppins text-[20px] font-[700] text-white"
-						>Place Order</button
-					>
-				</div>
+			{/if}
+		</div>
+		<div
+			class="max-w-screen flex grow flex-col overflow-auto rounded-md border border-solid border-[#C6C69F] bg-[#FCF4F4] py-[20px] md:p-[50px]"
+		>
+			<h1 class="mb-[30px] text-center font-Poppins text-[22px] font-[700]">{title}</h1>
+			<div class="flex flex-wrap items-center justify-between">
+				<table class="grow">
+					<tbody>
+						<tr class:hidden={!description}>
+							<td class="font-Poppins text-[20px] font-[700]">description:</td>
+							<td class="font-Poppins">{description}</td>
+						</tr>
+						<tr class:hidden={!colors}>
+							<td class="font-Poppins text-[20px] font-[700]">colors:</td>
+							<td class="font-Poppins">{colors}</td>
+						</tr>
+						<tr class:hidden={!material}>
+							<td class="font-Poppins text-[20px] font-[700]">material:</td>
+							<td class="font-Poppins">{material}</td>
+						</tr>
+						<tr class:hidden={!options}>
+							<td class="font-Poppins text-[20px] font-[700]">options:</td>
+							<td class="font-Poppins">{@html options}</td>
+						</tr>
+						<tr class:hidden={!details}>
+							<td class="font-Poppins text-[20px] font-[700]">details:</td>
+							<td class="font-Poppins">{details}</td>
+						</tr>
+						<tr class:hidden={!sizes}>
+							<td class="font-Poppins text-[20px] font-[700]">sizes:</td>
+							<td class="font-Poppins">{@html sizes}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<img
+					src="/branding.png"
+					alt=""
+					class="mx-auto my-4 max-h-[100px] min-w-[min(200px,15vw)]"
+				/>
+			</div>
+			<div class="mt-auto">
+				<button
+					onclick={() => (showOrderForm = true)}
+					class="mt-2 h-[40px] w-full rounded-md bg-[#609966] px-[10px] font-Poppins text-[20px] font-[700] text-white"
+					>Place Order</button
+				>
 			</div>
 		</div>
-	{/if}
-</div>
+	</div>
+{/if}
 {#if showOrderForm}
 	<PlaceOrder bind:show={showOrderForm} />
 {/if}
 
 <style>
-	p {
-		font-family: Poppins;
-		font-weight: 400;
-		font-size: 20px;
-	}
 	.branding button {
 		background-color: white;
 		font-family: Poppins;
@@ -113,5 +124,9 @@
 	}
 	button:active {
 		transform: scale(0.9);
+	}
+	td {
+		padding: 0 20px;
+		vertical-align: top;
 	}
 </style>

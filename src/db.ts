@@ -116,15 +116,20 @@ export function getCategories() {
 		});
 	});
 }
-export function getCategory({ id }: { id: string }) {
+
+export async function getCategory(id_title: string) {
 	return new Promise<Category>((resolve, reject) => {
-		db.get(`SELECT * FROM categories WHERE id = ?`, [id], (err, row) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(row as Category);
+		db.get(
+			`SELECT * FROM categories where id = ? or title_en = ? or title_ka = ?`,
+			[id_title, id_title, id_title],
+			(err, row) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(row as Category);
+				}
 			}
-		});
+		);
 	});
 }
 export async function insertProduct(params: Product) {

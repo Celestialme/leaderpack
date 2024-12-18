@@ -14,14 +14,10 @@
 		<p class="mx-auto my-4 font-Poppins text-[20px] font-[700]">Related Products</p>
 		<div class="my-4 flex items-stretch gap-2 overflow-auto" use:createScroll>
 			{#each relatedProducts as product}
-				<div class="max-w-1/2 max-h-[200px] min-w-[500px] flex-grow">
+				<div class="max-w-1/2 min-w-[500px] flex-grow">
 					<ProductCard
-						class="mb-2 h-full"
 						title={product.title_en}
-						description={product.description_en}
 						src={JSON.parse(product.images)[0]?.url}
-						material={product.material_en}
-						sizes={product.sizes_en}
 						onclick={async () => {
 							goto(
 								`/${$page.params.language}/products/${product[`category_title_${language.value}`]}/${product[`title_${language.value}`].intoSlug()}`

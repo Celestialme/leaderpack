@@ -1,13 +1,18 @@
 <script lang="ts">
-	export let items: string[] = [];
+	let { items }: { items: string[] } = $props();
+	let cleaned = $derived(items.filter((x) => x));
 </script>
 
 <p
-	class="sticky top-[140px] z-20 flex items-center gap-[10px] bg-white py-[20px] font-Poppins text-[20px] font-[400]"
+	class="z-20 flex w-full items-center gap-[10px] bg-white py-[20px] pl-2 font-Poppins text-[20px] font-[400]"
 >
-	{#each items as item, index}
-		<span>{item.replace('_', ' ')}</span>
-		{#if index !== items.length - 1}
+	{#each cleaned as item, index}
+		<span
+			class:w-min={index == 0}
+			class:overflow-visible={index == 0}
+			class="w-min overflow-auto whitespace-nowrap">{item.fromSlug()}</span
+		>
+		{#if index !== cleaned.length - 1}
 			<svg
 				class="!inline-block"
 				width="9"

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { products_el } from '@src/store.svelte';
 
-	import CategoryCard from './CategoryCard.svelte';
+	import ProductCard from './ProductCard.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { language } from '@src/store.svelte';
@@ -10,7 +10,7 @@
 
 <div class="wrapper" bind:this={products_el.value}>
 	{#each categories as category}
-		<CategoryCard
+		<ProductCard
 			src={category.imageURL}
 			title={category[`title_${language.value}`]}
 			onclick={() =>

@@ -21,7 +21,7 @@
 <style>
 	.banner {
 		background: url('/banner.jpg');
-		background-position: 75%;
+		background-position: 75% 75%;
 	}
 	p {
 		font-family: Poppins;

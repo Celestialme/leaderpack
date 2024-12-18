@@ -2,13 +2,29 @@
 	import { contact_el } from '@src/store.svelte';
 	import Search from './Search.svelte';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import Hamburger from './Hamburger.svelte';
 
 	export let show = false;
 	let items: { [key: string]: () => void } = {
-		'ჩვენს შესახებ': () => {},
-		ბლოგი: () => {},
-		კონტაქტი: () => {
-			contact_el.value.scrollIntoView({ behavior: 'smooth' });
+		'ჩვენს შესახებ': () => {
+			goto(`/${$page.params.language}/about`);
+		},
+		ბლოგი: () => {
+			goto(`/${$page.params.language}/blog`);
+			show = false;
+		},
+		კონტაქტი: async () => {
+			if (!contact_el.value) {
+				await goto(`/${$page.params.language}`);
+			}
+			let unsub = contact_el.subscribe(async (el) => {
+				if (el) {
+					setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
+					unsub();
+				}
+			});
 		}
 	};
 	$: {
@@ -23,6 +39,11 @@
 	class="fixed left-0 top-0 z-[200] h-screen w-screen bg-black opacity-30 md:hidden"
 ></div>
 <div class="menu_wrapper md:hidden" class:FadeIn={show}>
+	<Hamburger
+		opened={true}
+		class="absolute right-2 top-[20px] w-[30px] fill-white"
+		onclick={() => (show = false)}
+	></Hamburger>
 	<!-- menu items -->
 	<div class="menu">
 		<Search class="w-full"></Search>
@@ -47,17 +68,17 @@
 		position: fixed;
 		width: 500px;
 		max-width: calc(100vw - 20px);
-		top: 150px;
-		right: 10px;
+		top: 0px;
+		bottom: 0px;
+		right: 0px;
 		z-index: 201;
-		height: 100vh;
 		background-color: #c2ffff1a;
 		backdrop-filter: blur(15px);
 		margin-left: auto;
 		padding-top: 90px;
 		opacity: 0;
 		transform: translate(100%, 0);
-		transition: 0.2s ease-out;
+		transition: 0.2s ease-out transform;
 		border-radius: 6px;
 	}
 	.FadeIn {

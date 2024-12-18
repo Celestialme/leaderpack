@@ -46,7 +46,7 @@ let locales = $derived({
 		return { en: 'Search', ka: 'ძებნა' }[language.value];
 	},
 	why() {
-		return { en: 'Why Leader Pack?', ka: 'რატომ Leader Pack?' }[language.value];
+		return { en: 'Why Leader Pack?', ka: 'რატომ ლიდერ პაკი?' }[language.value];
 	},
 	reason() {
 		return {

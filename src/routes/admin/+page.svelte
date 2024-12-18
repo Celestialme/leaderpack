@@ -2,7 +2,7 @@
 	import AddButton from '@src/components/icons/AddButton.svelte';
 	import axios from 'axios';
 	import CreateCategory from './components/CreateCategory.svelte';
-	import CategoryCard from '@src/components/CategoryCard.svelte';
+	import ProductCard from '@src/components/ProductCard.svelte';
 	import { goto } from '$app/navigation';
 	import Edit from '@src/components/icons/Edit.svelte';
 	import Delete from '@src/components/icons/Delete.svelte';
@@ -61,11 +61,11 @@
 						><Delete /></button
 					>
 				</div>
-				<CategoryCard
+				<ProductCard
 					src={category.imageURL}
 					title={category.title_en}
 					onclick={() => goto(`/admin/products?category_id=${category.id}`)}
-				></CategoryCard>
+				></ProductCard>
 			</div>
 		{/each}
 	</div>
