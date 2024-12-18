@@ -1,10 +1,15 @@
 <script lang="ts">
 	import locales from '@src/locales.svelte';
-	import { products_el } from '@src/store.svelte';
+	import { header_el, products_el } from '@src/store.svelte';
 
 	async function scroll() {
-		let top = products_el.value.getBoundingClientRect().top;
-		window.scrollTo({ top: top - 200, behavior: 'smooth' });
+		let unsub = products_el.subscribe((d) => {
+			if (d) {
+				d.style.scrollMarginTop = header_el().offsetHeight + 'px';
+				d.scrollIntoView({ behavior: 'smooth' });
+				unsub();
+			}
+		});
 	}
 </script>
 

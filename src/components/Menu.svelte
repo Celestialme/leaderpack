@@ -78,7 +78,8 @@
 		padding-top: 90px;
 		opacity: 0;
 		transform: translate(100%, 0);
-		transition: 0.2s ease-out transform;
+		transition: 0.2s ease-out;
+		transition-property: transform opacity;
 		border-radius: 6px;
 	}
 	.FadeIn {
