@@ -37,7 +37,7 @@ let locales = $derived({
 		return { en: 'Blog', ka: 'ბლოგი' }[language.value];
 	},
 	products() {
-		return { en: 'Products', ka: 'პროდუქტები' }[language.value];
+		return { en: 'Products', ka: 'პროდუქცია' }[language.value];
 	},
 	OurCustomers() {
 		return { en: 'Our Customers', ka: 'ჩვენი მომხმარებლები' }[language.value];
@@ -104,8 +104,8 @@ let locales = $derived({
 	},
 	perfect() {
 		return {
-			en: 'Your Product - Perfectly Packaged',
-			ka: 'თქვენი პროდუქტი - იდეალურად შეფუთული'
+			en: 'Your Product <br> Perfectly Packaged',
+			ka: 'თქვენი პროდუქტი <br> იდეალურად შეფუთული'
 		}[language.value];
 	},
 	getStarted() {

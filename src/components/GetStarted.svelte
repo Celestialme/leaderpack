@@ -18,7 +18,7 @@
 >
 	<div class="mr-auto flex flex-col justify-center gap-[20px]">
 		<p class="text-[30px]">{@html locales.deserve()}</p>
-		<p class="text-[16px]">{locales.perfect()}</p>
+		<p class="text-[16px]">{@html locales.perfect()}</p>
 		<button onclick={scroll}>{locales.getStarted()}</button>
 	</div>
 </div>
@@ -31,7 +31,7 @@
 	p {
 		font-family: Poppins;
 		font-weight: 700;
-		color: #ceffce;
+		color:#d8fed8;
 	}
 	button {
 		font-family: Poppins;

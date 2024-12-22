@@ -26,7 +26,7 @@
 	>
 		<p class="font-Poppins">EN</p>
 	</button>
-	<p class="px-2">|</p>
+	<div class="mx-2 w-[2px] h-[15px] bg-black"></div>
 	<button
 		class:text-gray-400={language != 'ka'}
 		onclick={() => {

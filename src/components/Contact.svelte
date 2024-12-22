@@ -20,17 +20,26 @@
 	<p class="mb-[50px] text-center font-Poppins text-[20px] font-[700] text-[#014B82]">{title}</p>
 	<div class="flex flex-wrap items-center justify-evenly gap-[20px]">
 		<div>
-			<p><Media icon="phone" /> +1234567890</p>
-			<p><Media icon="email" /> lorem.ipsum@gmail.com</p>
-			<p><Media icon="facebook" /> @lorem.ipsum</p>
-			<p><Media icon="instagram" /> @lorem.ipsum</p>
-			<p><Media icon="linkedin" /> linkedin.com/lorem.ipsum</p>
+			<a href="tel:+995 510 00 22 28"><Media icon="phone" /> +995 510 00 22 28</a>
+			<a href="mailto:contact@leaderpack.ge"><Media icon="email" /> contact@leaderpack.ge</a>
+			<a href="https://www.facebook.com/leaderpack.ge" target="_blank">
+				<Media icon="facebook" /> @Leader Pack • ლიდერ პაკი
+			</a>
+			<a href="https://www.instagram.com/leaderpack.ge/" target="_blank">
+				<Media icon="instagram" /> ლიდერ პაკი @leaderpack.ge
+			</a>
+			<a href="https://www.linkedin.com/leaderpackge?_l=en_US" target="_blank"
+				><Media icon="linkedin" /> Leader Pack • ლიდერ პაკი</a
+			>
 		</div>
 		<img src="/map.png" width="300px" alt="" />
 	</div>
 </div>
 
 <style>
+	a {
+		display: block;
+	}
 	.altStyle {
 		max-width: min(calc(100% - 20px), 2000px);
 		margin-left: auto;

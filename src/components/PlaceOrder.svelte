@@ -27,8 +27,9 @@
 	<FloatingInput label="phone number" name="phoneNumber" type="text" />
 	<div class="relative flex-grow">
 		<textarea
+		    
 			placeholder=""
-			class="h-full w-full border-2 border-solid border-gray-300 font-Poppins"
+			class="resize-none outline-none h-full w-full border-2 border-solid border-gray-300 font-Poppins"
 			name="message"
 		></textarea>
 		<p class="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 font-Poppins">

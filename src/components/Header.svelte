@@ -41,7 +41,7 @@
 		<Search class="w-[25vw] max-md:hidden"></Search>
 		<button
 			onclick={() => goto(`/${$page.params.language}/about`)}
-			class="min-w-[100px] max-md:hidden">{locales.about()}</button
+			class="max-md:hidden">{locales.about()}</button
 		>
 		<button onclick={() => goto(`/${$page.params.language}/blog`)} class="max-md:hidden"
 			>{locales.blog()}</button
