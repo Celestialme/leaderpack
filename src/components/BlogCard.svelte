@@ -18,6 +18,7 @@
 
 		return el.innerText;
 	}
+	console.log(blog[`title_${language.value}`]);
 </script>
 
 <div

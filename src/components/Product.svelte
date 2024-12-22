@@ -29,7 +29,7 @@
 	{@const details = item[`details_${language.value}`]}
 
 	<div
-		class="mx-auto flex max-w-[2000px] flex-wrap items-stretch justify-center gap-[50px] overflow-visible px-1"
+		class="flex w-full max-w-[2000px] flex-wrap items-stretch justify-center gap-[50px] overflow-visible px-1"
 	>
 		<div class="flex flex-col justify-between">
 			<div class="h-[400px] w-[min(400px,95vw)]">
@@ -53,7 +53,7 @@
 		>
 			<h1 class="mb-[30px] text-center font-Poppins text-[22px] font-[700]">{title}</h1>
 			<div class="flex flex-wrap items-center justify-between">
-				<table class="grow">
+				<table class="max-w-[350px] grow">
 					<tbody>
 						<tr class:hidden={!description}>
 							<td class="font-Poppins text-[20px] font-[700]">description:</td>
