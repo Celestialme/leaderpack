@@ -1,7 +1,12 @@
 export async function load({ fetch, params }) {
-	let category = params.category.replaceAll('_', ' ');
-	let products = await fetch(`/api/products?category=${category}`).then((res) => res.json());
+	let _category = params.category.replaceAll('_', ' ');
+	let products = fetch(`/api/products?category=${_category}`).then((res) => res.json());
+	let category = fetch(`/api/categories?category=${params.category.fromSlug()}`).then((res) =>
+		res.json()
+	);
+	let result = await Promise.all([products, category]);
 	return {
-		products
+		products: result[0],
+		category: result[1]
 	};
 }

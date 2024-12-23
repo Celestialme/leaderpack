@@ -35,13 +35,13 @@
 		bind:this={header_el.value}
 		class="flex min-h-[110px] w-full items-center gap-[35px] bg-[#F0F0F0] px-[10px] max-md:justify-between"
 	>
-		<Language class="absolute right-2 top-2" bind:language={language.value}></Language>
+		<Language class="absolute right-2 top-2 max-md:hidden" bind:language={language.value}
+		></Language>
 		<Logo></Logo>
 		<ProductsButton></ProductsButton>
 		<Search class="w-[25vw] max-md:hidden"></Search>
-		<button
-			onclick={() => goto(`/${$page.params.language}/about`)}
-			class="max-md:hidden">{locales.about()}</button
+		<button onclick={() => goto(`/${$page.params.language}/about`)} class="max-md:hidden"
+			>{locales.about()}</button
 		>
 		<button onclick={() => goto(`/${$page.params.language}/blog`)} class="max-md:hidden"
 			>{locales.blog()}</button
@@ -62,7 +62,7 @@
 	button {
 		font-family: Poppins;
 		font-weight: 600;
-		color: #757575;
+		color: #414141;
 		font-size: min(calc(0.8vw + 8px), 25px);
 	}
 </style>

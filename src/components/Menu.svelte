@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { contact_el } from '@src/store.svelte';
+	import { contact_el, language } from '@src/store.svelte';
 	import Search from './Search.svelte';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Hamburger from './Hamburger.svelte';
+	import Language from './Language.svelte';
 
 	export let show = false;
 	let items: { [key: string]: () => void } = {
@@ -39,6 +40,7 @@
 	class="fixed left-0 top-0 z-[200] h-screen w-screen bg-black opacity-30 md:hidden"
 ></div>
 <div class="menu_wrapper md:hidden" class:FadeIn={show}>
+	<Language class="absolute left-2 top-[20px]" bind:language={language.value}></Language>
 	<Hamburger
 		opened={true}
 		class="absolute right-2 top-[20px] w-[30px] fill-white"
@@ -99,7 +101,7 @@
 	p {
 		position: relative;
 
-		font-family: mtavruli;
+		font-family: Poppins;
 		color: white;
 		cursor: pointer;
 	}
