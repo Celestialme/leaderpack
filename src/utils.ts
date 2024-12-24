@@ -2,6 +2,7 @@ import type { Page } from '@sveltejs/kit';
 
 import { get, type Readable } from 'svelte/store';
 import type { Category, ImageFile, Product, UploadedImage } from './types';
+import { page } from '$app/stores';
 
 export let throttle = (delay: number) => {
 	let first = true;
@@ -108,33 +109,33 @@ export function getProductThumbnail(product: Product) {
 	return images.find((i) => i.thumbnail == true)?.url;
 }
 
-export function getProductsByCategory(
-	data: { categories: Category[]; products: Product[] },
-	category: string
-) {
-	let category_id = getCategory(data, category)?.id;
+export function getProductsByCategory(..._: any) {
+	let data = get(page).data as { categories: Category[]; products: Product[] };
+	let category_id = getCategory()?.id;
 	return data.products.filter((x) => x.category_id == category_id) || [];
 }
-export function getCategory(data: { categories: Category[] }, category: string) {
+export function getCategory() {
+	let data = get(page).data as { categories: Category[] };
+	let category = get(page).params.category;
 	return data.categories.find(
 		(x) =>
 			x.title_en.intoSlug() == category?.intoSlug() || x.title_ka.intoSlug() == category?.intoSlug()
 	);
 }
-export function getProductByTitle(
-	data: { categories: Category[]; products: Product[] },
-	category: string,
-	title: string
-) {
+export function getProduct(..._: any) {
+	let params = get(page).params;
+	let title = params.product;
+	let category = params.category;
 	if (!title || !category) return {} as Product;
-	let products = getProductsByCategory(data, category);
+	let products = getProductsByCategory();
 
 	let product = products.find(
 		(x) => x.title_en.intoSlug() == title.intoSlug() || x.title_ka.intoSlug() == title.intoSlug()
 	);
 	return product as Product;
 }
-export function getProductById(data: { categories: Category[]; products: Product[] }, id: string) {
+export function getProductById(id: string) {
+	let data = get(page).data as { categories: Category[]; products: Product[] };
 	let product = data.products.find((x) => x.id == id);
 	return product as Product;
 }

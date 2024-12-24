@@ -55,7 +55,7 @@
 		<CloseIcon class="" onclick={() => (show = false)} />
 	</div>
 	<Search bind:value={search} class="mb-2 w-full"></Search>
-	<div class="overflow-auto">
+	<div class="flex flex-wrap justify-center gap-5 overflow-auto">
 		{#each filteredProducts as product}
 			<ProductCard
 				class="mb-2"
@@ -70,25 +70,27 @@
 		{/each}
 	</div>
 	<div
-		class="overflow-auto"
+		class=" overflow-auto"
 		class:hidden={filteredProducts.length > 0 || relatedProducts.array.length === 0}
 	>
 		<p class="py-2 font-Poppins text-[20px] font-[700]">Saved Related Products</p>
-		{#each relatedProducts.array as product}
-			<div class="relative">
-				<Delete
-					onclick={() => {
-						relatedProducts.array = relatedProducts.array.filter((p) => p !== product);
-						relatedProducts = relatedProducts;
-					}}
-					class="absolute right-2 top-2 cursor-pointer"
-				/>
-				<ProductCard
-					class="mb-2"
-					title={product.title_en}
-					src={JSON.parse(product.images)[0]?.url}
-				/>
-			</div>
-		{/each}
+		<div class="flex flex-wrap justify-center gap-5">
+			{#each relatedProducts.array as product}
+				<div class="relative">
+					<Delete
+						onclick={() => {
+							relatedProducts.array = relatedProducts.array.filter((p) => p !== product);
+							relatedProducts = relatedProducts;
+						}}
+						class="absolute right-2 top-2 cursor-pointer"
+					/>
+					<ProductCard
+						class="mb-2"
+						title={product.title_en}
+						src={JSON.parse(product.images)[0]?.url}
+					/>
+				</div>
+			{/each}
+		</div>
 	</div>
 </div>

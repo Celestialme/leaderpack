@@ -2,19 +2,17 @@
 	import { page } from '$app/stores';
 	import type { Category, Product } from '@src/types';
 	import ProductCard from './ProductCard.svelte';
-	import { createScroll, getProductByTitle, getProductById } from '@src/utils';
+	import { createScroll, getProduct, getProductById } from '@src/utils';
 	import { goto } from '$app/navigation';
 	import { language } from '@src/store.svelte';
 
-	let item = $derived(
-		getProductByTitle($page.data as any, $page.params.category, $page.params.product)
-	);
+	let item = $derived(getProduct($page.params));
 	let relatedProducts = $derived(
 		item.relatedProducts
 			.split(',')
 			.filter((id) => id)
 			.map((id) => {
-				let product = getProductById($page.data as any, id);
+				let product = getProductById(id);
 				let category = $page.data.categories.find((c: Category) => c.id == product.category_id);
 				return {
 					...product,

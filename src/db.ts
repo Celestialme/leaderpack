@@ -305,7 +305,7 @@ export async function updateBlog({
 export async function getData() {
 	let resp: any = await query(
 		`SELECT * FROM categories ORDER BY created_at ASC;
-		SELECT * FROM products;`
+		SELECT * FROM products ORDER BY created_at ASC;`
 	);
 	return {
 		categories: resp[0].rows,

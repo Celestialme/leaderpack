@@ -5,13 +5,13 @@
 	import { page } from '$app/stores';
 	import ProductsButton from './ProductsButton.svelte';
 	import Logo from './icons/Logo.svelte';
-	import Search from './Search.svelte';
 	import Menu from './Menu.svelte';
 	import Hamburger from './Hamburger.svelte';
 	import Language from './Language.svelte';
 	import locales from '@src/locales.svelte';
 	import { goto } from '$app/navigation';
 	import BreadCrumb from './BreadCrumb.svelte';
+	import SearchContent from './SearchContent.svelte';
 
 	async function scroll() {
 		if (!contact_el.value) {
@@ -39,7 +39,7 @@
 		></Language>
 		<Logo></Logo>
 		<ProductsButton></ProductsButton>
-		<Search class="w-[25vw] max-md:hidden"></Search>
+		<SearchContent class="w-[25vw] max-md:hidden"></SearchContent>
 		<button onclick={() => goto(`/${$page.params.language}/about`)} class="max-md:hidden"
 			>{locales.about()}</button
 		>

@@ -1,22 +1,25 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import type { Product, UploadedImage } from '@src/types';
+	import type { UploadedImage } from '@src/types';
 	import { language } from '@src/store.svelte';
 
 	import ImageSlider from './ImageSlider.svelte';
-	import { getProductByTitle, getProductThumbnail } from '@src/utils';
+	import { getProduct } from '@src/utils';
 	import PlaceOrder from './PlaceOrder.svelte';
+	import { page } from '$app/stores';
 
-	let branded = false;
-	let showOrderForm = false;
-	$: item = getProductByTitle($page.data as any, $page.params.category, $page.params.product);
+	let branded = $state(false);
+	let showOrderForm = $state(false);
+	let item = $derived(getProduct($page.params));
 
-	$: images = (JSON.parse(item.images) as UploadedImage[])
-		.filter((i) => !!i.branded == branded)
-		.map((i) => i.url);
-	$: {
+	let images = $derived(
+		(JSON.parse(item.images) as UploadedImage[])
+			.filter((i) => !!i.branded == branded)
+			.map((i) => i.url)
+	);
+
+	$effect(() => {
 		globalThis.document && document.body.classList.toggle('overflow-hidden', showOrderForm);
-	}
+	});
 </script>
 
 {#if item}

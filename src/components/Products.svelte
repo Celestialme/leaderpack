@@ -5,7 +5,7 @@
 	import { getProductsByCategory, getProductThumbnail } from '@src/utils';
 	import ProductCard from './ProductCard.svelte';
 	let category = $derived($page.params.category);
-	let products = $derived(getProductsByCategory($page.data as any, category));
+	let products = $derived(getProductsByCategory($page.params));
 </script>
 
 <div class="p-[20px]">

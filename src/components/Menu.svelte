@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { contact_el, language } from '@src/store.svelte';
-	import Search from './Search.svelte';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Hamburger from './Hamburger.svelte';
 	import Language from './Language.svelte';
+	import SearchContent from './SearchContent.svelte';
 
 	export let show = false;
 	let items: { [key: string]: () => void } = {
@@ -48,7 +48,7 @@
 	></Hamburger>
 	<!-- menu items -->
 	<div class="menu">
-		<Search class="w-full"></Search>
+		<SearchContent class="w-full"></SearchContent>
 		{#each Object.keys(items) as item}
 			<div class="select-none rounded-md bg-[#0000002e] p-[10px]">
 				<p

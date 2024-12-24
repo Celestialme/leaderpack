@@ -2,18 +2,14 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import { getCategory, getProductByTitle, replaceParams } from '@src/utils';
+	import { getCategory, getProduct, replaceParams } from '@src/utils';
 
 	export let navigate = true;
 	export let language = 'en';
 	function updateURL() {
 		language = language === 'en' ? 'ka' : 'en';
-		let category = getCategory($page.data as any, $page.params.category) as any;
-		let product = getProductByTitle(
-			$page.data as any,
-			$page.params.category,
-			$page.params.product
-		) as any;
+		let category = getCategory() as any;
+		let product = getProduct() as any;
 		let newUrl = replaceParams(page, {
 			language,
 			product: product?.[`title_${language}`]?.intoSlug() || '',
