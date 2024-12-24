@@ -9,13 +9,15 @@
 	import Faq from '@src/components/FAQ.svelte';
 </script>
 
-<div class="flex h-screen flex-col">
+<div class="flex h-screen flex-col items-center">
 	<Header></Header>
-	<GetStarted></GetStarted>
-	<Categories></Categories>
-	<Features></Features>
-	<Customers></Customers>
-	<Faq></Faq>
-	<Contact></Contact>
+	<div class="flex max-w-[2000px] flex-col">
+		<GetStarted></GetStarted>
+		<Categories></Categories>
+		<Features></Features>
+		<Customers></Customers>
+		<Faq></Faq>
+		<Contact></Contact>
+	</div>
 	<Footer></Footer>
 </div>

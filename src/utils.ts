@@ -1,7 +1,7 @@
 import type { Page } from '@sveltejs/kit';
 
 import { get, type Readable } from 'svelte/store';
-import type { ImageFile, Product, UploadedImage } from './types';
+import type { Category, ImageFile, Product, UploadedImage } from './types';
 
 export let throttle = (delay: number) => {
 	let first = true;
@@ -21,10 +21,10 @@ export let throttle = (delay: number) => {
 };
 
 String.prototype.intoSlug = function (this: string): string {
-	return this.replace(/\s+/g, '_').replace(/\//g, '|');
+	return this.replace(/\s+/g, '_').replace(/\//g, '|').replaceAll('?', '%3F');
 };
 String.prototype.fromSlug = function (this: string): string {
-	return this.replace(/[_-]/g, ' ').replace(/\|/g, '/');
+	return this.replace(/[_-]/g, ' ').replace(/\|/g, '/').replaceAll('%3F', '?');
 };
 
 export function obj2formData(obj: any) {
@@ -106,4 +106,35 @@ export function createScroll(node: HTMLElement) {
 export function getProductThumbnail(product: Product) {
 	let images = JSON.parse(product.images) as UploadedImage[];
 	return images.find((i) => i.thumbnail == true)?.url;
+}
+
+export function getProductsByCategory(
+	data: { categories: Category[]; products: Product[] },
+	category: string
+) {
+	let category_id = getCategory(data, category)?.id;
+	return data.products.filter((x) => x.category_id == category_id) || [];
+}
+export function getCategory(data: { categories: Category[] }, category: string) {
+	return data.categories.find(
+		(x) =>
+			x.title_en.intoSlug() == category?.intoSlug() || x.title_ka.intoSlug() == category?.intoSlug()
+	);
+}
+export function getProductByTitle(
+	data: { categories: Category[]; products: Product[] },
+	category: string,
+	title: string
+) {
+	if (!title || !category) return {} as Product;
+	let products = getProductsByCategory(data, category);
+
+	let product = products.find(
+		(x) => x.title_en.intoSlug() == title.intoSlug() || x.title_ka.intoSlug() == title.intoSlug()
+	);
+	return product as Product;
+}
+export function getProductById(data: { categories: Category[]; products: Product[] }, id: string) {
+	let product = data.products.find((x) => x.id == id);
+	return product as Product;
 }

@@ -109,12 +109,8 @@
 		bind:value={productData.value[language].colors}
 	></FloatingInput>
 	<ArrayInput bind:value={productData.value[language].options} label="options" />
-	<FloatingInput
-		label="details"
-		name="details"
-		type="text"
-		bind:value={productData.value[language].details}
-	></FloatingInput>
+	<ArrayInput bind:value={productData.value[language].details} label="details" />
+
 	<div class="flex w-full items-center justify-between font-Poppins">
 		Branding <Switch bind:checked={productData.value.branding} />
 	</div>

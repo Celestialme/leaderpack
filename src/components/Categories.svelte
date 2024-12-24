@@ -5,8 +5,13 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { language } from '@src/store.svelte';
+	import locales from '@src/locales.svelte';
 	let categories = $page.data.categories;
 </script>
+
+<svelte:head>
+	<meta property="og:title" content={locales.categories()} />
+</svelte:head>
 
 <div class="wrapper" bind:this={products_el.value}>
 	{#each categories as category}

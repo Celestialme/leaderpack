@@ -26,14 +26,16 @@ export function init_db() {
 	title_en TEXT NOT NULL,
 	title_ka TEXT NOT NULL,
 	content_en TEXT NOT NULL,
-	content_ka TEXT NOT NULL
+	content_ka TEXT NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`);
 
 	query(`CREATE TABLE IF NOT EXISTS categories (
     id TEXT PRIMARY KEY ,
 	title_en TEXT NOT NULL,
     title_ka TEXT NOT NULL,
-	"imageURL" TEXT NOT NULL
+	"imageURL" TEXT NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );`);
 
 	query(`CREATE TABLE IF NOT EXISTS products (
@@ -55,7 +57,8 @@ export function init_db() {
 	details_ka TEXT NOT NULL,
 	branding INTEGER NOT NULL,
 	"relatedProducts" TEXT,
-	images TEXT NOT NULL
+	images TEXT NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	);`);
 }
 export async function insertCategory({
@@ -98,7 +101,7 @@ export async function deleteCategory({ id }: { id: string }) {
 	await imageKit.deleteFolder(`LeaderPack/${id}`);
 }
 export function getCategories() {
-	return query(`SELECT * FROM categories`).then((res) => res.rows);
+	return query(`SELECT * FROM categories ORDER BY created_at ASC`).then((res) => res.rows);
 }
 
 export async function getCategory(id_title: string) {
@@ -217,16 +220,16 @@ export function getProducts(params: { category_id: string }): any;
 export function getProducts(params: { category: string }): any;
 export function getProducts(params: { category?: string; category_id?: string; all?: true }) {
 	if (params?.category_id) {
-		return query(`SELECT * FROM products where category_id = $1`, [params.category_id]).then(
-			(res) => res.rows
-		);
+		return query(`SELECT * FROM products where category_id = $1 ORDER BY created_at ASC`, [
+			params.category_id
+		]).then((res) => res.rows);
 	} else if (params?.category) {
 		return query(
-			`SELECT products.* FROM  categories,products where category_id = categories.id and (categories.title_en = $1 or categories.title_ka = $1)`,
+			`SELECT products.* FROM  categories,products where category_id = categories.id and (categories.title_en = $1 or categories.title_ka = $1) ORDER BY created_at ASC`,
 			[params.category]
 		).then((res) => res.rows);
 	} else if (params?.all) {
-		return query(`SELECT * FROM products`).then((res) => res.rows);
+		return query(`SELECT * FROM products ORDER BY created_at ASC`).then((res) => res.rows);
 	}
 }
 
@@ -297,4 +300,15 @@ export async function updateBlog({
 		`UPDATE blogs SET title_en = $1, title_ka = $2 , content_en = $3 , content_ka = $4 WHERE id = $5`,
 		[title_en, title_ka, content_en, content_ka, id]
 	);
+}
+
+export async function getData() {
+	let resp: any = await query(
+		`SELECT * FROM categories ORDER BY created_at ASC;
+		SELECT * FROM products;`
+	);
+	return {
+		categories: resp[0].rows,
+		products: resp[1].rows
+	};
 }

@@ -27,11 +27,13 @@
 	.banner {
 		background: url('/banner.jpg');
 		background-position: 75% 75%;
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 	p {
 		font-family: Poppins;
 		font-weight: 700;
-		color:#d8fed8;
+		color: #d8fed8;
 	}
 	button {
 		font-family: Poppins;

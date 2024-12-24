@@ -5,6 +5,7 @@
 	let side2 = images[index];
 	let first = true;
 	let is_running = false;
+
 	function change(d: number) {
 		if (is_running) return;
 		is_running = true;
@@ -29,7 +30,7 @@
 </script>
 
 {#key index}
-	<div class="relative h-full w-full overflow-hidden bg-[#65ba89]">
+	<div class="relative h-full w-full overflow-hidden">
 		<div class:opacity-0={is_running} class="arrow left" onclick={() => change(-1)}></div>
 		<div class:opacity-0={is_running} class="arrow right" onclick={() => change(1)}></div>
 		<img src={side1} alt="" class:animate={index !== 0 || !first} />

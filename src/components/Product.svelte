@@ -4,12 +4,12 @@
 	import { language } from '@src/store.svelte';
 
 	import ImageSlider from './ImageSlider.svelte';
-	import { getProductThumbnail } from '@src/utils';
+	import { getProductByTitle, getProductThumbnail } from '@src/utils';
 	import PlaceOrder from './PlaceOrder.svelte';
 
 	let branded = false;
 	let showOrderForm = false;
-	$: item = $page.data.product as Product;
+	$: item = getProductByTitle($page.data as any, $page.params.category, $page.params.product);
 
 	$: images = (JSON.parse(item.images) as UploadedImage[])
 		.filter((i) => !!i.branded == branded)
@@ -26,7 +26,7 @@
 	{@const material = item[`material_${language.value}`]}
 	{@const colors = item[`colors_${language.value}`]}
 	{@const options = JSON.parse(item[`options_${language.value}`] || '[]').join('<br>')}
-	{@const details = item[`details_${language.value}`]}
+	{@const details = JSON.parse(item[`details_${language.value}`] || '[]').join('<br>')}
 
 	<div
 		class="flex w-full max-w-[2000px] flex-wrap items-stretch justify-center gap-[50px] overflow-visible px-1"
@@ -38,7 +38,7 @@
 						<ImageSlider {images}></ImageSlider>
 					{/key}
 				{:else}
-					<img class="h-full w-full grow" src={getProductThumbnail(item)} alt="Box" width="300" />
+					<img class="h-full w-full grow" src={images[0]} alt="Box" width="300" />
 				{/if}
 			</div>
 			{#if item.branding}

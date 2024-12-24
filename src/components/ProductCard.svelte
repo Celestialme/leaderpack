@@ -3,6 +3,7 @@
 		title: any;
 		src?: string;
 		onclick?: () => void;
+		class?: string;
 	}
 
 	let { title, src = '/cardbear.png', ...props }: Props = $props();
@@ -18,6 +19,6 @@
 		<img {src} alt="category" />
 	</div>
 	<div class="flex h-[100px] items-center justify-center bg-[#F5F5DCC4]">
-		<p class="font-Poppins text-[22px] font-[700] text-[#005500]">{title}</p>
+		<p class="text-center font-Poppins text-[22px] font-[700] text-[#005500]">{title}</p>
 	</div>
 </div>

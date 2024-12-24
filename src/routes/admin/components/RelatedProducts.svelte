@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import CloseIcon from '@src/components/icons/CloseIcon.svelte';
 	import Delete from '@src/components/icons/Delete.svelte';
 	import ProductCard from '@src/components/ProductCard.svelte';
@@ -62,10 +60,7 @@
 			<ProductCard
 				class="mb-2"
 				title={product.title_en}
-				description={product.description_en}
 				src={JSON.parse(product.images)[0]?.url}
-				material={product.material_en}
-				sizes={product.sizes_en}
 				onclick={() => {
 					relatedProducts.array.push(product);
 					relatedProducts = relatedProducts;
@@ -91,10 +86,7 @@
 				<ProductCard
 					class="mb-2"
 					title={product.title_en}
-					description={product.description_en}
 					src={JSON.parse(product.images)[0]?.url}
-					material={product.material_en}
-					sizes={product.sizes_en}
 				/>
 			</div>
 		{/each}

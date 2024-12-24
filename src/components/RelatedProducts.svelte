@@ -1,22 +1,38 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { Product } from '@src/types';
+	import type { Category, Product } from '@src/types';
 	import ProductCard from './ProductCard.svelte';
-	import { createScroll } from '@src/utils';
+	import { createScroll, getProductByTitle, getProductById } from '@src/utils';
 	import { goto } from '$app/navigation';
 	import { language } from '@src/store.svelte';
-	let relatedProducts: (Product & { category_title_en: string; category_title_ka: string })[] =
-		$derived($page.data?.product?.relatedProducts || []);
+
+	let item = $derived(
+		getProductByTitle($page.data as any, $page.params.category, $page.params.product)
+	);
+	let relatedProducts = $derived(
+		item.relatedProducts
+			.split(',')
+			.filter((id) => id)
+			.map((id) => {
+				let product = getProductById($page.data as any, id);
+				let category = $page.data.categories.find((c: Category) => c.id == product.category_id);
+				return {
+					...product,
+					category_title_en: category[`title_en`],
+					category_title_ka: category[`title_ka`]
+				};
+			})
+	);
 </script>
 
 {#if relatedProducts.length > 0}
 	<div class="p-[20px]">
 		<p class="mx-auto my-4 font-Poppins text-[20px] font-[700]">Related Products</p>
-		<div class="my-4 flex items-stretch gap-2 overflow-auto" use:createScroll>
+		<div class="my-4 flex gap-[50px] overflow-auto" use:createScroll>
 			{#each relatedProducts as product}
-				<div class="max-w-1/2 min-w-[500px] flex-grow">
+				<div class="max-w-1/2">
 					<ProductCard
-						title={product.title_en}
+						title={product[`title_${language.value}`]}
 						src={JSON.parse(product.images)[0]?.url}
 						onclick={async () => {
 							goto(

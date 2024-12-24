@@ -1,6 +1,12 @@
 import { language } from './store.svelte';
 
 let locales = $derived({
+	noResults() {
+		return {
+			en: 'Nothing was Found',
+			ka: 'პროდუქცია ვერ მოიძებნა'
+		}[language.value];
+	},
 	about() {
 		return {
 			en: 'About us',
@@ -38,6 +44,9 @@ let locales = $derived({
 	},
 	products() {
 		return { en: 'Products', ka: 'პროდუქცია' }[language.value];
+	},
+	categories() {
+		return { en: 'Categories', ka: 'კატეგორიები' }[language.value];
 	},
 	OurCustomers() {
 		return { en: 'Our Customers', ka: 'ჩვენი მომხმარებლები' }[language.value];
