@@ -5,6 +5,7 @@
 	import { createScroll, getProduct, getProductById } from '@src/utils';
 	import { goto } from '$app/navigation';
 	import { language } from '@src/store.svelte';
+	import locales from '@src/locales.svelte';
 
 	let item = $derived(getProduct($page.params));
 	let relatedProducts = $derived(
@@ -24,8 +25,8 @@
 </script>
 
 {#if relatedProducts.length > 0}
-	<div class="p-[20px]">
-		<p class="mx-auto my-4 font-Poppins text-[20px] font-[700]">Related Products</p>
+	<div class="w-full max-w-[2000px] p-[20px]">
+		<p class="mx-auto my-4 font-Poppins text-[20px] font-[700]">{locales.relatedProducts()}</p>
 		<div class="my-4 flex gap-[50px] overflow-auto" use:createScroll>
 			{#each relatedProducts as product}
 				<div class="max-w-1/2">

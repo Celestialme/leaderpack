@@ -6,6 +6,7 @@
 	import { getProduct } from '@src/utils';
 	import PlaceOrder from './PlaceOrder.svelte';
 	import { page } from '$app/stores';
+	import locales from '@src/locales.svelte';
 
 	let branded = $state(false);
 	let showOrderForm = $state(false);
@@ -46,8 +47,12 @@
 			</div>
 			{#if item.branding}
 				<div class="branding mt-2 flex gap-2">
-					<button onclick={() => (branded = true)} class:active={branded}>Branded</button>
-					<button onclick={() => (branded = false)} class:active={!branded}>Unbranded</button>
+					<button onclick={() => (branded = true)} class:active={branded}
+						>{locales.branded()}</button
+					>
+					<button onclick={() => (branded = false)} class:active={!branded}
+						>{locales.unbranded()}</button
+					>
 				</div>
 			{/if}
 		</div>
@@ -56,7 +61,7 @@
 		>
 			<h1 class="mb-[30px] text-center font-Poppins text-[22px] font-[700]">{title}</h1>
 			<div class="flex flex-wrap items-center justify-between">
-				<table class="max-w-[350px] grow">
+				<table class="grow">
 					<tbody>
 						<tr class:hidden={!description}>
 							<td class="font-Poppins text-[20px] font-[700]">description:</td>
@@ -95,7 +100,7 @@
 				<button
 					onclick={() => (showOrderForm = true)}
 					class="mt-2 h-[40px] w-full rounded-md bg-[#609966] px-[10px] font-Poppins text-[20px] font-[700] text-white"
-					>Place Order</button
+					>{locales.placeOrder()}</button
 				>
 			</div>
 		</div>
@@ -129,7 +134,7 @@
 		transform: scale(0.9);
 	}
 	td {
-		padding: 0 20px;
+		padding: 0 5px;
 		vertical-align: top;
 	}
 </style>

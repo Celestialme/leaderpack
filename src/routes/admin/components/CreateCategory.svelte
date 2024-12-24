@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import FloatingInput from '@src/components/FloatingInput.svelte';
 	import Language from '@src/components/Language.svelte';
 	import type { CategoryData, Mode } from '@src/types';
@@ -11,6 +9,8 @@
 	import { track, inputError } from '@src/store.svelte';
 	async function save() {
 		if (inputError.value.message) return;
+		data.en.title = data.en.title.trim();
+		data.ka.title = data.ka.title.trim();
 		if (mode === 'create') await axios.put('/api/categories', obj2formData(data));
 		else if (mode === 'edit') await axios.patch('/api/categories', obj2formData(data));
 		show = false;
@@ -55,6 +55,7 @@
 		},
 		() => data[language].title
 	);
+
 	onDestroy(() => {
 		inputError.value.clear();
 	});

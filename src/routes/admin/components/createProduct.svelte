@@ -15,6 +15,8 @@
 
 	async function save() {
 		if (inputError.value.message) return;
+		productData().en.title = productData().en.title.trim();
+		productData().ka.title = productData().ka.title.trim();
 		if (mode === 'create') {
 			await axios.put(
 				'/api/products',
@@ -29,6 +31,9 @@
 			);
 		} else if (mode === 'edit') {
 			console.log(productData());
+			productData().en.title = productData().en.title.trim();
+			productData().ka.title = productData().ka.title.trim();
+
 			await axios.patch(
 				'/api/products',
 				obj2formData({

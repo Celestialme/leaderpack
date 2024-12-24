@@ -9,16 +9,16 @@
 	import type { Category, CategoryData } from '@src/types';
 	import Logout from './components/Logout.svelte';
 
-	let categories: any[] = [];
+	let categories: any[] = $state([]);
 	function refresh() {
 		axios.get('/api/categories').then((res) => {
 			categories = res.data;
 		});
 	}
 	refresh();
-	let data: CategoryData | undefined;
-	let showDialog = false;
-	let mode: 'create' | 'edit' = 'create';
+	let data: CategoryData | undefined = $state();
+	let showDialog = $state(false);
+	let mode: 'create' | 'edit' = $state('create');
 	function editCategory(category: Category) {
 		data = {
 			image: category.imageURL,

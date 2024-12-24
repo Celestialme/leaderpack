@@ -123,6 +123,31 @@ let locales = $derived({
 			ka: 'დაწყება'
 		}[language.value];
 	},
+	relatedProducts() {
+		return {
+			en: 'Related Products',
+			ka: 'მსგავსი პროდუქცია'
+		}[language.value];
+	},
+	branded() {
+		return {
+			en: 'Branded',
+			ka: 'დაბრენდილი'
+		}[language.value];
+	},
+	unbranded() {
+		return {
+			en: 'Unbranded',
+			ka: 'დაუბრენდავი'
+		}[language.value];
+	},
+	placeOrder() {
+		return {
+			en: 'Place Order',
+			ka: 'განათავსეთ შეკვეთა'
+		}[language.value];
+	},
+
 	faqs() {
 		return {
 			en: [
