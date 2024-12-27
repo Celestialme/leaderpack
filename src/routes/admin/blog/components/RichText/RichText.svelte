@@ -17,7 +17,7 @@
 	import ImageResize from './extensions/ImageResize';
 	// import FileInput from './components/FileInput.svelte';
 	import { storage_data, createRandomID, debounce } from './utils';
-	import { language, inputError } from '@src/store.svelte';
+	import { language, notification } from '@src/store.svelte';
 	import ImageDescription from './components/ImageDescription.svelte';
 	import type { Transaction } from '@tiptap/pm/state';
 
@@ -137,7 +137,7 @@
 		if (editor) {
 			editor.destroy();
 		}
-		inputError.value.clear();
+		notification.value.clear();
 	});
 	let textTypes: ComponentProps<typeof DropDown>['items'] = $derived([
 		{
@@ -291,9 +291,9 @@
 	});
 	run(() => {
 		if (_data?.header?.[language.value]?.includes('_')) {
-			inputError.value.set({ message: '_ is not allowed in title', type: 'error' });
+			notification.value.set({ message: '_ is not allowed in title', type: 'error' });
 		} else {
-			inputError.value.clear();
+			notification.value.clear();
 		}
 	});
 </script>

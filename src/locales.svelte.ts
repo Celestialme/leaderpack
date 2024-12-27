@@ -1,6 +1,60 @@
 import { language } from './store.svelte';
 
 let locales = $derived({
+	name() {
+		return {
+			en: 'Name or Company Name',
+			ka: 'სახელი ან კომპანიის სახელი'
+		}[language.value];
+	},
+	mail() {
+		return {
+			en: 'Email',
+			ka: 'ელ-ფოსტა'
+		}[language.value];
+	},
+	phone() {
+		return {
+			en: 'Phone Number',
+			ka: 'ტელეფონის ნომერი'
+		}[language.value];
+	},
+	extraInformation() {
+		return {
+			en: 'Extra Information',
+			ka: 'დამატებითი ინფორმაცია'
+		}[language.value];
+	},
+	send() {
+		return {
+			en: 'Send',
+			ka: 'გაგზავნა'
+		}[language.value];
+	},
+	nameError() {
+		return {
+			en: 'Please enter your or company name',
+			ka: 'გთხოვთ შეიყვანოთ თქვენი ან კომპანიის სახელი'
+		}[language.value];
+	},
+	emailOrNumberError() {
+		return {
+			en: 'at least one of email or phone number must be provided',
+			ka: 'საჭიროა მითებული იყოს მინიმუმ ტელეფონის ნომერი ან ელ-ფოსტა'
+		}[language.value];
+	},
+	orderPlaced() {
+		return {
+			en: 'Order Placed',
+			ka: 'შეკვეთა მიღებულია'
+		}[language.value];
+	},
+	map() {
+		return {
+			en: 'Show on map',
+			ka: 'რუკაზე ნახვა'
+		}[language.value];
+	},
 	noResults() {
 		return {
 			en: 'Nothing was Found',
@@ -41,6 +95,9 @@ let locales = $derived({
 	},
 	blog() {
 		return { en: 'Blog', ka: 'ბლოგი' }[language.value];
+	},
+	willBeAddedSoon() {
+		return { en: 'Content will be added soon', ka: 'კონტენტი მალე დაემატება' }[language.value];
 	},
 	products() {
 		return { en: 'Products', ka: 'პროდუქცია' }[language.value];
@@ -90,7 +147,7 @@ let locales = $derived({
 	customization() {
 		return {
 			en: 'Customization',
-			ka: 'კუსტომიზაცია'
+			ka: 'პერსონალური ბრენდირება'
 		}[language.value];
 	},
 	customizationExtra() {
@@ -108,7 +165,7 @@ let locales = $derived({
 	deserve() {
 		return {
 			en: 'Your Product Deserves <br> Leader Pack',
-			ka: 'თქვენი პროდუქცია იმსახურებს<br>ლიდერ პაკს'
+			ka: 'თქვენი პროდუქცია იმსახურებს <br> ლიდერ პაკს'
 		}[language.value];
 	},
 	perfect() {
@@ -147,14 +204,55 @@ let locales = $derived({
 			ka: 'განათავსეთ შეკვეთა'
 		}[language.value];
 	},
-
+	description() {
+		return {
+			en: 'Description',
+			ka: 'აღწერა'
+		}[language.value];
+	},
+	colors() {
+		return {
+			en: 'Colors',
+			ka: 'ფერები'
+		}[language.value];
+	},
+	material() {
+		return {
+			en: 'Material',
+			ka: 'მასალა'
+		}[language.value];
+	},
+	sizes() {
+		return {
+			en: 'Sizes',
+			ka: 'ზომები'
+		}[language.value];
+	},
+	details() {
+		return {
+			en: 'Details',
+			ka: 'დეტალები'
+		}[language.value];
+	},
+	options() {
+		return {
+			en: 'Options',
+			ka: 'ვარიანტები'
+		}[language.value];
+	},
+	home() {
+		return {
+			en: 'Home',
+			ka: 'მთავარი'
+		}[language.value];
+	},
 	faqs() {
 		return {
 			en: [
 				{
 					question: 'Can I customize the packaging with my own design or logo?',
 					answer:
-						'Yes! We provide full customization options for some of our packaging products. You can personalize the size, shape, color, and design to match your brand identity.	Yes! We offer customization options for some of our products. You can personalize size, shape, color, and design to align with your brand.'
+						'Yes! We provide full customization options for some of our packaging products. You can personalize the size, shape, color, and design to match your brand identity.'
 				},
 				{
 					question: 'How long does it take to produce customized products?',
@@ -169,7 +267,7 @@ let locales = $derived({
 				{
 					question: 'How do I place an order?',
 					answer:
-						'You can get in touch with us via email or phone to discuss your specific packaging needs. We’ll guide you through the process and provide a quote Email:<br> contact@leaderpack.ge <br> Phone: +995510002228'
+						'You can get in touch with us via email or phone to discuss your specific packaging needs. We’ll guide you through the process and provide a quote <br> Email: contact@leaderpack.ge <br> Phone: +995510002228'
 				}
 			],
 			ka: [
@@ -186,7 +284,7 @@ let locales = $derived({
 				{
 					question: 'თქვენ მხოლოდ პერსონალიზირებულ პროდუქტს აწარმოებთ?',
 					answer:
-						'არა, ჩვენ ასევე მარაგში გვაქვს სტანდარტულ, წინასწარ დამზადებულ პროდუქცია, რომელიც შეგიძლიათ შეიძინოთ. შეამოწმეთ პროდუქციის განყოფილება დეტალური ინფორმაციის სანახავად.'
+						'არა, ჩვენ ასევე მარაგში გვაქვს სტანდარტული, წინასწარ დამზადებულ პროდუქცია, რომელიც შეგიძლიათ შეიძინოთ. შეამოწმეთ პროდუქციის განყოფილება დეტალური ინფორმაციის სანახავად.'
 				},
 				{
 					question: 'როგორ განვათავსო შეკვეთა?',
@@ -194,6 +292,12 @@ let locales = $derived({
 						' შეკვეთის გასაფორმებლად და ნებისმიერი შეკითხვის დასაზუსტებლად შეგიძლიათ დაგვიკავშირდეთ ელექტრონული ფოსტით ან ტელეფონით:<br> Email: contact@leaderpack.ge  <br> Phone: +995510002228'
 				}
 			]
+		}[language.value];
+	},
+	branding() {
+		return {
+			en: 'BrandingENG',
+			ka: 'BrandingGEO'
 		}[language.value];
 	}
 });

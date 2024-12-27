@@ -8,13 +8,13 @@
 	import { onDestroy } from 'svelte';
 	import RelatedProducts from './RelatedProducts.svelte';
 	import Images from './Images.svelte';
-	import { track, inputError, productData } from '@src/store.svelte';
+	import { track, notification, productData } from '@src/store.svelte';
 	import ArrayInput from '@src/components/ArrayInput.svelte';
 	let showRelatedProducts = $state(false);
 	let showImages = $state(false);
 
 	async function save() {
-		if (inputError.value.message) return;
+		if (notification.value.message) return;
 		productData().en.title = productData().en.title.trim();
 		productData().ka.title = productData().ka.title.trim();
 		if (mode === 'create') {
@@ -66,15 +66,15 @@
 	track(
 		() => {
 			if (productData()[language].title.includes('_')) {
-				inputError.value.set({ message: '_ is not allowed in product name', type: 'error' });
+				notification.value.set({ message: '_ is not allowed in product name', type: 'error' });
 			} else {
-				inputError.value.clear();
+				notification.value.clear();
 			}
 		},
 		() => productData()[language].title
 	);
 	onDestroy(() => {
-		inputError.value.clear();
+		notification.value.clear();
 	});
 </script>
 

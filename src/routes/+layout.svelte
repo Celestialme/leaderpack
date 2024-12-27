@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Notification from '@src/components/Notification.svelte';
-	import { language, inputError } from '@src/store.svelte';
+	import { language, notification } from '@src/store.svelte';
 
 	import '../app.css';
 	import 'iconify-icon';
@@ -10,16 +10,11 @@
 	}
 
 	let { children }: Props = $props();
-	page.subscribe((page) => {
-		if (globalThis.gtag) {
-			globalThis.gtag('set', 'page_path', page.url.pathname);
-			globalThis.gtag('event', 'page_view');
-		}
-	});
+
 	language.set($page.params.language as any);
 </script>
 
-{#if inputError.value.message}
+{#if notification.value.message}
 	<Notification />
 {/if}
 {@render children?.()}

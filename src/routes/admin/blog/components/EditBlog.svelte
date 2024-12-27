@@ -4,7 +4,7 @@
 	import { obj2formData, storage_data } from './RichText/utils';
 	import CloseIcon from '@src/components/icons/CloseIcon.svelte';
 	import Language from '@src/components/Language.svelte';
-	import { language, inputError } from '@src/store.svelte';
+	import { language, notification } from '@src/store.svelte';
 	interface Props {
 		show?: boolean;
 		value?:
@@ -16,7 +16,7 @@
 	let getData = $state() as () => Promise<{ images: { [key: string]: any }; data: any }>;
 	async function save() {
 		//means its being edited
-		if (inputError.value.message) return;
+		if (notification.value.message) return;
 		if (value) {
 			await axios.patch('/api/blogs', obj2formData({ ...(await getData()), storage_data }));
 		} else {

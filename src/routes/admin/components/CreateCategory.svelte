@@ -6,9 +6,9 @@
 	import axios from 'axios';
 	import { onDestroy } from 'svelte';
 	import FilePicker from './FilePicker.svelte';
-	import { track, inputError } from '@src/store.svelte';
+	import { track, notification } from '@src/store.svelte';
 	async function save() {
-		if (inputError.value.message) return;
+		if (notification.value.message) return;
 		data.en.title = data.en.title.trim();
 		data.ka.title = data.ka.title.trim();
 		if (mode === 'create') await axios.put('/api/categories', obj2formData(data));
@@ -45,19 +45,19 @@
 	track(
 		() => {
 			if (data[language].title.includes('_')) {
-				inputError.value.set({
+				notification.value.set({
 					message: '_ is not allowed in category name',
 					type: 'error'
 				});
 			} else {
-				inputError.value.clear();
+				notification.value.clear();
 			}
 		},
 		() => data[language].title
 	);
 
 	onDestroy(() => {
-		inputError.value.clear();
+		notification.value.clear();
 	});
 </script>
 

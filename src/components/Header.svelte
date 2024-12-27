@@ -37,7 +37,7 @@
 	>
 		<Language class="absolute right-2 top-2 max-md:hidden" bind:language={language.value}
 		></Language>
-		<Logo></Logo>
+		<Logo class="cursor-pointer" onclick={() => goto(`/${$page.params.language}`)}></Logo>
 		<ProductsButton></ProductsButton>
 		<SearchContent class="w-[25vw] max-md:hidden"></SearchContent>
 		<button onclick={() => goto(`/${$page.params.language}/about`)} class="max-md:hidden"
@@ -53,7 +53,13 @@
 		/>
 	</div>
 	{#if category || product}
-		<BreadCrumb items={['Home', category, product]}></BreadCrumb>
+		<BreadCrumb
+			items={[
+				{ label: locales.home(), url: `/${$page.params.language}` },
+				{ label: category, url: `/${$page.params.language}/products/${category}` },
+				{ label: product, url: `/${$page.params.language}/products/${category}/${product}` }
+			]}
+		></BreadCrumb>
 	{/if}
 </div>
 <Menu bind:show={showMenu}></Menu>

@@ -45,7 +45,7 @@
 			class="absolute left-0 top-full max-h-[350px] w-full overflow-auto rounded-b-md border border-solid border-[#DBDBDD] bg-white p-2"
 		>
 			{#if categories.length > 0}
-				<p class=" mb-2 font-Poppins text-gray-600">{locales.categories()}</p>
+				<p class="mb-2 select-none font-Poppins text-gray-600">{locales.categories()}</p>
 				<div class="ml-4">
 					{#each categories as category}
 						<button
@@ -63,7 +63,7 @@
 				</div>
 			{/if}
 			{#if products.length > 0}
-				<p class="mb-2 font-Poppins text-gray-600">{locales.products()}</p>
+				<p class="mb-2 select-none font-Poppins text-gray-600">{locales.products()}</p>
 				<div class="ml-4">
 					{#each products as product}
 						<button

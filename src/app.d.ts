@@ -5,7 +5,7 @@ declare global {
 		intoSlug(): string;
 		fromSlug(): string;
 	}
-	function gtag(...args: any[]): void;
+	var dataLayer: Array<any>;
 	namespace App {
 		// interface Error {}
 		// interface Locals {}

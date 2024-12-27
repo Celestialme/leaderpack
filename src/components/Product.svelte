@@ -33,9 +33,9 @@
 	{@const details = JSON.parse(item[`details_${language.value}`] || '[]').join('<br>')}
 
 	<div
-		class="flex w-full max-w-[2000px] flex-wrap items-stretch justify-center gap-[50px] overflow-visible px-1"
+		class="flex w-full max-w-[2000px] items-stretch justify-center gap-[50px] overflow-visible px-1 max-lg:flex-wrap"
 	>
-		<div class="flex flex-col justify-between">
+		<div class="flex flex-col">
 			<div class="h-[400px] w-[min(400px,95vw)]">
 				{#if images.length > 1}
 					{#key images}
@@ -46,7 +46,7 @@
 				{/if}
 			</div>
 			{#if item.branding}
-				<div class="branding mt-2 flex gap-2">
+				<div class="branding mb-[50px] mt-auto flex gap-2">
 					<button onclick={() => (branded = true)} class:active={branded}
 						>{locales.branded()}</button
 					>
@@ -64,36 +64,36 @@
 				<table class="grow">
 					<tbody>
 						<tr class:hidden={!description}>
-							<td class="font-Poppins text-[20px] font-[700]">description:</td>
+							<td class="font-Poppins text-[20px] font-[700]">{locales.description()}:</td>
 							<td class="font-Poppins">{description}</td>
 						</tr>
 						<tr class:hidden={!colors}>
-							<td class="font-Poppins text-[20px] font-[700]">colors:</td>
+							<td class="font-Poppins text-[20px] font-[700]">{locales.colors()}:</td>
 							<td class="font-Poppins">{colors}</td>
 						</tr>
 						<tr class:hidden={!material}>
-							<td class="font-Poppins text-[20px] font-[700]">material:</td>
+							<td class="font-Poppins text-[20px] font-[700]">{locales.material()}:</td>
 							<td class="font-Poppins">{material}</td>
 						</tr>
 						<tr class:hidden={!options}>
-							<td class="font-Poppins text-[20px] font-[700]">options:</td>
+							<td class="font-Poppins text-[20px] font-[700]">{locales.options()}:</td>
 							<td class="font-Poppins">{@html options}</td>
 						</tr>
 						<tr class:hidden={!details}>
-							<td class="font-Poppins text-[20px] font-[700]">details:</td>
-							<td class="font-Poppins">{details}</td>
+							<td class="font-Poppins text-[20px] font-[700]">{locales.details()}:</td>
+							<td class="font-Poppins">{@html details}</td>
 						</tr>
 						<tr class:hidden={!sizes}>
-							<td class="font-Poppins text-[20px] font-[700]">sizes:</td>
+							<td class="font-Poppins text-[20px] font-[700]">{locales.sizes()}:</td>
 							<td class="font-Poppins">{@html sizes}</td>
 						</tr>
 					</tbody>
 				</table>
 
 				<img
-					src="/branding.png"
+					src="/{locales.branding()}.png"
 					alt=""
-					class="mx-auto my-4 max-h-[100px] min-w-[min(200px,15vw)]"
+					class="mx-auto my-4 max-h-[150px] max-lg:max-h-[120px]"
 				/>
 			</div>
 			<div class="mt-auto">
@@ -117,7 +117,7 @@
 		font-size: 18px;
 		font-weight: 600;
 		color: black;
-		padding: 5px 20px;
+		padding: 5px 15px;
 		border-radius: 5px;
 		border: none;
 		cursor: pointer;

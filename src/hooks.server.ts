@@ -6,6 +6,8 @@ init_db();
 export let handle: Handle = async function ({ event, resolve }) {
 	if (event.url.pathname === '/') {
 		throw redirect(302, '/en');
+	} else if (event.url.pathname.startsWith('/api/mail')) {
+		return await resolve(event);
 	}
 
 	if (event.url.pathname.startsWith('/admin') || event.request.method != 'GET') {

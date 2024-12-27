@@ -28,11 +28,18 @@
 			<a href="https://www.instagram.com/leaderpack.ge/" target="_blank">
 				<Media icon="instagram" /> ლიდერ პაკი @leaderpack.ge
 			</a>
-			<a href="https://www.linkedin.com/leaderpackge?_l=en_US" target="_blank"
+			<a href="https://www.linkedin.com/company/leaderpackge/" target="_blank"
 				><Media icon="linkedin" /> Leader Pack • ლიდერ პაკი</a
 			>
 		</div>
-		<img src="/map.png" width="300px" alt="" />
+		<a
+			data-description={locales.map()}
+			class="map relative"
+			href="https://www.google.com/maps/place/Didube+Plaza/@41.7386769,44.7783268,17z/data=!4m6!3m5!1s0x40447294cd8c4faf:0xb98074af2e79b7b2!8m2!3d41.7384729!4d44.780775!16s%2Fg%2F11r96hs3t?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
+			target="_blank"
+		>
+			<img src="/map.jpg" width="300px" alt="" />
+		</a>
 	</div>
 </div>
 
@@ -47,5 +54,19 @@
 		width: 100%;
 		background-color: #fcf4f4;
 		border: 1px solid #c6c69f;
+	}
+	.map:hover img {
+		filter: brightness(0.5);
+	}
+	.map:hover::after {
+		content: attr(data-description);
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		top: 50%;
+		transform: translateY(-50%);
+		color: white;
+		font-weight: 700;
+		font-size: 20px;
 	}
 </style>

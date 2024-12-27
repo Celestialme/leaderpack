@@ -5,7 +5,7 @@ export let contact_el = store<HTMLDivElement>();
 export let products_el = store<HTMLDivElement>();
 export let header_el = store<HTMLDivElement>();
 
-export let inputError = store({
+export let notification = store({
 	message: '',
 	type: '',
 	set({
@@ -22,12 +22,12 @@ export let inputError = store({
 				this.clear();
 			}, timeOut);
 		}
-		inputError.update((n) => {
+		notification.update((n) => {
 			return { ...n, message, type };
 		});
 	},
 	clear() {
-		inputError.update((n) => {
+		notification.update((n) => {
 			return { ...n, message: '', type: '' };
 		});
 	}

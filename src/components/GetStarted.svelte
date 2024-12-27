@@ -17,13 +17,20 @@
 	class="banner mt-[10px] flex h-[400px] flex-wrap-reverse items-center justify-between gap-y-[50px] bg-[#B2D99A] px-[5%] py-[50px]"
 >
 	<div class="mr-auto flex flex-col justify-center gap-[20px]">
-		<p class="text-[30px]">{@html locales.deserve()}</p>
-		<p class="text-[16px]">{@html locales.perfect()}</p>
+		<p class="deserve">{@html locales.deserve()}</p>
+		<p class="perfect">{@html locales.perfect()}</p>
 		<button onclick={scroll}>{locales.getStarted()}</button>
 	</div>
 </div>
 
 <style>
+	.deserve {
+		font-size: max(calc(1vw + 18px), 30px);
+	}
+	.perfect {
+		font-size: max(calc(1vw + 8px), 20px);
+	}
+
 	.banner {
 		background: url('/banner.jpg');
 		background-position: 75% 75%;
@@ -47,5 +54,16 @@
 	}
 	button:hover {
 		background-color: #605f63;
+	}
+	@media screen and (min-width: 1400px) {
+		:global(.deserve br) {
+			display: none;
+		}
+		.banner {
+			background: url('/banner2.jpg');
+			background-position: 75% 75%;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 	}
 </style>
