@@ -34,6 +34,7 @@
 <style>
 	svg {
 		transition: transform 0.3s;
+		min-width: 30px;
 	}
 	.up {
 		transform: rotate(180deg);

@@ -16,6 +16,12 @@
 	let showEditor = $state(false);
 	let editData: any = $state(undefined);
 	track(refresh, () => showEditor);
+	async function deleteBlog(blog: any) {
+		if (confirm('Are you sure you want to delete this blog? this cannot be undone')) {
+			await axios.delete(`/api/blogs?id=${blog.id}`);
+			refresh();
+		}
+	}
 </script>
 
 <Language class="absolute left-2 top-2" bind:language={language.value}></Language>
@@ -47,7 +53,7 @@
 					<Delete
 						onclick={(e) => {
 							e.stopPropagation();
-							axios.delete(`/api/blogs?id=${blog.id}`).then(() => refresh());
+							deleteBlog(blog);
 						}}
 						class="absolute right-2 top-4 z-30 cursor-pointer"
 					></Delete>

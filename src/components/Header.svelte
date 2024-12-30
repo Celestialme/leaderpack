@@ -40,8 +40,9 @@
 		<Logo class="cursor-pointer" onclick={() => goto(`/${$page.params.language}`)}></Logo>
 		<ProductsButton></ProductsButton>
 		<SearchContent class="w-[25vw] max-md:hidden"></SearchContent>
-		<button onclick={() => goto(`/${$page.params.language}/about`)} class="max-md:hidden"
-			>{locales.about()}</button
+		<button
+			onclick={() => goto(`/${$page.params.language}/about`)}
+			class="whitespace-nowrap max-md:hidden">{locales.about()}</button
 		>
 		<button onclick={() => goto(`/${$page.params.language}/blog`)} class="max-md:hidden"
 			>{locales.blog()}</button

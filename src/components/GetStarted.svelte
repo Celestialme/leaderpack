@@ -26,9 +26,11 @@
 <style>
 	.deserve {
 		font-size: max(calc(1vw + 18px), 30px);
+		max-width: calc(100vw - 45%);
+		min-width: 300px;
 	}
 	.perfect {
-		font-size: max(calc(1vw + 8px), 20px);
+		font-size: max(calc(1vw + 8px), 18px);
 	}
 
 	.banner {

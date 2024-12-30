@@ -49,6 +49,12 @@
 		mode = 'edit';
 		showDialog = true;
 	}
+	async function deleteProduct(product: Product) {
+		if (confirm('Are you sure you want to delete this product? this cannot be undone')) {
+			await axios.delete(`/api/products?product_id=${product.id}&category_id=${category_id}`);
+			refresh();
+		}
+	}
 </script>
 
 <div class="flex flex-col">
@@ -65,12 +71,7 @@
 			<div class="relative">
 				<div class=" mb-2 flex items-center justify-center">
 					<button onclick={() => editProduct(product)}><Edit /></button>
-					<button
-						onclick={() =>
-							axios
-								.delete(`/api/products?product_id=${product.id}&category_id=${category_id}`)
-								.then(() => refresh())}><Delete /></button
-					>
+					<button onclick={() => deleteProduct(product)}><Delete /></button>
 				</div>
 				<ProductCard src={getProductThumbnail(product)} title={product.title_en}></ProductCard>
 			</div>

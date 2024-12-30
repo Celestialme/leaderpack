@@ -9,7 +9,7 @@
 
 <svelte:head>
 	<meta property="og:title" content={$page.params.category} />
-	<meta property="og:image" content={getCategory()?.imageURL} />
+	<meta property="og:image" content={new URL(getCategory()?.imageURL as string).href} />
 </svelte:head>
 <div class="flex h-screen flex-col">
 	<Header></Header>

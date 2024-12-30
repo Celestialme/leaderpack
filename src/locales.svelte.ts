@@ -69,22 +69,9 @@ let locales = $derived({
 	},
 	about_content() {
 		return {
-			en: `Our journey started with a clear and ambitious vision: 
-			to redefine packaging solutions and empower businesses to grow 
-			with ease and confidence. At Leader Pack, we believe 
-			that effective packaging is more than just a container—it’s a powerful tool 
-			for brand representation and protection.Driven by a commitment to quality and innovation, 
-			we provide a range of customizable packaging options tailored to the 
-			unique needs of our clients. Whether you're seeking durability or aesthetic appeal, 
-			our solutions are crafted to enhance your products and support your brand’s growth.`,
-			ka: `ჩვენი საქმიანობა დაიწყო მკაფიო და ამბიციური ხედვით: ჩვენ გვსურდა პოზიტიური ცვლილებები
-			შეგვეტანა შესაფუთი მასალების ინდუსტრიაში და დავხმარებოდით ბიზნესებს ეფექტურად ზრდაში. ჩვენ,
-			ლიდერ პაკის გუნდს გვჯერა, რომ შეფუთვა მხოლოდ ყუთი ან კონტეინერი არ არის - ეს არის ძლიერი
-			ინსტრუმენტი, რომელიც ეხმარება ბრენდებს მათი პროდუქტის პრეზენტაციაში და ბაზარზე თავდაჯერებულად
-			პოზიციონირებაში. ჩვენ ინოვაციებისა და ხარისხის ერთგულნი ვართ და ყოველთვის ვიქნებით.
-			შესაბამისად, გთავაზობთ ეკოლოგიურად სუფთა შესაფუთ მასალებს, რომლებიც თქვენს საჭიროებებზე არის
-			მორგებული. იქნება ეს შეფუთვის გამძლეობა თუ ვიზუალური მხარე, ჩვენი პროდუქცია შექმნილია
-			იმისთვის, რომ თქვენს ბრენდს დაეხმაროს ზრდაში.`
+			en: `Our journey started with a clear and ambitious vision: to redefine packaging solutions and empower businesses to grow with ease and confidence. At Leader Pack, we believe that effective packaging is a powerful tool for brand representation and protection. Driven by a commitment to quality and innovation, we provide a range of customizable packaging options tailored to the unique needs of our clients. Whether you're seeking durability or aesthetic appeal, our solutions are crafted to enhance your products and support your brand’s growth.`,
+			ka: `ჩვენი საქმიანობა დაიწყო მკაფიო და ამბიციური ხედვით: ჩვენ გვსურდა პოზიტიური ცვლილებები შეგვეტანა შესაფუთი მასალების ინდუსტრიაში და დავხმარებოდით ბიზნესებს ეფექტურად ზრდაში. ჩვენ, ლიდერ პაკის გუნდს გვჯერა, რომ პროდუქტის შეფუთვა არის ძლიერი ინსტრუმენტი, რომელიც ეხმარება ბრენდებს პრეზენტაციაში და ბაზარზე თავდაჯერებულად პოზიციონირებაში. ჩვენ ინოვაციებისა და ხარისხის ერთგულნი ვართ და ყოველთვის ვიქნებით. შესაბამისად, გთავაზობთ ეკოლოგიურად სუფთა შესაფუთ მასალებს, რომლებიც თქვენს საჭიროებებზე არის მორგებული. იქნება ეს შეფუთვის გამძლეობა თუ ვიზუალური მხარე, ჩვენი პროდუქცია შექმნილია იმისთვის, რომ თქვენს ბრენდს დაეხმაროს ზრდაში.
+`
 		}[language.value];
 	},
 	contact() {

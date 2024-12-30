@@ -1,5 +1,6 @@
+import { ADMIN_PASSWORD } from '$env/static/private';
 import crypto from 'crypto';
-const ADMIN_PASSWORD = 'admin';
+
 export const ADMIN_PASSWORD_HASH = crypto
 	.createHash('sha256')
 	.update(ADMIN_PASSWORD)

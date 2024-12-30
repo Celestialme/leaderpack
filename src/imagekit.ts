@@ -14,12 +14,12 @@ export async function uploadImage(file: File, folder: string) {
 	return await imageKit
 		.upload({
 			file: buffer,
-			fileName: file.name,
+			fileName: 'IMAGE',
 			folder: 'LeaderPack/' + folder,
 			useUniqueFileName: true,
 			isPrivateFile: false
 		})
-		.then((res) => ({ url: res.url, name: res.name, id: res.fileId }));
+		.then((res) => ({ url: res.url, name: file.name, id: res.fileId }));
 }
 export async function deleteImage(id: string) {
 	return await imageKit.deleteFile(id);

@@ -57,7 +57,7 @@ export async function sendMail({
 </html>
 `;
 	const options = {
-		from: `Leader Pack`,
+		from: `Leader Pack ${SMTP_EMAIL}`,
 		to: ORDER_RECEIVER,
 		subject: 'Leader Pack - Order Placed',
 		html: html

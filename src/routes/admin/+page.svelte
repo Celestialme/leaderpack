@@ -33,6 +33,12 @@
 		mode = 'edit';
 		showDialog = true;
 	}
+	async function deleteCategory(id: string) {
+		if (confirm('Are you sure you want to delete this category? this cannot be undone')) {
+			await axios.delete(`/api/categories?id=${id}`);
+			refresh();
+		}
+	}
 </script>
 
 <div class="flex flex-col">
@@ -56,10 +62,7 @@
 			<div class="relative">
 				<div class=" mb-2 flex items-center justify-center">
 					<button onclick={() => editCategory(category)}><Edit /></button>
-					<button
-						onclick={() => axios.delete(`/api/categories?id=${category.id}`).then(() => refresh())}
-						><Delete /></button
-					>
+					<button onclick={() => deleteCategory(category.id)}><Delete /></button>
 				</div>
 				<ProductCard
 					src={category.imageURL}

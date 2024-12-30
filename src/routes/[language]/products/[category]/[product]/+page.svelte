@@ -10,7 +10,7 @@
 
 <svelte:head>
 	<meta property="og:title" content={$page.params.product} />
-	<meta property="og:image" content={getProductThumbnail(getProduct())} />
+	<meta property="og:image" content={new URL(getProductThumbnail(getProduct()) as string).href} />
 </svelte:head>
 <div class="flex h-screen flex-col items-center">
 	<Header></Header>
