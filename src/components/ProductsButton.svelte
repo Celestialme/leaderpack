@@ -22,7 +22,7 @@
 
 <button
 	onclick={scroll}
-	class="flex h-[50px] min-w-[160px] items-center justify-between gap-2 rounded-[10px] bg-[#609966] px-2 py-[10px] font-Poppins text-[20px] font-[700] text-white md:gap-3"
+	class="flex h-[50px] min-w-[180px] items-center justify-between gap-2 rounded-[10px] bg-[#609966] px-2 py-[10px] font-Poppins text-[20px] font-[700] text-white md:gap-3"
 	><p>{locales.products()}</p>
 	<Arrrow /></button
 >

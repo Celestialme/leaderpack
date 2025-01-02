@@ -27,7 +27,6 @@
 <style>
 	.wrapper {
 		display: grid;
-		margin-top: 50px;
 		justify-content: space-evenly;
 		grid-template-columns: repeat(auto-fit, 280px);
 		gap: 50px;

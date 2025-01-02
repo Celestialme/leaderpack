@@ -3,7 +3,7 @@
 	let customers = ['ფრესკო', '8000 მოს', 'როიალ', 'ჭაშნ', 'Paulaner', 'ჩიკაგო', 'ინგორო'];
 </script>
 
-<p class="my-[20px] text-center font-Poppins text-[26px] font-[700] text-[#014B82]">
+<p class=" text-center font-Poppins text-[26px] font-[700] text-[#014B82]">
 	{locales.OurCustomers()}
 </p>
 <div class="flex flex-wrap items-center justify-evenly gap-2 gap-y-4">

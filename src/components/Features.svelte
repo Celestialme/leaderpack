@@ -2,7 +2,7 @@
 	import locales from '@src/locales.svelte';
 </script>
 
-<div class="mt-[50px] bg-[#B2D99A] pb-[80px] pt-[10px]">
+<div class="bg-[#B2D99A] pb-[80px] pt-[10px]">
 	<div class="mx-auto max-w-[2000px]">
 		<p class="text-center font-Poppins text-[30px] font-[700] text-[#005500]">{locales.why()}</p>
 		<p class="my-[10px] px-2 text-center font-Poppins text-[#005500]">

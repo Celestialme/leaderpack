@@ -60,8 +60,9 @@
 		height: 100%;
 		position: absolute;
 		left: 0;
-		top: 0;
+		bottom: 0;
 		object-fit: contain;
+		object-position: bottom;
 	}
 	img:nth-child(1) {
 		z-index: 1;

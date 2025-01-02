@@ -11,7 +11,7 @@
 
 <div class="flex h-screen flex-col items-center">
 	<Header></Header>
-	<div class="flex max-w-[2000px] flex-col">
+	<div class="flex max-w-[2000px] flex-col gap-[50px]">
 		<GetStarted></GetStarted>
 		<Categories></Categories>
 		<Features></Features>

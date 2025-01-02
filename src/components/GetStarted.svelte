@@ -14,23 +14,23 @@
 </script>
 
 <div
-	class="banner mt-[10px] flex h-[400px] flex-wrap-reverse items-center justify-between gap-y-[50px] bg-[#B2D99A] px-[5%] py-[50px]"
+	class="banner flex h-[400px] flex-wrap-reverse items-center justify-between gap-y-[50px] bg-[#B2D99A] px-[5%]"
 >
 	<div class="mr-auto flex flex-col justify-center gap-[20px]">
 		<p class="deserve">{@html locales.deserve()}</p>
 		<p class="perfect">{@html locales.perfect()}</p>
-		<button onclick={scroll}>{locales.getStarted()}</button>
+		<button class="max-w-[60%]" onclick={scroll}>{locales.getStarted()}</button>
 	</div>
 </div>
 
 <style>
 	.deserve {
-		font-size: max(calc(1vw + 18px), 30px);
+		font-size: max(calc(1vw + 18px), 25px);
 		max-width: calc(100vw - 45%);
-		min-width: 300px;
+		min-width: 250px;
 	}
 	.perfect {
-		font-size: max(calc(1vw + 8px), 18px);
+		font-size: max(calc(1vw + 8px), 16px);
 	}
 
 	.banner {

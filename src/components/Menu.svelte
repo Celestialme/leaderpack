@@ -6,17 +6,22 @@
 	import Hamburger from './Hamburger.svelte';
 	import Language from './Language.svelte';
 	import SearchContent from './SearchContent.svelte';
+	import locales from '@src/locales.svelte';
 
-	export let show = false;
-	let items: { [key: string]: () => void } = {
-		'ჩვენს შესახებ': () => {
+	interface Props {
+		show?: boolean;
+	}
+
+	let { show = $bindable(false) }: Props = $props();
+	let items: { [key: string]: () => void } = $derived({
+		[locales.about()]: () => {
 			goto(`/${$page.params.language}/about`);
 		},
-		ბლოგი: () => {
+		[locales.blog()]: () => {
 			goto(`/${$page.params.language}/blog`);
 			show = false;
 		},
-		კონტაქტი: async () => {
+		[locales.contact()]: async () => {
 			if (!contact_el.value) {
 				await goto(`/${$page.params.language}`);
 			}
@@ -27,10 +32,10 @@
 				}
 			});
 		}
-	};
-	$: {
+	});
+	$effect(() => {
 		if (browser) document?.body?.classList.toggle('!overflow-hidden', show);
-	}
+	});
 </script>
 
 <!-- backdrop -->
@@ -48,10 +53,10 @@
 	></Hamburger>
 	<!-- menu items -->
 	<div class="menu">
-		<SearchContent class="w-full"></SearchContent>
+		<SearchContent onSelect={() => (show = false)} class="w-full"></SearchContent>
 		{#each Object.keys(items) as item}
 			<div class="select-none rounded-md bg-[#0000002e] p-[10px]">
-				<p
+				<button
 					onclick={() => {
 						items[item]();
 						show = false;
@@ -59,7 +64,7 @@
 					class=" text-[16px]"
 				>
 					{item}
-				</p>
+				</button>
 			</div>
 		{/each}
 	</div>
@@ -98,14 +103,14 @@
 		overflow-y: auto;
 		padding-right: 20px;
 	}
-	p {
+	button {
 		position: relative;
 
 		font-family: Poppins;
 		color: white;
 		cursor: pointer;
 	}
-	p::after {
+	button::after {
 		content: '';
 		position: absolute;
 		width: 0;
@@ -116,7 +121,7 @@
 		height: 2px;
 		background-color: white;
 	}
-	p:hover::after {
+	button:hover::after {
 		width: 100%;
 	}
 </style>

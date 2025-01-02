@@ -7,8 +7,10 @@
 	import { goto } from '$app/navigation';
 
 	let {
-		class: classes
+		class: classes,
+		onSelect
 	}: {
+		onSelect?: () => void;
 		class?: string;
 	} = $props();
 	let value = $state('');
@@ -29,7 +31,7 @@
 </script>
 
 <div
-	class="relative mx-auto flex h-[50px] flex-shrink items-center gap-[20px] rounded-[8px] border-[1px] border-[#DBDBDD] bg-[#ffffffb0] p-[10px] {classes}"
+	class="relative z-10 mx-auto flex h-[50px] flex-shrink items-center gap-[20px] rounded-[8px] border-[1px] border-[#DBDBDD] bg-[#ffffffb0] p-[10px] {classes}"
 >
 	<Search></Search>
 	<input
@@ -50,6 +52,7 @@
 					{#each categories as category}
 						<button
 							onclick={() => {
+								onSelect?.();
 								goto(
 									`/${language.value}/products/${category[`title_${language.value}`].intoSlug()}`
 								);
@@ -68,6 +71,7 @@
 					{#each products as product}
 						<button
 							onclick={() => {
+								onSelect?.();
 								let category = $page.data.categories.find(
 									(c: Category) => c.id == product.category_id
 								);

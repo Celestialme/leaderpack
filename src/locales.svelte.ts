@@ -77,6 +77,13 @@ let locales = $derived({
 	contact() {
 		return { en: 'Contact Us', ka: 'კონტაქტი' }[language.value];
 	},
+	copyRight() {
+		return {
+			en: '© 2024 Leader Pack. All Rights Reserved',
+			ka: '© 2024 ლიდერ პაკი. ყველა უფლება დაცულია'
+		}[language.value];
+	},
+
 	contactToOrder() {
 		return { en: 'Contact us to order', ka: 'შეკვეთისთვის დაგვიკავშირდით' }[language.value];
 	},

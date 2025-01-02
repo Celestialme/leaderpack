@@ -33,7 +33,7 @@
 <div class="sticky top-0 z-20 w-full bg-[#F0F0F0]">
 	<div
 		bind:this={header_el.value}
-		class="mx-auto flex min-h-[110px] w-full max-w-[2000px] items-center gap-[35px] px-[10px] max-md:justify-between"
+		class="mx-auto flex min-h-[110px] w-full max-w-[2000px] items-center gap-[20px] px-[10px] max-md:justify-between"
 	>
 		<Language class="absolute right-2 top-2 max-md:hidden" bind:language={language.value}
 		></Language>

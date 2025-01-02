@@ -6,9 +6,7 @@
 	let expanded: number | null = $state(null);
 </script>
 
-<div
-	class="mx-auto my-[150px] flex w-[700px] max-w-[90vw] flex-col gap-1 font-Poppins text-[#3d3d3d]"
->
+<div class="mx-auto flex w-[700px] max-w-[90vw] flex-col gap-1 font-Poppins text-[#3d3d3d]">
 	{#each faqs as faq, index}
 		<div class="rounded-lg border border-solid border-[#d1d1d1] px-2 py-3">
 			<div

@@ -11,11 +11,10 @@
 	let title = $derived(altStyle ? locales.contactToOrder() : locales.contact());
 </script>
 
-<div class="mt-auto"></div>
 <div
 	bind:this={contact_el.value}
 	class:altStyle
-	class="mx-auto mt-[50px] w-[80%] max-w-[700px] scroll-mt-[30px] rounded-md bg-[#B2D99AA8] p-[20px]"
+	class="mx-auto w-[90%] max-w-[700px] scroll-mt-[30px] rounded-md bg-[#B2D99AA8] p-[20px]"
 >
 	<p class="mb-[50px] text-center font-Poppins text-[20px] font-[700] text-[#014B82]">{title}</p>
 	<div class="flex flex-wrap items-center justify-evenly gap-[20px]">
