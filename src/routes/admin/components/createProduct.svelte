@@ -30,7 +30,6 @@
 				{ headers: { 'Content-Type': 'multipart/form-data' } }
 			);
 		} else if (mode === 'edit') {
-			console.log(productData());
 			productData().en.title = productData().en.title.trim();
 			productData().ka.title = productData().ka.title.trim();
 
@@ -125,13 +124,13 @@
 	>
 	<button onclick={save}>Save</button>
 </div>
-{#if showRelatedProducts}
-	<RelatedProducts
-		self={productData.value}
-		bind:show={showRelatedProducts}
-		bind:relatedProducts={productData.value.relatedProducts}
-	></RelatedProducts>
-{/if}
+
+<RelatedProducts
+	self={productData.value}
+	bind:show={showRelatedProducts}
+	bind:relatedProducts={productData.value.relatedProducts}
+></RelatedProducts>
+
 {#if showImages}
 	<Images bind:show={showImages} />
 {/if}

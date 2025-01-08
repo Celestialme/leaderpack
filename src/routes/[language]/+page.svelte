@@ -9,8 +9,8 @@
 	import Faq from '@src/components/FAQ.svelte';
 </script>
 
-<div class="flex h-screen flex-col items-center">
-	<Header></Header>
+<Header></Header>
+<div class="flex flex-col items-center overflow-auto">
 	<div class="flex max-w-[2000px] flex-col gap-[50px]">
 		<GetStarted></GetStarted>
 		<Categories></Categories>

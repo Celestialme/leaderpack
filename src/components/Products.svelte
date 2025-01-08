@@ -13,10 +13,7 @@
 		{#each products as product}
 			<ProductCard
 				src={getProductThumbnail(product)}
-				onclick={() =>
-					goto(
-						`/${language.value}/products/${category.intoSlug()}/${product[`title_${language.value}`].intoSlug()}`
-					)}
+				href={`/${language.value}/products/${category.intoSlug()}/${product[`title_${language.value}`].intoSlug()}`}
 				title={product[`title_${language.value}`]}
 			></ProductCard>
 		{/each}

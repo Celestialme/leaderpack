@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import type { Category, Product } from '@src/types';
 	import ProductCard from './ProductCard.svelte';
-	import { createScroll, getProduct, getProductById } from '@src/utils';
+	import { createScroll, getProduct, getProductById, getProductThumbnail } from '@src/utils';
 	import { goto } from '$app/navigation';
 	import { language } from '@src/store.svelte';
 	import locales from '@src/locales.svelte';
@@ -32,7 +32,7 @@
 				<div class="max-w-1/2">
 					<ProductCard
 						title={product[`title_${language.value}`]}
-						src={JSON.parse(product.images)[0]?.url}
+						src={getProductThumbnail(product)}
 						onclick={async () => {
 							goto(
 								`/${$page.params.language}/products/${product[`category_title_${language.value}`]}/${product[`title_${language.value}`].intoSlug()}`

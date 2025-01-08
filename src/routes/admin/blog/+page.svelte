@@ -38,7 +38,6 @@
 		/>
 		{#if blogs.length}
 			{#each blogs as blog}
-				{console.log(blog)}
 				<div
 					class="relative"
 					onclick={() => {

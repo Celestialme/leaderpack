@@ -67,6 +67,12 @@ let locales = $derived({
 			ka: 'ჩვენს შესახებ'
 		}[language.value];
 	},
+	leaderPack() {
+		return {
+			en: 'Leader Pack',
+			ka: 'ლიდერ პაკი'
+		}[language.value];
+	},
 	about_content() {
 		return {
 			en: `Our journey started with a clear and ambitious vision: to redefine packaging solutions and empower businesses to grow with ease and confidence. At Leader Pack, we believe that effective packaging is a powerful tool for brand representation and protection. Driven by a commitment to quality and innovation, we provide a range of customizable packaging options tailored to the unique needs of our clients. Whether you're seeking durability or aesthetic appeal, our solutions are crafted to enhance your products and support your brand’s growth.`,

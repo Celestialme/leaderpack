@@ -10,9 +10,8 @@
 	let blog = $derived($page.url.searchParams.get('blog'));
 </script>
 
-<div class="flex h-screen flex-col">
-	<Header></Header>
-
+<Header></Header>
+<div class="flex flex-col">
 	{#if blog}
 		{#if blogs}
 			<div class="flex flex-col items-center p-5">

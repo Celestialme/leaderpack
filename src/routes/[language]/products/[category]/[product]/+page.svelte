@@ -12,8 +12,8 @@
 	<meta property="og:title" content={$page.params.product} />
 	<meta property="og:image" content={new URL(getProductThumbnail(getProduct()) as string).href} />
 </svelte:head>
-<div class="flex h-screen flex-col items-center gap-[50px]">
-	<Header></Header>
+<Header></Header>
+<div class="flex flex-col items-center gap-[50px]">
 	<Product></Product>
 	<RelatedProducts></RelatedProducts>
 	<Contact altStyle></Contact>

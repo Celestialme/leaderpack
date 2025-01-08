@@ -11,8 +11,8 @@
 	<meta property="og:title" content={$page.params.category} />
 	<meta property="og:image" content={new URL(getCategory()?.imageURL as string).href} />
 </svelte:head>
-<div class="flex h-screen flex-col gap-[50px]">
-	<Header></Header>
+<Header></Header>
+<div class="flex flex-col gap-[50px]">
 	<Products></Products>
 	<Contact></Contact>
 	<Footer></Footer>

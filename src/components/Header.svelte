@@ -37,16 +37,13 @@
 	>
 		<Language class="absolute right-2 top-2 max-md:hidden" bind:language={language.value}
 		></Language>
-		<Logo class="cursor-pointer" onclick={() => goto(`/${$page.params.language}`)}></Logo>
+		<Logo class="cursor-pointer" href={`/${$page.params.language}`}></Logo>
 		<ProductsButton></ProductsButton>
 		<SearchContent class="w-[25vw] max-md:hidden"></SearchContent>
-		<button
-			onclick={() => goto(`/${$page.params.language}/about`)}
-			class="whitespace-nowrap max-md:hidden">{locales.about()}</button
+		<a href={`/${$page.params.language}/about`} class="whitespace-nowrap max-md:hidden"
+			>{locales.about()}</a
 		>
-		<button onclick={() => goto(`/${$page.params.language}/blog`)} class="max-md:hidden"
-			>{locales.blog()}</button
-		>
+		<a href={`/${$page.params.language}/blog`} class="max-md:hidden">{locales.blog()}</a>
 		<button onclick={scroll} class="min-w-[100px] max-md:hidden">{locales.contact()}</button>
 		<Hamburger
 			class="min-w-[30px] cursor-pointer md:hidden"
@@ -66,7 +63,8 @@
 <Menu bind:show={showMenu}></Menu>
 
 <style>
-	button {
+	button,
+	a {
 		font-family: Poppins;
 		font-weight: 600;
 		color: #414141;

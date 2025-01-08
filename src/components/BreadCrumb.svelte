@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
 	let { items }: { items: { label: string; url: string }[] } = $props();
 	let cleaned = $derived(items.filter((x) => x.label));
 </script>
@@ -9,11 +7,11 @@
 	class="z-20 flex w-full items-center gap-[10px] bg-white py-[20px] pl-2 font-Poppins text-[20px] font-[400]"
 >
 	{#each cleaned as item, index}
-		<button
-			onclick={() => goto(item.url)}
+		<a
+			href={item.url}
 			class:w-min={index == 0}
 			class:overflow-visible={index == 0}
-			class="relative w-min overflow-auto whitespace-nowrap">{item.label.fromSlug()}</button
+			class="relative w-min overflow-auto whitespace-nowrap">{item.label.fromSlug()}</a
 		>
 		{#if index !== cleaned.length - 1}
 			<svg
@@ -34,7 +32,7 @@
 </p>
 
 <style>
-	button::after {
+	a::after {
 		transition: width 0.2s ease-in-out;
 		content: '';
 		width: 0;
@@ -45,7 +43,7 @@
 		transform: translateX(-50%);
 		position: absolute;
 	}
-	button:hover::after {
+	a:hover::after {
 		width: 100%;
 	}
 </style>

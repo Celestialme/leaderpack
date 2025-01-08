@@ -2,7 +2,6 @@
 	import { products_el } from '@src/store.svelte';
 
 	import ProductCard from './ProductCard.svelte';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { language } from '@src/store.svelte';
 	import locales from '@src/locales.svelte';
@@ -18,8 +17,7 @@
 		<ProductCard
 			src={category.imageURL}
 			title={category[`title_${language.value}`]}
-			onclick={() =>
-				goto(`/${language.value}/products/${category[`title_${language.value}`].intoSlug()}`)}
+			href={`/${language.value}/products/${category[`title_${language.value}`].intoSlug()}`}
 		/>
 	{/each}
 </div>

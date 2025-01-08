@@ -65,37 +65,39 @@
 					<tbody>
 						<tr class:hidden={!description}>
 							<td class="font-Poppins text-[20px] font-[700]">{locales.description()}:</td>
-							<td class="font-Poppins">{description}</td>
+							<td class="w-[70%] font-Poppins">{description}</td>
 						</tr>
 						<tr class:hidden={!colors}>
 							<td class="font-Poppins text-[20px] font-[700]">{locales.colors()}:</td>
-							<td class="font-Poppins">{colors}</td>
+							<td class="w-[70%] font-Poppins">{colors}</td>
 						</tr>
 						<tr class:hidden={!material}>
 							<td class="font-Poppins text-[20px] font-[700]">{locales.material()}:</td>
-							<td class="font-Poppins">{material}</td>
+							<td class="w-[70%] font-Poppins">{material}</td>
 						</tr>
 						<tr class:hidden={!options}>
 							<td class="font-Poppins text-[20px] font-[700]">{locales.options()}:</td>
-							<td class="font-Poppins">{@html options}</td>
+							<td class="w-[70%] font-Poppins">{@html options}</td>
 						</tr>
 						<tr class:hidden={!details}>
 							<td class="font-Poppins text-[20px] font-[700]">{locales.details()}:</td>
-							<td class="font-Poppins">{@html details}</td>
+							<td class="w-[70%] font-Poppins">{@html details}</td>
 						</tr>
 						<tr class:hidden={!sizes}>
 							<td class="font-Poppins text-[20px] font-[700]">{locales.sizes()}:</td>
-							<td class="font-Poppins">{@html sizes}</td>
+							<td class="w-[70%] font-Poppins">{@html sizes}</td>
 						</tr>
 					</tbody>
 				</table>
-
-				<img
-					src="/{locales.branding()}.png"
-					alt=""
-					class="mx-auto my-4 max-h-[150px] max-lg:max-h-[120px]"
-				/>
+				{#if item.branding}
+					<img
+						src="/{locales.branding()}.png"
+						alt=""
+						class="mx-auto my-4 max-h-[150px] max-lg:max-h-[120px]"
+					/>
+				{/if}
 			</div>
+
 			<div class="mt-auto">
 				<button
 					onclick={() => (showOrderForm = true)}

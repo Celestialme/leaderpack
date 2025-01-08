@@ -34,8 +34,8 @@
 	}
 
 	.banner {
-		background: url('/banner.jpg');
-		background-position: 75% 75%;
+		background: url('/banner600.jpg');
+		background-position: 65% 75%;
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
@@ -57,12 +57,20 @@
 	button:hover {
 		background-color: #605f63;
 	}
+	@media screen and (min-width: 800px) {
+		.banner {
+			background: url('/banner400.jpg');
+			background-position: 75% 75%;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	}
 	@media screen and (min-width: 1400px) {
 		:global(.deserve br) {
 			display: none;
 		}
 		.banner {
-			background: url('/banner2.jpg');
+			background: url('/banner2500.jpg');
 			background-position: 75% 75%;
 			background-repeat: no-repeat;
 			background-size: cover;

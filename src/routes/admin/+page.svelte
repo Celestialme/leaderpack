@@ -67,7 +67,7 @@
 				<ProductCard
 					src={category.imageURL}
 					title={category.title_en}
-					onclick={() => goto(`/admin/products?category_id=${category.id}`)}
+					href={`/admin/products?category_id=${category.id}`}
 				></ProductCard>
 			</div>
 		{/each}

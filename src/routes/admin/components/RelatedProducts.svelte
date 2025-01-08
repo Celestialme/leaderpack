@@ -23,12 +23,16 @@
 	let filteredProducts: Product[] = $state([]);
 
 	if (relatedProducts.string) {
+		let relatedProductIDS = relatedProducts.string.split(',');
+
 		axios
-			.post(
-				'/api/products/relatedProducts',
-				obj2formData({ ids: relatedProducts.string.split(',') })
-			)
-			.then((res) => (relatedProducts.array = res.data));
+			.post('/api/products/relatedProducts', obj2formData({ ids: relatedProductIDS }))
+			.then((res) => {
+				relatedProducts.array = [];
+				for (let id of relatedProductIDS) {
+					relatedProducts.array.push(res.data.find((p: Product) => p.id == id));
+				}
+			});
 	}
 	onMount(() => {
 		axios.get('/api/products').then((res) => {
@@ -47,50 +51,52 @@
 	});
 </script>
 
-<div
-	class="fixed left-1/2 top-1/2 z-20 flex h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col bg-white px-4 py-2"
->
-	<div class="mb-4 flex items-center justify-between">
-		<p class="mx-auto font-Poppins text-[20px] font-[700]">RELATED PRODUCTS</p>
-		<CloseIcon class="" onclick={() => (show = false)} />
-	</div>
-	<Search bind:value={search} class="mb-2 w-full"></Search>
-	<div class="flex flex-wrap justify-center gap-5 overflow-auto">
-		{#each filteredProducts as product}
-			<ProductCard
-				class="mb-2"
-				title={product.title_en}
-				src={JSON.parse(product.images)[0]?.url}
-				onclick={() => {
-					relatedProducts.array.push(product);
-					relatedProducts = relatedProducts;
-					search = '';
-				}}
-			/>
-		{/each}
-	</div>
+{#if show}
 	<div
-		class=" overflow-auto"
-		class:hidden={filteredProducts.length > 0 || relatedProducts.array.length === 0}
+		class="fixed left-1/2 top-1/2 z-20 flex h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col bg-white px-4 py-2"
 	>
-		<p class="py-2 font-Poppins text-[20px] font-[700]">Saved Related Products</p>
-		<div class="flex flex-wrap justify-center gap-5">
-			{#each relatedProducts.array as product}
-				<div class="relative">
-					<Delete
-						onclick={() => {
-							relatedProducts.array = relatedProducts.array.filter((p) => p !== product);
-							relatedProducts = relatedProducts;
-						}}
-						class="absolute right-2 top-2 cursor-pointer"
-					/>
-					<ProductCard
-						class="mb-2"
-						title={product.title_en}
-						src={JSON.parse(product.images)[0]?.url}
-					/>
-				</div>
+		<div class="mb-4 flex items-center justify-between">
+			<p class="mx-auto font-Poppins text-[20px] font-[700]">RELATED PRODUCTS</p>
+			<CloseIcon class="" onclick={() => (show = false)} />
+		</div>
+		<Search bind:value={search} class="mb-2 w-full"></Search>
+		<div class="flex flex-wrap justify-center gap-5 overflow-auto">
+			{#each filteredProducts as product}
+				<ProductCard
+					class="mb-2"
+					title={product.title_en}
+					src={JSON.parse(product.images)[0]?.url}
+					onclick={() => {
+						relatedProducts.array.push(product);
+						relatedProducts = relatedProducts;
+						search = '';
+					}}
+				/>
 			{/each}
 		</div>
+		<div
+			class=" overflow-auto"
+			class:hidden={filteredProducts.length > 0 || relatedProducts.array.length === 0}
+		>
+			<p class="py-2 font-Poppins text-[20px] font-[700]">Saved Related Products</p>
+			<div class="flex flex-wrap justify-center gap-5">
+				{#each relatedProducts.array as product}
+					<div class="relative">
+						<Delete
+							onclick={() => {
+								relatedProducts.array = relatedProducts.array.filter((p) => p !== product);
+								relatedProducts = relatedProducts;
+							}}
+							class="absolute right-2 top-2 cursor-pointer"
+						/>
+						<ProductCard
+							class="mb-2"
+							title={product.title_en}
+							src={JSON.parse(product.images)[0]?.url}
+						/>
+					</div>
+				{/each}
+			</div>
+		</div>
 	</div>
-</div>
+{/if}
