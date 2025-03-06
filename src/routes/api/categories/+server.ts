@@ -23,8 +23,15 @@ export async function PUT({ request }) {
 	let ka = JSON.parse(data.get('ka') as string);
 	let file = data.get('image') as File;
 	let category_id = crypto.randomBytes(16).toString('hex');
-	let { url: imageURL } = await uploadImage(file, category_id);
-	await insertCategory({ id: category_id, title_en: en.title, title_ka: ka.title, imageURL });
+	let { url: imageURL } = await uploadImage(file, category_id, false, 'thumbnail');
+	await insertCategory({
+		id: category_id,
+		title_en: en.title,
+		description_en: en.description,
+		description_ka: ka.description,
+		title_ka: ka.title,
+		imageURL
+	});
 	return new Response();
 }
 
@@ -36,8 +43,15 @@ export async function PATCH({ request }) {
 	let file = data.get('image') as File;
 
 	let { url: imageURL } =
-		file instanceof File ? await uploadImage(file, category_id) : { url: file };
-	await updateCategory({ id: category_id, title_en: en.title, title_ka: ka.title, imageURL });
+		file instanceof File ? await uploadImage(file, category_id, false, 'thumbnail') : { url: file };
+	await updateCategory({
+		id: category_id,
+		title_en: en.title,
+		description_en: en.description,
+		description_ka: ka.description,
+		title_ka: ka.title,
+		imageURL
+	});
 	return new Response();
 }
 

@@ -11,6 +11,8 @@
 		if (notification.value.message) return;
 		data.en.title = data.en.title.trim();
 		data.ka.title = data.ka.title.trim();
+		data.en.description = data.en.description.trim();
+		data.ka.description = data.ka.description.trim();
 		if (mode === 'create') await axios.put('/api/categories', obj2formData(data));
 		else if (mode === 'edit') await axios.patch('/api/categories', obj2formData(data));
 		show = false;
@@ -31,14 +33,16 @@
 		data = $bindable({
 			image: null,
 			en: {
-				title: ''
+				title: '',
+				description: ''
 			},
 			ka: {
-				title: ''
+				title: '',
+				description: ''
 			}
 		})
 	}: Props = $props();
-	let language: 'en' | 'ka' = $state('en');
+	let language: 'en' | 'ka' = $state('ka');
 	function onFileChange(file: File) {
 		data.image = file;
 	}
@@ -72,7 +76,13 @@
 	<Language class="absolute right-4 top-2" bind:language />
 	<FloatingInput label="Category Name" name="title" type="text" bind:value={data[language].title}
 	></FloatingInput>
-	<FilePicker onchange={onFileChange} />
+	<FloatingInput
+		label="description"
+		name="description"
+		type="text"
+		bind:value={data[language].description}
+	></FloatingInput>
+	<FilePicker onchange={onFileChange} isSelected={!!data.image} />
 	<button onclick={save}>Save</button>
 </div>
 

@@ -14,16 +14,23 @@ export async function GET({ url }) {
 
 export async function PUT({ request }) {
 	let data = await request.formData();
-	let { header, content } = JSON.parse(data.get('data') as string);
+	let { header, content, description } = JSON.parse(data.get('data') as string);
 	let images = data.getAll('images') as File[];
+	let thumbnail = data.get('thumbnail') as File;
+
 	let blog_id = crypto.randomBytes(16).toString('hex');
 	await saveImages({ blog_id, content, images });
+	let { url: thumbnail_url } = await uploadImage(thumbnail, 'blog/' + blog_id, false, 'thumbnail');
 	await insertBlog({
 		id: blog_id,
 		title_en: header.en || '',
 		title_ka: header.ka || '',
 		content_en: content.en || '',
-		content_ka: content.ka || ''
+		content_ka: content.ka || '',
+		description_en: description.en || '',
+		description_ka: description.ka || '',
+		relatedBlogs: '',
+		thumbnail: thumbnail_url
 	});
 
 	return new Response();
@@ -38,8 +45,11 @@ export async function DELETE({ url }) {
 
 export async function PATCH({ request }) {
 	let data = await request.formData();
-	let { header, content, id } = JSON.parse(data.get('data') as string);
+	let { header, content, description } = JSON.parse(data.get('data') as string);
+	let id = data.get('id') as string;
 	let images = data.getAll('images') as File[];
+	let thumbnail = data.get('thumbnail') as File;
+	let relatedBlogs = data.get('relatedBlogs') as string;
 	let storage_data = JSON.parse(data.get('storage_data') as string) as {
 		data: { storage_images: { removed: string[] } };
 	};
@@ -47,12 +57,21 @@ export async function PATCH({ request }) {
 		await deleteImage(removed).catch(() => {});
 	}
 	await saveImages({ blog_id: id, content, images });
+	let { url: thumbnail_url } =
+		thumbnail instanceof File
+			? await uploadImage(thumbnail, 'blog/' + id, false, 'thumbnail')
+			: { url: thumbnail };
+
 	await updateBlog({
 		id,
 		title_en: header.en || '',
 		title_ka: header.ka || '',
 		content_en: content.en || '',
-		content_ka: content.ka || ''
+		content_ka: content.ka || '',
+		description_en: description.en || '',
+		description_ka: description.ka || '',
+		relatedBlogs: relatedBlogs || '',
+		thumbnail: thumbnail_url || ''
 	});
 	return new Response();
 }

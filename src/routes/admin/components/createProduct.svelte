@@ -60,7 +60,7 @@
 
 	let { show = $bindable(false), category_id, mode = 'create', onrefresh }: Props = $props();
 
-	let language: 'en' | 'ka' = $state('en');
+	let language: 'en' | 'ka' = $state('ka');
 
 	track(
 		() => {

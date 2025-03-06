@@ -1,7 +1,11 @@
 <script lang="ts">
 	let input = $state() as HTMLInputElement;
 	let file = $state() as File;
-	let { onchange }: { onchange: (file: File) => void } = $props();
+	let {
+		onchange,
+		isSelected,
+		class: className
+	}: { onchange: (file: File) => void; isSelected?: boolean; class?: string } = $props();
 	function _onchange() {
 		if (!input.files) return;
 		file = input.files[0];
@@ -11,10 +15,10 @@
 
 <input type="file" hidden onchange={_onchange} bind:this={input} />
 
-<div class="flex w-full items-center justify-between gap-2">
-	<button onclick={() => input.click()}>SELECT IMAGE</button>
+<div class="flex w-full items-center justify-between gap-2 {className}">
+	<button onclick={() => input.click()}>{isSelected ? 'REPLACE' : 'SELECT'} IMAGE</button>
 	<p class="max-w-[500px] overflow-hidden text-ellipsis text-right font-Poppins">
-		{file?.name || 'No file selected'}
+		{file?.name || (isSelected ? '' : 'No file selected')}
 	</p>
 </div>
 

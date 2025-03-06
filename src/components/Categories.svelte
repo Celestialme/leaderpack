@@ -8,16 +8,12 @@
 	let categories = $page.data.categories;
 </script>
 
-<svelte:head>
-	<meta property="og:title" content={locales.categories()} />
-</svelte:head>
-
 <div class="wrapper" bind:this={products_el.value}>
 	{#each categories as category}
 		<ProductCard
 			src={category.imageURL}
 			title={category[`title_${language.value}`]}
-			href={`/${language.value}/products/${category[`title_${language.value}`].intoSlug()}`}
+			href={`/${language.value}/products/${category[`title_${language.value}`]?.intoSlug()}`}
 		/>
 	{/each}
 </div>

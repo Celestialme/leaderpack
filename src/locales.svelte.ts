@@ -85,8 +85,8 @@ let locales = $derived({
 	},
 	copyRight() {
 		return {
-			en: '© 2024 Leader Pack. All Rights Reserved',
-			ka: '© 2024 ლიდერ პაკი. ყველა უფლება დაცულია'
+			en: `© 2024-${new Date().getFullYear()} Leader Pack. All Rights Reserved`,
+			ka: `© 2024-${new Date().getFullYear()} ლიდერ პაკი. ყველა უფლება დაცულია`
 		}[language.value];
 	},
 
@@ -184,6 +184,12 @@ let locales = $derived({
 		return {
 			en: 'Related Products',
 			ka: 'მსგავსი პროდუქცია'
+		}[language.value];
+	},
+	relatedBlogs() {
+		return {
+			en: 'Related Blogs',
+			ka: 'მსგავსი ბლოგები'
 		}[language.value];
 	},
 	branded() {

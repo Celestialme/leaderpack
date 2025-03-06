@@ -4,6 +4,10 @@
 </script>
 
 <Header></Header>
+<svelte:head>
+	<title>{locales.about()}</title>
+	<meta property="og:title" content={locales.about()} />
+</svelte:head>
 <div class="flex w-full flex-col">
 	<div
 		class="mx-auto my-auto flex max-h-[80%] w-[1000px] max-w-[90%] flex-grow flex-col items-center rounded-lg p-4 shadow"

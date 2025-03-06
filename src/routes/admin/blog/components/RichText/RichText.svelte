@@ -27,14 +27,14 @@
 	let active_dropDown = $state('');
 
 	let {
-		value = { content: {}, header: {} },
+		value = { content: {}, header: {}, description: {} },
 		getData = $bindable()
 	}: {
 		value?: any;
 		getData?: () => Promise<{ images: { [key: string]: any }; data: any }>;
 	} = $props();
 	getData = async () => ({ images, data: _data });
-	let _data: any = $state(value ? value : { content: {}, header: {} });
+	let _data: any = $state(value ? value : { content: {}, header: {}, description: {} });
 	let imageInput = $state() as HTMLInputElement;
 	let previous_language = language.value;
 	language.subscribe(async (val) => {
@@ -304,6 +304,7 @@
 	placeholder="Title"
 	inputClass="!w-full mt-2"
 />
+<textarea name="description" bind:value={_data.description[language.value]}></textarea>
 <div class="editor">
 	{#if editor}
 		<div class="z-10 w-full translate-x-0">

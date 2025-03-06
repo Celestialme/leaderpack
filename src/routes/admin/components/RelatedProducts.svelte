@@ -30,7 +30,8 @@
 			.then((res) => {
 				relatedProducts.array = [];
 				for (let id of relatedProductIDS) {
-					relatedProducts.array.push(res.data.find((p: Product) => p.id == id));
+					let product = res.data.find((p: Product) => p.id == id);
+					product && relatedProducts.array.push(product);
 				}
 			});
 	}
@@ -64,7 +65,7 @@
 			{#each filteredProducts as product}
 				<ProductCard
 					class="mb-2"
-					title={product.title_en}
+					title={product.title_ka}
 					src={JSON.parse(product.images)[0]?.url}
 					onclick={() => {
 						relatedProducts.array.push(product);
@@ -91,7 +92,7 @@
 						/>
 						<ProductCard
 							class="mb-2"
-							title={product.title_en}
+							title={product.title_ka}
 							src={JSON.parse(product.images)[0]?.url}
 						/>
 					</div>

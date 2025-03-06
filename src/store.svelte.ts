@@ -1,6 +1,6 @@
 import { untrack } from 'svelte';
 import type { ProductData } from './types';
-export let language = store<'en' | 'ka'>('en');
+export let language = store<'en' | 'ka'>('ka');
 export let contact_el = store<HTMLDivElement>();
 export let products_el = store<HTMLDivElement>();
 export let header_el = store<HTMLDivElement>();

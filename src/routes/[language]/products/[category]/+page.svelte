@@ -5,9 +5,13 @@
 	import Header from '@src/components/Header.svelte';
 	import Products from '@src/components/Products.svelte';
 	import { getCategory } from '@src/utils';
+	import { language } from '@src/store.svelte';
+	console.log(getCategory());
 </script>
 
 <svelte:head>
+	<meta name="description" content={getCategory()?.[`description_${language.value}`]} />
+	<title>{getCategory()?.[`title_${language.value}`]}</title>
 	<meta property="og:title" content={$page.params.category} />
 	<meta property="og:image" content={new URL(getCategory()?.imageURL as string).href} />
 </svelte:head>

@@ -61,7 +61,7 @@ const ImageResize = ImageExtension.extend({
 			},
 			w: {
 				default: '200px',
-				parseHTML: (element) => (element.querySelector('img') as HTMLElement).getAttribute('width')
+				parseHTML: (element) => (element as HTMLElement).style.width
 			},
 			h: {
 				default: '200px',
@@ -97,7 +97,7 @@ const ImageResize = ImageExtension.extend({
 		return [
 			'div',
 			{
-				style: `text-align: ${HTMLAttributes.textAlign};float: ${HTMLAttributes.float};height: ${HTMLAttributes.h}; margin: ${HTMLAttributes.margin}`
+				style: `text-align: ${HTMLAttributes.textAlign};float: ${HTMLAttributes.float};height: ${HTMLAttributes.h}; width: ${HTMLAttributes.w}; margin: ${HTMLAttributes.margin}`
 			},
 			[
 				'img',
@@ -105,7 +105,7 @@ const ImageResize = ImageExtension.extend({
 					storage_image: HTMLAttributes.storage_image,
 					src: HTMLAttributes.id || HTMLAttributes.src,
 					id: HTMLAttributes.id,
-					style: `width: ${HTMLAttributes.w}; height: 100%`
+					style: `width: 100%; height: 100%`
 				}
 			],
 			HTMLAttributes.description

@@ -2,7 +2,7 @@
 	let { content = $bindable(''), ...props } = $props();
 </script>
 
-<div {...props}>
+<div {...props} class="mx-auto">
 	{@html content}
 </div>
 

@@ -15,7 +15,7 @@ export async function GET({ url }) {
 	} else if (category) {
 		products = await getProducts({ category });
 	} else {
-		products = await getProducts({ all: true });
+		products = await getProducts({ all: true, sitemap: false });
 	}
 	return new Response(JSON.stringify(products));
 }

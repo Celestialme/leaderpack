@@ -12,6 +12,8 @@
 	import { goto } from '$app/navigation';
 	import BreadCrumb from './BreadCrumb.svelte';
 	import SearchContent from './SearchContent.svelte';
+	import { getCategory, getProduct } from '@src/utils';
+	import type { Category } from '@src/types';
 
 	async function scroll() {
 		if (!contact_el.value) {
@@ -26,8 +28,10 @@
 		});
 	}
 	let showMenu = $state(false);
-	let category = $derived($page.params.category);
+	let category = $derived(getCategory()) as Category;
+
 	let product = $derived($page.params.product);
+	let label = $derived((getProduct($page.params) as any)[`title_${$page.params.language}`]);
 </script>
 
 <div class="sticky top-0 z-20 w-full bg-[#F0F0F0]">
@@ -54,8 +58,14 @@
 		<BreadCrumb
 			items={[
 				{ label: locales.home(), url: `/${$page.params.language}` },
-				{ label: category, url: `/${$page.params.language}/products/${category}` },
-				{ label: product, url: `/${$page.params.language}/products/${category}/${product}` }
+				{
+					label: category[`title_${language.value}`],
+					url: `/${$page.params.language}/products/${category[`title_${language.value}`].intoSlug()}`
+				},
+				{
+					label,
+					url: `/${$page.params.language}/products/${category[`title_${language.value}`].intoSlug()}/${product}`
+				}
 			]}
 		></BreadCrumb>
 	{/if}

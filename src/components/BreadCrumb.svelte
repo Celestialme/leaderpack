@@ -11,7 +11,7 @@
 			href={item.url}
 			class:w-min={index == 0}
 			class:overflow-visible={index == 0}
-			class="relative w-min overflow-auto whitespace-nowrap">{item.label.fromSlug()}</a
+			class="relative w-min overflow-auto whitespace-nowrap">{item.label}</a
 		>
 		{#if index !== cleaned.length - 1}
 			<svg

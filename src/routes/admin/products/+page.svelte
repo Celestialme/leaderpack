@@ -73,7 +73,7 @@
 					<button onclick={() => editProduct(product)}><Edit /></button>
 					<button onclick={() => deleteProduct(product)}><Delete /></button>
 				</div>
-				<ProductCard src={getProductThumbnail(product)} title={product.title_en}></ProductCard>
+				<ProductCard src={getProductThumbnail(product)} title={product.title_ka}></ProductCard>
 			</div>
 		{/each}
 	</div>

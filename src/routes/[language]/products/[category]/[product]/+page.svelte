@@ -6,11 +6,16 @@
 	import Product from '@src/components/Product.svelte';
 	import RelatedProducts from '@src/components/RelatedProducts.svelte';
 	import { getProduct, getProductThumbnail } from '@src/utils';
+	import { language } from '@src/store.svelte';
+	let product = $derived(getProduct($page.params));
+	$inspect(product);
 </script>
 
 <svelte:head>
-	<meta property="og:title" content={$page.params.product} />
-	<meta property="og:image" content={new URL(getProductThumbnail(getProduct()) as string).href} />
+	<title>{product[`title_${language.value}`]}</title>
+	<meta property="og:title" content={product[`title_${language.value}`]} />
+	<meta name="description" content={product[`description_${language.value}`]} />
+	<meta property="og:image" content={new URL(getProductThumbnail(product) as string).href} />
 </svelte:head>
 <Header></Header>
 <div class="flex flex-col items-center gap-[50px]">

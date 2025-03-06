@@ -21,8 +21,46 @@ export let throttle = (delay: number) => {
 	};
 };
 
+let replaceMap = [
+	['ა', 'a'],
+	['ბ', 'b'],
+	['გ', 'g'],
+	['დ', 'd'],
+	['ე', 'e'],
+	['ვ', 'v'],
+	['ზ', 'z'],
+	['თ', 'T'],
+	['ი', 'i'],
+	['კ', 'k'],
+	['ლ', 'l'],
+	['მ', 'm'],
+	['ნ', 'n'],
+	['ო', 'o'],
+	['პ', 'p'],
+	['ჟ', 'J'],
+	['რ', 'r'],
+	['ს', 's'],
+	['ტ', 't'],
+	['უ', 'u'],
+	['ფ', 'f'],
+	['ქ', 'q'],
+	['ღ', 'R'],
+	['ყ', 'y'],
+	['შ', 'S'],
+	['ჩ', 'C'],
+	['ც', 'c'],
+	['ძ', 'Z'],
+	['წ', 'w'],
+	['ჭ', 'W'],
+	['ხ', 'x'],
+	['ჯ', 'j'],
+	['ჰ', 'h']
+];
 String.prototype.intoSlug = function (this: string): string {
-	return this.replace(/\s+/g, '_').replace(/\//g, '|').replaceAll('?', '%3F');
+	let self = this;
+	for (let i = 0; i < replaceMap.length; i++)
+		self = self.replace(new RegExp(replaceMap[i][0], 'g'), replaceMap[i][1]);
+	return self.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
 };
 String.prototype.fromSlug = function (this: string): string {
 	return this.replace(/[_-]/g, ' ').replace(/\|/g, '/').replaceAll('%3F', '?');

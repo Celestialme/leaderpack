@@ -27,6 +27,10 @@ export function init_db() {
 	title_ka TEXT NOT NULL,
 	content_en TEXT NOT NULL,
 	content_ka TEXT NOT NULL,
+	description_en TEXT,
+	description_ka TEXT,
+	"relatedBlogs" TEXT,
+	thumbnail TEXT NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`);
 
@@ -34,6 +38,8 @@ export function init_db() {
     id TEXT PRIMARY KEY ,
 	title_en TEXT NOT NULL,
     title_ka TEXT NOT NULL,
+	description_en TEXT NOT NULL DEFAULT '',
+	description_ka TEXT NOT NULL DEFAULT '',
 	"imageURL" TEXT NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );`);
@@ -65,34 +71,40 @@ export async function insertCategory({
 	id,
 	title_en,
 	title_ka,
+	description_en,
+	description_ka,
 	imageURL
 }: {
 	id: string;
 	title_en: string;
 	title_ka: string;
+	description_en: string;
+	description_ka: string;
 	imageURL: string;
 }) {
-	await query(`INSERT INTO categories(id, title_en, title_ka, "imageURL") VALUES($1,$2,$3,$4)`, [
-		id,
-		title_en,
-		title_ka,
-		imageURL
-	]);
+	await query(
+		`INSERT INTO categories(id, title_en, title_ka,description_en,description_ka, "imageURL") VALUES($1,$2,$3,$4,$5,$6)`,
+		[id, title_en, title_ka, description_en, description_ka, imageURL]
+	);
 }
 export async function updateCategory({
 	id,
 	title_en,
 	title_ka,
+	description_en,
+	description_ka,
 	imageURL
 }: {
 	id: string;
 	title_en: string;
 	title_ka: string;
+	description_en: string;
+	description_ka: string;
 	imageURL: string;
 }) {
 	await query(
-		`UPDATE categories SET title_en = $1, title_ka = $2 , "imageURL" = $3 WHERE id = $4`,
-		[title_en, title_ka, imageURL, id]
+		`UPDATE categories SET title_en = $1, title_ka = $2 , description_en = $3 , description_ka = $4, "imageURL" = $5 WHERE id = $6`,
+		[title_en, title_ka, description_en, description_ka, imageURL, id]
 	);
 }
 export async function deleteCategory({ id }: { id: string }) {
@@ -100,7 +112,8 @@ export async function deleteCategory({ id }: { id: string }) {
 	await query(`DELETE FROM categories WHERE id = $1`, [id]);
 	await imageKit.deleteFolder(`LeaderPack/${id}`);
 }
-export function getCategories() {
+export function getCategories({ sitemap = false }: { sitemap?: boolean } = {}) {
+	if (sitemap) return query(`SELECT title_en,title_ka FROM categories`).then((res) => res.rows);
 	return query(`SELECT * FROM categories ORDER BY created_at ASC`).then((res) => res.rows);
 }
 
@@ -215,10 +228,15 @@ export async function deleteProduct({ id }: { id: string }) {
 	await query(`DELETE FROM products WHERE id = $1`, [id]);
 }
 
-export function getProducts(params: { all: true }): any;
+export function getProducts(params: { all: true; sitemap: boolean }): any;
 export function getProducts(params: { category_id: string }): any;
 export function getProducts(params: { category: string }): any;
-export function getProducts(params: { category?: string; category_id?: string; all?: true }) {
+export function getProducts(params: {
+	category?: string;
+	category_id?: string;
+	all?: true;
+	sitemap?: boolean;
+}): any {
 	if (params?.category_id) {
 		return query(`SELECT * FROM products where category_id = $1 ORDER BY created_at ASC`, [
 			params.category_id
@@ -229,6 +247,9 @@ export function getProducts(params: { category?: string; category_id?: string; a
 			[params.category]
 		).then((res) => res.rows);
 	} else if (params?.all) {
+		if (params?.sitemap) {
+			return query(`SELECT title_en,title_ka FROM products`).then((res) => res.rows);
+		}
 		return query(`SELECT * FROM products ORDER BY created_at ASC`).then((res) => res.rows);
 	}
 }
@@ -250,14 +271,38 @@ export function getRelatedProducts(ids: string[]) {
 		`SELECT products.*, categories.title_en as category_title_en, categories.title_ka as category_title_ka  FROM categories,products where categories.id = products.category_id AND products.id in (${idsString})`
 	).then((res) => res.rows);
 }
-export function getBlogs() {
+export function getBlogs({ sitemap = false }: { sitemap?: boolean } = {}) {
+	if (sitemap) return query(`SELECT title_en,title_ka FROM blogs`).then((res) => res.rows);
 	return query(`SELECT * FROM blogs`).then((res) => res.rows);
 }
-
+export function getRelatedBlogs(ids: string[]) {
+	let idsString = ids.map((id) => `'${id}'`).join(',');
+	return query(`SELECT * FROM blogs WHERE id in (${idsString})`).then((res) => res.rows);
+}
 export function getBlog({ blog }: { blog: string }) {
-	return query(`SELECT * FROM blogs WHERE  id = $1 or title_en = $1 or title_ka = $1`, [blog]).then(
-		(res) => res.rows[0]
-	);
+	return query(
+		`
+		SELECT * FROM blogs 
+		WHERE id = $1 
+		OR regexp_replace(
+			regexp_replace(
+			translate(title_en, 
+            'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ', 
+            'abgdevzTiklmnopJrstufqRySCcZwWxjh'
+        ), '\\s+', '-', 'g'),
+			'[^a-zA-Z0-9-]', '', 'g'
+		) = $1
+		OR regexp_replace(
+			regexp_replace(translate(
+			title_ka, 
+            'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ', 
+            'abgdevzTiklmnopJrstufqRySCcZwWxjh'
+        ), '\\s+', '-', 'g'),
+			'[^a-zA-Z0-9-]', '', 'g'
+		) = $1
+		`,
+		[blog]
+	).then((res) => res.rows[0]);
 }
 
 export async function deleteBlog({ id }: { id: string }) {
@@ -269,17 +314,35 @@ export async function insertBlog({
 	title_en,
 	title_ka,
 	content_en,
-	content_ka
+	content_ka,
+	description_en,
+	description_ka,
+	relatedBlogs,
+	thumbnail
 }: {
 	id: string;
 	title_en: string;
 	title_ka: string;
 	content_en: string;
 	content_ka: string;
+	description_en: string;
+	description_ka: string;
+	relatedBlogs: string;
+	thumbnail: string;
 }) {
 	await query(
-		`INSERT INTO blogs(id,title_en, title_ka, content_en, content_ka) VALUES($1,$2,$3,$4,$5)`,
-		[id, title_en, title_ka, content_en, content_ka]
+		`INSERT INTO blogs(id,title_en, title_ka, content_en, content_ka, description_en, description_ka, "relatedBlogs", thumbnail) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+		[
+			id,
+			title_en,
+			title_ka,
+			content_en,
+			content_ka,
+			description_en,
+			description_ka,
+			relatedBlogs,
+			thumbnail
+		]
 	);
 }
 
@@ -288,17 +351,35 @@ export async function updateBlog({
 	title_en,
 	title_ka,
 	content_en,
-	content_ka
+	content_ka,
+	description_en,
+	description_ka,
+	relatedBlogs,
+	thumbnail
 }: {
 	id: string;
 	title_en: string;
 	title_ka: string;
 	content_en: string;
 	content_ka: string;
+	description_en: string;
+	description_ka: string;
+	relatedBlogs: string;
+	thumbnail: string;
 }) {
 	await query(
-		`UPDATE blogs SET title_en = $1, title_ka = $2 , content_en = $3 , content_ka = $4 WHERE id = $5`,
-		[title_en, title_ka, content_en, content_ka, id]
+		`UPDATE blogs SET title_en = $1, title_ka = $2 , content_en = $3 , content_ka = $4 ,description_en = $5, description_ka = $6,"relatedBlogs" = $7, thumbnail = $8 WHERE id = $9`,
+		[
+			title_en,
+			title_ka,
+			content_en,
+			content_ka,
+			description_en,
+			description_ka,
+			relatedBlogs,
+			thumbnail,
+			id
+		]
 	);
 }
 

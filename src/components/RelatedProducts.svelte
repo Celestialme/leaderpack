@@ -28,7 +28,7 @@
 	<div class="w-full max-w-[2000px] p-[20px]">
 		<p class="mx-auto my-4 font-Poppins text-[20px] font-[700]">{locales.relatedProducts()}</p>
 		<div class="my-4 flex gap-[50px] overflow-auto" use:createScroll>
-			{#each relatedProducts as product}
+			{#each relatedProducts.filter((p) => p) as product}
 				<div class="max-w-1/2">
 					<ProductCard
 						title={product[`title_${language.value}`]}

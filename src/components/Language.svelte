@@ -5,7 +5,7 @@
 	import { getCategory, getProduct, replaceParams } from '@src/utils';
 
 	export let navigate = true;
-	export let language = 'en';
+	export let language = 'ka';
 	function updateURL() {
 		language = language === 'en' ? 'ka' : 'en';
 		let category = getCategory() as any;

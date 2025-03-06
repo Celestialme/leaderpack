@@ -28,14 +28,14 @@
 {#if showEditor}
 	<EditBlog bind:show={showEditor} value={editData}></EditBlog>
 {:else}
-	<div class="flex h-screen cursor-pointer flex-col items-center">
-		<AddButton
-			onclick={() => {
-				editData = undefined;
-				showEditor = true;
-			}}
-			class="mx-2 ml-auto mt-2 cursor-pointer active:scale-90"
-		/>
+	<AddButton
+		onclick={() => {
+			editData = undefined;
+			showEditor = true;
+		}}
+		class="mx-2 ml-auto mt-2 cursor-pointer active:scale-90"
+	/>
+	<div class="h-[calc(100vh - 100px)] mt-[100px] grid cursor-pointer justify-center gap-2">
 		{#if blogs.length}
 			{#each blogs as blog}
 				<div
@@ -44,7 +44,10 @@
 						editData = {
 							id: blog.id,
 							header: { en: blog.title_en, ka: blog.title_ka },
-							content: { en: blog.content_en, ka: blog.content_ka }
+							content: { en: blog.content_en, ka: blog.content_ka },
+							description: { en: blog.description_en, ka: blog.description_ka },
+							relatedBlogs: { array: [], string: blog.relatedBlogs },
+							thumbnail: blog.thumbnail
 						};
 						showEditor = true;
 					}}
@@ -54,9 +57,9 @@
 							e.stopPropagation();
 							deleteBlog(blog);
 						}}
-						class="absolute right-2 top-4 z-30 cursor-pointer"
+						class="absolute right-1 top-2 z-30 cursor-pointer"
 					></Delete>
-					<BlogCard {blog} />
+					<BlogCard {blog} class="h-full" />
 				</div>
 			{/each}
 		{:else}
@@ -64,3 +67,12 @@
 		{/if}
 	</div>
 {/if}
+
+<style>
+	.grid {
+		gap: 30px;
+		grid-template-columns: repeat(auto-fit, min(400px, calc(100% - 80px)));
+		justify-content: center;
+		text-align: center;
+	}
+</style>

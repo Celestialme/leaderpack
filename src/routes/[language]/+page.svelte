@@ -7,8 +7,14 @@
 	import Header from '@src/components/Header.svelte';
 	import Features from '@src/components/Features.svelte';
 	import Faq from '@src/components/FAQ.svelte';
+	import locales from '@src/locales.svelte';
 </script>
 
+<svelte:head>
+	<meta name="description" content="Your Product Deserves Leader Pack" />
+	<title>{locales.categories()}</title>
+	<meta property="og:title" content={locales.categories()} />
+</svelte:head>
 <Header></Header>
 <div class="flex flex-col items-center overflow-auto">
 	<div class="flex max-w-[2000px] flex-col gap-[50px]">

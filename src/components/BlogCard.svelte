@@ -22,12 +22,13 @@
 
 <div
 	{...props}
-	class="relative my-2 flex w-[700px] max-w-[90vw] flex-col items-center rounded-md border-2 border-solid border-gray-200 p-4 font-Poppins shadow-lg {_class}"
+	class="relative my-2 flex w-[400px] max-w-[90vw] cursor-pointer flex-col items-center rounded-md border-2 border-solid border-gray-200 p-6 font-Poppins shadow-lg {_class}"
 >
-	<p class="font-Poppins text-2xl text-[#005500]">
-		{blog[`title_${language.value}`]}
+	<img src={blog?.thumbnail} alt="thumbnail" class="max-h-[180px] min-h-[180px] w-full" />
+	<p class="mb-2 mt-4 text-center font-Poppins text-2xl text-[#005500]">
+		{blog?.[`title_${language.value}`]}
 	</p>
-	<div>
-		{parseHTML(blog[`content_${language.value}`]).slice(0, 200)}...
-	</div>
+	<p class="text-gray-600">
+		{parseHTML(blog?.[`content_${language.value}`])?.slice(0, 100)}...
+	</p>
 </div>

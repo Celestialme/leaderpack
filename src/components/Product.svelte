@@ -19,6 +19,10 @@
 	);
 
 	$effect(() => {
+		branded = false;
+		$page.params;
+	});
+	$effect(() => {
 		globalThis.document && document.body.classList.toggle('overflow-hidden', showOrderForm);
 	});
 </script>
@@ -63,30 +67,42 @@
 			<div class="flex flex-wrap items-center justify-between">
 				<table class="grow">
 					<tbody>
-						<tr class:hidden={!description}>
-							<td class="font-Poppins text-[20px] font-[700]">{locales.description()}:</td>
-							<td class="w-[70%] font-Poppins">{description}</td>
-						</tr>
-						<tr class:hidden={!colors}>
-							<td class="font-Poppins text-[20px] font-[700]">{locales.colors()}:</td>
-							<td class="w-[70%] font-Poppins">{colors}</td>
-						</tr>
-						<tr class:hidden={!material}>
-							<td class="font-Poppins text-[20px] font-[700]">{locales.material()}:</td>
-							<td class="w-[70%] font-Poppins">{material}</td>
-						</tr>
-						<tr class:hidden={!options}>
-							<td class="font-Poppins text-[20px] font-[700]">{locales.options()}:</td>
-							<td class="w-[70%] font-Poppins">{@html options}</td>
-						</tr>
-						<tr class:hidden={!details}>
-							<td class="font-Poppins text-[20px] font-[700]">{locales.details()}:</td>
-							<td class="w-[70%] font-Poppins">{@html details}</td>
-						</tr>
-						<tr class:hidden={!sizes}>
-							<td class="font-Poppins text-[20px] font-[700]">{locales.sizes()}:</td>
-							<td class="w-[70%] font-Poppins">{@html sizes}</td>
-						</tr>
+						{#if description}
+							<tr>
+								<td class="font-Poppins text-[20px] font-[700]">{locales.description()}:</td>
+								<td class="w-[70%] font-Poppins">{description}</td>
+							</tr>
+						{/if}
+						{#if colors}
+							<tr>
+								<td class="font-Poppins text-[20px] font-[700]">{locales.colors()}:</td>
+								<td class="w-[70%] font-Poppins">{colors}</td>
+							</tr>
+						{/if}
+						{#if material}
+							<tr>
+								<td class="font-Poppins text-[20px] font-[700]">{locales.material()}:</td>
+								<td class="w-[70%] font-Poppins">{material}</td>
+							</tr>
+						{/if}
+						{#if options}
+							<tr>
+								<td class="font-Poppins text-[20px] font-[700]">{locales.options()}:</td>
+								<td class="w-[70%] font-Poppins">{@html options}</td>
+							</tr>
+						{/if}
+						{#if details}
+							<tr>
+								<td class="font-Poppins text-[20px] font-[700]">{locales.details()}:</td>
+								<td class="w-[70%] font-Poppins">{@html details}</td>
+							</tr>
+						{/if}
+						{#if sizes}
+							<tr>
+								<td class="font-Poppins text-[20px] font-[700]">{locales.sizes()}:</td>
+								<td class="w-[70%] font-Poppins">{@html sizes}</td>
+							</tr>
+						{/if}
 					</tbody>
 				</table>
 				{#if item.branding}

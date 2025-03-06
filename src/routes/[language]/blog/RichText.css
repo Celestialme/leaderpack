@@ -13,3 +13,7 @@
 	cursor: pointer;
 	display: inline-block;
 }
+
+* :global(p) {
+	min-height: 16px;
+}

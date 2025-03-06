@@ -24,13 +24,16 @@
 			image: category.imageURL,
 			id: category.id,
 			en: {
-				title: category.title_en
+				title: category.title_en,
+				description: category.description_en
 			},
 			ka: {
-				title: category.title_ka
+				title: category.title_ka,
+				description: category.description_ka
 			}
 		};
 		mode = 'edit';
+		showDialog = true;
 		showDialog = true;
 	}
 	async function deleteCategory(id: string) {
@@ -66,7 +69,7 @@
 				</div>
 				<ProductCard
 					src={category.imageURL}
-					title={category.title_en}
+					title={category.title_ka}
 					href={`/admin/products?category_id=${category.id}`}
 				></ProductCard>
 			</div>

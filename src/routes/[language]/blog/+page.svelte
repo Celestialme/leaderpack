@@ -6,19 +6,27 @@
 	import { goto } from '$app/navigation';
 	import { language } from '@src/store.svelte';
 	import locales from '@src/locales.svelte';
+	import RelatedBlogs from '@src/components/RelatedBlogs.svelte';
 	let blogs = $derived($page.data.blogs);
 	let blog = $derived($page.url.searchParams.get('blog'));
+	$inspect(blog);
 </script>
 
+<svelte:head>
+	<title>{blog ? blogs[`title_${language.value}`] : locales.blog()}</title>
+	<meta property="og:title" content={blog ? blogs[`title_${language.value}`] : locales.blog()} />
+	<meta name="description" content={blog ? blogs[`description_${language.value}`] : ''} />
+</svelte:head>
 <Header></Header>
 <div class="flex flex-col">
 	{#if blog}
 		{#if blogs}
 			<div class="flex flex-col items-center p-5">
 				<h1 class="my-5 font-Poppins text-[24px] font-[400]">{blogs[`title_${language.value}`]}</h1>
-				<div class="w-full">
+				<div class="mb-[300px] max-w-[800px]">
 					<RichText content={blogs[`content_${language.value}`]}></RichText>
 				</div>
+				<RelatedBlogs blog={blogs}></RelatedBlogs>
 			</div>
 		{:else}
 			<div class="flex h-screen flex-grow flex-col items-center justify-center">
@@ -26,7 +34,7 @@
 			</div>
 		{/if}
 	{:else}
-		<div class="flex flex-grow flex-col items-center pt-2">
+		<div class="grid pt-2">
 			{#if blogs.length}
 				{#each blogs as blog}
 					<BlogCard
@@ -44,3 +52,11 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.grid {
+		gap: 30px;
+		grid-template-columns: repeat(auto-fit, min(400px, calc(100% - 80px)));
+		justify-content: center;
+	}
+</style>

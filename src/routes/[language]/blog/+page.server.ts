@@ -1,5 +1,5 @@
 export async function load({ fetch, url }) {
-	let blog = url.searchParams.get('blog')?.fromSlug();
+	let blog = url.searchParams.get('blog');
 	let query = blog ? `?blog=${blog}` : '';
 	let blogs = await fetch(`/api/blogs${query}`).then((res) => res.json());
 

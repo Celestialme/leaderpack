@@ -2,6 +2,8 @@ export type Category = {
 	id: string;
 	title_en: string;
 	title_ka: string;
+	description_en: string;
+	description_ka: string;
 	imageURL: string;
 };
 export type Blog = {
@@ -10,7 +12,10 @@ export type Blog = {
 	title_ka: string;
 	imageURL: string;
 };
-export type CategoryData = { [key in 'en' | 'ka']: { title: string } } & {
+export type BlogData = { [key in 'en' | 'ka']: { title: string; description: string } } & {
+	id?: string;
+};
+export type CategoryData = { [key in 'en' | 'ka']: { title: string; description: string } } & {
 	id?: string;
 	image: File | null | string;
 };
