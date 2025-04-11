@@ -92,13 +92,17 @@ async function saveImages({
 		// images from richtext content itself
 		_images[id[1]] = id[1];
 	}
-	for (let image of images) {
-		//locally selected new images
-		let { url, id } = await uploadImage(image, 'blog/' + blog_id);
+
+	let uploaded_images = await Promise.all(
+		images.map(async (image) => {
+			return await uploadImage(image, 'blog/' + blog_id);
+		})
+	);
+	for (let image of uploaded_images) {
 		for (let lang in content) {
 			content[lang] = content[lang].replace(
 				`src="${image.name}"`,
-				`src="${url}" storage_image="${id}"`
+				`src="${image.url}" storage_image="${image.id}"`
 			);
 		}
 	}

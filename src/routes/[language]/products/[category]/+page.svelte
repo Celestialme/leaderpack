@@ -6,7 +6,6 @@
 	import Products from '@src/components/Products.svelte';
 	import { getCategory } from '@src/utils';
 	import { language } from '@src/store.svelte';
-	console.log(getCategory());
 </script>
 
 <svelte:head>

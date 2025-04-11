@@ -97,7 +97,8 @@ const ImageResize = ImageExtension.extend({
 		return [
 			'div',
 			{
-				style: `text-align: ${HTMLAttributes.textAlign};float: ${HTMLAttributes.float};height: ${HTMLAttributes.h}; width: ${HTMLAttributes.w}; margin: ${HTMLAttributes.margin}`
+				class: 'image_container',
+				style: `text-align: ${HTMLAttributes.textAlign};float: ${HTMLAttributes.float};height: ${HTMLAttributes.h}; width: ${HTMLAttributes.w};max-width: 100%; margin: ${HTMLAttributes.margin}`
 			},
 			[
 				'img',

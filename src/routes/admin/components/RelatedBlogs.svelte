@@ -79,7 +79,6 @@
 			<p class="py-2 font-Poppins text-[20px] font-[700]">Saved Related Products</p>
 			<div class="flex flex-wrap justify-center gap-5">
 				{#each relatedBlogs.array as blog}
-					{console.log(blog)}
 					<div class="relative">
 						<Delete
 							onclick={() => {

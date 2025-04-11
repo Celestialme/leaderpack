@@ -33,7 +33,7 @@
 							{blog}
 							onclick={async () => {
 								goto(
-									`/${$page.params.language}/blog?blog=${blog[`title_${language.value}`].intoSlug()}`
+									`/${$page.params.language}/blog/${blog[`title_${language.value}`].intoSlug()}`
 								);
 							}}
 							class="h-full"

@@ -2,7 +2,7 @@ import { redirect, type Handle } from '@sveltejs/kit';
 import { init_db } from './db';
 
 import { ADMIN_PASSWORD_HASH } from './private';
-init_db();
+// init_db();
 export let handle: Handle = async function ({ event, resolve }) {
 	if (event.url.pathname === '/') {
 		throw redirect(302, '/ka');

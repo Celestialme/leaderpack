@@ -168,10 +168,10 @@ let locales = $derived({
 			ka: 'თქვენი პროდუქცია იმსახურებს <br> ლიდერ პაკს'
 		}[language.value];
 	},
-	perfect() {
+	packaging() {
 		return {
-			en: 'Your Product <br> Perfectly Packaged',
-			ka: 'თქვენი პროდუქტი <br> იდეალურად შეფუთული'
+			en: '<h1>Packaging Solutions</h1> <p>For Your Product</p>',
+			ka: '<h1>შესაფუთი მასალები</h1> <p>თქვენი პროდუქტისთვის</p>'
 		}[language.value];
 	},
 	getStarted() {

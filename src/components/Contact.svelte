@@ -19,7 +19,7 @@
 	<p class="mb-[50px] text-center font-Poppins text-[20px] font-[700] text-[#014B82]">{title}</p>
 	<div class="flex flex-wrap items-center justify-evenly gap-[20px]">
 		<div>
-			<a href="tel:+995 510 00 22 28"><Media icon="phone" /> +995 510 00 22 28</a>
+			<a href="tel:+995 598 28 48 35"><Media icon="phone" /> +995 598 28 48 35</a>
 			<a href="mailto:contact@leaderpack.ge"><Media icon="email" /> contact@leaderpack.ge</a>
 			<a href="https://www.facebook.com/leaderpack.ge" target="_blank">
 				<Media icon="facebook" /> @Leader Pack • ლიდერ პაკი

@@ -4,7 +4,6 @@
 	import ProductCard from './ProductCard.svelte';
 	import { page } from '$app/stores';
 	import { language } from '@src/store.svelte';
-	import locales from '@src/locales.svelte';
 	let categories = $page.data.categories;
 </script>
 

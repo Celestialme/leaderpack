@@ -1,5 +1,7 @@
 <script lang="ts">
 	export let images: string[];
+	export let alt: string = '';
+	export let title = '';
 	let index = 0;
 	let side1 = images[index];
 	let side2 = images[index];
@@ -33,8 +35,8 @@
 	<div class="relative h-full w-full overflow-hidden">
 		<div class:opacity-0={is_running} class="arrow left" onclick={() => change(-1)}></div>
 		<div class:opacity-0={is_running} class="arrow right" onclick={() => change(1)}></div>
-		<img src={side1} alt="" class:animate={index !== 0 || !first} />
-		<img src={side2} alt="" class:animate2={index !== 0 || !first} />
+		<img {alt} {title} src={side1} class:animate={index !== 0 || !first} />
+		<img {alt} {title} src={side2} class:animate2={index !== 0 || !first} />
 		<div class="absolute bottom-2 z-10 flex w-full items-center justify-center gap-2">
 			{#each images as _, i}
 				<div

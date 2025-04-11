@@ -31,11 +31,12 @@
 			{#each relatedProducts.filter((p) => p) as product}
 				<div class="max-w-1/2">
 					<ProductCard
+						isRelated={true}
 						title={product[`title_${language.value}`]}
 						src={getProductThumbnail(product)}
 						onclick={async () => {
 							goto(
-								`/${$page.params.language}/products/${product[`category_title_${language.value}`]}/${product[`title_${language.value}`].intoSlug()}`
+								`/${$page.params.language}/products/${product[`category_title_${language.value}`].intoSlug()}/${product[`title_${language.value}`].intoSlug()}`
 							);
 						}}
 					/>

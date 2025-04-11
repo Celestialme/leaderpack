@@ -71,7 +71,7 @@
 <style>
 	.grid {
 		gap: 30px;
-		grid-template-columns: repeat(auto-fit, min(400px, calc(100% - 80px)));
+		grid-template-columns: repeat(auto-fit, min(400px, 90vw));
 		justify-content: center;
 		text-align: center;
 	}

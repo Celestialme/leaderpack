@@ -113,7 +113,7 @@ export async function deleteCategory({ id }: { id: string }) {
 	await imageKit.deleteFolder(`LeaderPack/${id}`);
 }
 export function getCategories({ sitemap = false }: { sitemap?: boolean } = {}) {
-	if (sitemap) return query(`SELECT title_en,title_ka FROM categories`).then((res) => res.rows);
+	if (sitemap) return query(`SELECT id,title_en,title_ka FROM categories`).then((res) => res.rows);
 	return query(`SELECT * FROM categories ORDER BY created_at ASC`).then((res) => res.rows);
 }
 
@@ -248,7 +248,7 @@ export function getProducts(params: {
 		).then((res) => res.rows);
 	} else if (params?.all) {
 		if (params?.sitemap) {
-			return query(`SELECT title_en,title_ka FROM products`).then((res) => res.rows);
+			return query(`SELECT category_id,title_en,title_ka FROM products`).then((res) => res.rows);
 		}
 		return query(`SELECT * FROM products ORDER BY created_at ASC`).then((res) => res.rows);
 	}

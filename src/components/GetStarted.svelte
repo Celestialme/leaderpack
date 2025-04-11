@@ -18,7 +18,10 @@
 >
 	<div class="mr-auto flex flex-col justify-center gap-[20px]">
 		<p class="deserve">{@html locales.deserve()}</p>
-		<p class="perfect">{@html locales.perfect()}</p>
+		<!-- <p class="perfect">{@html locales.perfect()}</p> -->
+		<div class="packaging">
+			{@html locales.packaging()}
+		</div>
 		<button class="max-w-[60%]" onclick={scroll}>{locales.getStarted()}</button>
 	</div>
 </div>
@@ -29,7 +32,7 @@
 		max-width: calc(100vw - 45%);
 		min-width: 250px;
 	}
-	.perfect {
+	.packaging {
 		font-size: max(calc(1vw + 8px), 16px);
 	}
 
@@ -39,7 +42,9 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
-	p {
+
+	div :global(p),
+	div :global(h1) {
 		font-family: Poppins;
 		font-weight: 700;
 		color: #d8fed8;

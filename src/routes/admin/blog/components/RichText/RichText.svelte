@@ -25,7 +25,7 @@
 	let editor = $state() as Editor;
 	let images: { [key: string]: any } = $state({});
 	let active_dropDown = $state('');
-
+	let showLink = $state(false);
 	let {
 		value = { content: {}, header: {}, description: {} },
 		getData = $bindable()
@@ -304,7 +304,12 @@
 	placeholder="Title"
 	inputClass="!w-full mt-2"
 />
-<textarea name="description" bind:value={_data.description[language.value]}></textarea>
+<textarea
+	class="my-2 min-h-[60px] w-full resize-none border-2 border-solid border-gray-300 p-2 font-Poppins outline-none"
+	placeholder="Description"
+	name="description"
+	bind:value={_data.description[language.value]}
+></textarea>
 <div class="editor">
 	{#if editor}
 		<div class="z-10 w-full translate-x-0">
@@ -373,8 +378,8 @@
 					<iconify-icon icon="majesticons:strike-through-line" width="20"></iconify-icon>
 				</button>
 				<button
+					onclick={() => (showLink = true)}
 					class:hidden={!show('link')}
-					onclick={() => editor.chain().focus().toggleLink({ href: 'https://google.com' }).run()}
 					class:active={editor.isActive('link')}
 				>
 					<iconify-icon icon="pajamas:link" width="20"></iconify-icon>
@@ -411,6 +416,16 @@
 						editor.chain().focus().setImageDescription(description).run();
 					}}
 				/>
+				<Input
+					onsubmit={(value) => {
+						editor.chain().focus().toggleLink({ href: value }).run();
+						showLink = false;
+					}}
+					show={showLink}
+					inputClass="text-center"
+					class="fixed top-full mt-[30px] -translate-y-1/2 !justify-center"
+					value={editor.getAttributes('link').href}
+				/>
 				<input
 					onchange={() => {
 						let data = imageInput?.files?.[0];
@@ -431,14 +446,32 @@
 		</div>
 	{/if}
 	<div
-		onpointerdown={self(() => editor.commands.focus('end'))}
+		onpointerdown={self(() => {
+			editor.commands.focus('end');
+			showLink = false;
+		})}
 		class="text_Area RichText"
 		bind:this={element}
 	></div>
 </div>
 
 <style>
-	@import 'RichText.css';
+	* :global(h1) {
+		font-size: 24px;
+	}
+	* :global(h2) {
+		font-size: 18px;
+	}
+	* :global(a) {
+		color: #00d3d0;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	* :global(img) {
+		cursor: pointer;
+		display: inline-block;
+	}
+
 	.buttons {
 		overflow-x: auto;
 
@@ -477,7 +510,7 @@
 		align-items: center;
 		box-shadow: 4px 4px 16px 1px #b0b0b0b3;
 		border-radius: 8px;
-		min-height: 600px;
+		min-height: 500px;
 		max-width: 100%;
 		width: 100vw;
 	}

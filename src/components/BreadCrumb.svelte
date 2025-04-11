@@ -3,7 +3,7 @@
 	let cleaned = $derived(items.filter((x) => x.label));
 </script>
 
-<p
+<div
 	class="z-20 flex w-full items-center gap-[10px] bg-white py-[20px] pl-2 font-Poppins text-[20px] font-[400]"
 >
 	{#each cleaned as item, index}
@@ -11,8 +11,14 @@
 			href={item.url}
 			class:w-min={index == 0}
 			class:overflow-visible={index == 0}
-			class="relative w-min overflow-auto whitespace-nowrap">{item.label}</a
+			class="relative w-min overflow-auto whitespace-nowrap"
 		>
+			{#if index == 1 && cleaned.length == 2}
+				<h1>{item.label}</h1>
+			{:else}
+				{item.label}
+			{/if}
+		</a>
 		{#if index !== cleaned.length - 1}
 			<svg
 				class="!inline-block"
@@ -29,7 +35,7 @@
 			</svg>
 		{/if}
 	{/each}
-</p>
+</div>
 
 <style>
 	a::after {

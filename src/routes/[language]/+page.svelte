@@ -12,8 +12,8 @@
 
 <svelte:head>
 	<meta name="description" content="Your Product Deserves Leader Pack" />
-	<title>{locales.categories()}</title>
-	<meta property="og:title" content={locales.categories()} />
+	<title>{locales.leaderPack()}</title>
+	<meta property="og:title" content={locales.leaderPack()} />
 </svelte:head>
 <Header></Header>
 <div class="flex flex-col items-center overflow-auto">

@@ -43,10 +43,10 @@
 			<div class="h-[400px] w-[min(400px,95vw)]">
 				{#if images.length > 1}
 					{#key images}
-						<ImageSlider {images}></ImageSlider>
+						<ImageSlider {images} alt={title} {title}></ImageSlider>
 					{/key}
 				{:else}
-					<img class="h-full w-full grow" src={images[0]} alt="Box" width="300" />
+					<img class="h-full w-full grow" src={images[0]} alt={title} {title} width="300" />
 				{/if}
 			</div>
 			{#if item.branding}
@@ -70,37 +70,37 @@
 						{#if description}
 							<tr>
 								<td class="font-Poppins text-[20px] font-[700]">{locales.description()}:</td>
-								<td class="w-[70%] font-Poppins">{description}</td>
+								<td class="w-[70%] max-w-[200px] font-Poppins">{description}</td>
 							</tr>
 						{/if}
 						{#if colors}
 							<tr>
 								<td class="font-Poppins text-[20px] font-[700]">{locales.colors()}:</td>
-								<td class="w-[70%] font-Poppins">{colors}</td>
+								<td class="w-[70%] max-w-[200px] font-Poppins">{colors}</td>
 							</tr>
 						{/if}
 						{#if material}
 							<tr>
 								<td class="font-Poppins text-[20px] font-[700]">{locales.material()}:</td>
-								<td class="w-[70%] font-Poppins">{material}</td>
+								<td class="w-[70%] max-w-[200px] font-Poppins">{material}</td>
 							</tr>
 						{/if}
 						{#if options}
 							<tr>
 								<td class="font-Poppins text-[20px] font-[700]">{locales.options()}:</td>
-								<td class="w-[70%] font-Poppins">{@html options}</td>
+								<td class="w-[70%] max-w-[200px] font-Poppins">{@html options}</td>
 							</tr>
 						{/if}
 						{#if details}
 							<tr>
 								<td class="font-Poppins text-[20px] font-[700]">{locales.details()}:</td>
-								<td class="w-[70%] font-Poppins">{@html details}</td>
+								<td class="w-[70%] max-w-[200px] font-Poppins">{@html details}</td>
 							</tr>
 						{/if}
 						{#if sizes}
 							<tr>
 								<td class="font-Poppins text-[20px] font-[700]">{locales.sizes()}:</td>
-								<td class="w-[70%] font-Poppins">{@html sizes}</td>
+								<td class="w-[70%] max-w-[200px] font-Poppins">{@html sizes}</td>
 							</tr>
 						{/if}
 					</tbody>
